@@ -1,0 +1,358 @@
+/* =====================================================================
+   Maënis Studio · « La nuit Maënis » (03/11/2026, après l'avis de Marie)
+   Fond sombre (encre et bordeaux) partout, Marie qui accueille, lumière
+   et vagues au toucher. Se charge après style.css et monde.css.
+   ===================================================================== */
+:root {
+  --fond: #14040A;
+  --fond-2: #1F0811;
+  --fond-3: #2A0C17;
+  --encre: #0B0206;
+  --creme: #FBEFE2;
+  --texte-clair: #F6E7DA;
+  --gris-clair: rgba(246, 231, 218, .7);
+  --bordeaux: #8E1534;
+  --rose: #FF5C8A;
+  --or: #F5B82E;
+  --turquoise: #22C5B6;
+  --violet: #7B4DFF;
+}
+
+body { background: var(--fond); color: var(--texte-clair); }
+h2 em, h1 em { color: var(--or); }
+.sur-titre, .etiquette { color: var(--or); }
+.section__intro, .heros__texte p { color: var(--gris-clair); }
+
+/* fond vivant commun : aurores qui bougent + grain */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(60vmax 40vmax at 10% 10%, rgba(142,21,52,.55), transparent 60%),
+    radial-gradient(50vmax 40vmax at 90% 30%, rgba(123,77,255,.22), transparent 60%),
+    radial-gradient(50vmax 40vmax at 50% 100%, rgba(245,184,46,.14), transparent 60%), var(--fond);
+}
+
+/* ---------- En-tête ---------- */
+.top.colle { background: rgba(20, 4, 10, .78); box-shadow: 0 1px 0 rgba(246,231,218,.08); }
+.top__nav a { color: var(--texte-clair); }
+.top__burger span { background: var(--texte-clair); }
+.top__cta { border-color: var(--or); box-shadow: 3px 3px 0 var(--rose); }
+.loader { background: var(--fond); }
+@media (max-width: 860px) { .top__nav { background: var(--fond); } }
+
+/* ---------- Boutons sur fond sombre ---------- */
+.bouton { border-color: var(--creme); }
+.bouton--plein { background: var(--or); color: var(--encre); border-color: var(--or); box-shadow: 5px 5px 0 var(--rose); }
+.bouton--plein:hover { box-shadow: 8px 8px 0 var(--turquoise); }
+.bouton--trait { color: var(--creme); }
+.bouton--trait:hover { background: var(--creme); color: var(--encre); }
+
+/* ---------- Accueil ---------- */
+.intro { background: transparent; grid-template-columns: 1fr; }
+.intro__aurore { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.intro__aurore span { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .6; mix-blend-mode: screen; animation: aurore 16s ease-in-out infinite alternate; }
+.intro__aurore span:nth-child(1) { width: 60vmax; height: 40vmax; left: -15vmax; top: -10vmax; background: #A0173C; }
+.intro__aurore span:nth-child(2) { width: 45vmax; height: 35vmax; right: -12vmax; top: 20%; background: #5B33D6; animation-delay: -6s; opacity: .35; }
+.intro__aurore span:nth-child(3) { width: 40vmax; height: 30vmax; left: 30%; bottom: -18vmax; background: #F5B82E; animation-delay: -10s; opacity: .22; }
+@keyframes aurore { to { transform: translate(8vmax, 5vmax) scale(1.2) rotate(20deg); } }
+.intro__centre { transform: translateX(10%); }
+.intro__logo { width: clamp(220px, 32vw, 420px); filter: drop-shadow(0 0 40px rgba(245,184,46,.25)); }
+.intro__brille { -webkit-mask-image: url(images/logo-creme.png); mask-image: url(images/logo-creme.png); }
+.intro__titre { color: var(--creme); }
+.intro__titre em { color: var(--rose); }
+.intro__sous { color: var(--gris-clair); }
+.intro__astuce { color: var(--gris-clair); }
+.ronde-perso { filter: drop-shadow(0 12px 14px rgba(0,0,0,.6)); }
+
+/* Marie qui accueille */
+.hote { position: absolute; left: clamp(8px, 4vw, 70px); bottom: 0; height: min(78vh, 720px); z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; cursor: pointer; }
+.hote img { height: 100%; width: auto; filter: drop-shadow(0 20px 30px rgba(0,0,0,.6)) drop-shadow(0 0 30px rgba(245,184,46,.18)); transform-origin: bottom center; animation: hote-entree 1.2s .5s both cubic-bezier(.34,1.56,.64,1), hote-respire 4s 2s ease-in-out infinite; -webkit-user-drag: none; user-select: none; }
+@keyframes hote-entree { from { transform: translateX(-60%) scale(.8); opacity: 0; } }
+@keyframes hote-respire { 50% { transform: translateY(-6px) rotate(-.6deg); } }
+.hote.salue img { animation: hote-salue .8s cubic-bezier(.34,1.56,.64,1); }
+@keyframes hote-salue { 30% { transform: rotate(-4deg) translateY(-10px) scale(1.03); } 60% { transform: rotate(3deg); } }
+.hote__ombre { position: absolute; bottom: -6px; width: 60%; height: 18px; border-radius: 50%; background: rgba(0,0,0,.55); filter: blur(6px); z-index: -1; }
+.bulle--hote {
+  position: absolute; left: 70%; top: 6%; width: max-content; max-width: min(320px, 70vw); white-space: normal; text-align: left;
+  background: var(--creme); color: var(--encre); font-size: 1rem; line-height: 1.35; padding: 14px 18px; border-radius: 22px 22px 22px 6px;
+  border: 2.5px solid var(--encre); box-shadow: 5px 5px 0 var(--or); opacity: 0; transform: scale(.7) translateY(10px); transform-origin: bottom left;
+  transition: opacity .35s, transform .45s cubic-bezier(.34,1.56,.64,1); min-height: 1.4em;
+}
+.bulle--hote.visible { opacity: 1; transform: none; }
+.bulle--hote::after { left: 14px; bottom: -11px; border-top-color: var(--creme); }
+.bulle--hote .curseur-texte { display: inline-block; width: 2px; height: 1em; background: var(--encre); vertical-align: -2px; margin-left: 2px; animation: clignote .8s steps(2) infinite; }
+@keyframes clignote { 50% { opacity: 0; } }
+@media (max-width: 980px) {
+  .intro { padding-bottom: 46vh; align-content: start; padding-top: 100px; }
+  .intro__centre { transform: none; }
+  .intro__logo { width: clamp(170px, 50vw, 280px); }
+  .intro__titre { font-size: clamp(2.2rem, 10vw, 3.6rem); }
+  .hote { left: 50%; translate: -50% 0; height: 42vh; }
+  .bulle--hote { left: 62%; top: -8%; max-width: 58vw; font-size: .88rem; }
+}
+@media (max-width: 640px) { .intro__sous { display: none; } .intro__astuce { display: none; } }
+
+/* ---------- Marie guide (coin de l'écran) ---------- */
+.guide-marie {
+  position: fixed; left: 14px; bottom: 14px; z-index: 60; width: 64px; height: 64px; padding: 0; border-radius: 50%;
+  border: 3px solid var(--or); background: radial-gradient(circle at 50% 30%, #3a1020, #14040A); overflow: visible;
+  box-shadow: 0 10px 24px rgba(0,0,0,.5), 0 0 0 0 rgba(245,184,46,.6); animation: pulse-guide 2.6s infinite;
+  opacity: 0; transform: scale(.4); transition: opacity .4s, transform .5s cubic-bezier(.34,1.56,.64,1); pointer-events: none;
+}
+.guide-marie.visible { opacity: 1; transform: none; pointer-events: auto; }
+@keyframes pulse-guide { 70% { box-shadow: 0 10px 24px rgba(0,0,0,.5), 0 0 0 14px rgba(245,184,46,0); } }
+.guide-marie img { position: absolute; left: 50%; bottom: 0; height: 140%; width: auto; translate: -50% 0; clip-path: inset(0 0 22% 0 round 0 0 40px 40px); }
+.guide-marie__bulle {
+  position: absolute; left: 76px; bottom: 8px; width: max-content; max-width: min(280px, 70vw); text-align: left; white-space: normal;
+  background: var(--creme); color: var(--encre); font: 600 .88rem/1.35 var(--corps); padding: 10px 14px; border-radius: 16px 16px 16px 4px;
+  border: 2px solid var(--encre); box-shadow: 4px 4px 0 var(--rose); opacity: 0; transform: translateX(-8px) scale(.9); transition: all .35s cubic-bezier(.34,1.56,.64,1); pointer-events: none;
+}
+.guide-marie.parle .guide-marie__bulle { opacity: 1; transform: none; }
+
+/* ---------- Bandeau ---------- */
+.noms { background: var(--or); color: var(--encre); border-color: var(--or); }
+.noms__piste span:nth-child(3n) { color: var(--bordeaux); }
+.noms__piste span:nth-child(3n+1) { -webkit-text-stroke: 1.5px var(--encre); color: transparent; }
+.noms__piste i { color: var(--bordeaux); }
+
+/* ---------- Héros ---------- */
+.heros { background: transparent; }
+.heros__boutons .rond { background: var(--fond-3); color: var(--creme); border-color: var(--creme); box-shadow: 3px 3px 0 var(--or); }
+.carte-heros__face, .carte-heros__dos { border-color: var(--creme); box-shadow: 8px 8px 0 var(--or); }
+
+/* ---------- Sections : fond sombre, cartes claires qui ressortent ---------- */
+.catalogue, .paiement, .faq, .etapes { background: transparent; }
+.section__tete h2, .heros__texte h2, .contact h2 { color: var(--creme); }
+.parcours li, .niveaux__titre { color: var(--texte-clair); }
+.niveaux { background: var(--fond-3); border-color: var(--creme); box-shadow: 6px 6px 0 var(--or); }
+.niveaux li { background: rgba(246,231,218,.06); }
+.niveaux small { color: var(--gris-clair); }
+.filtre { background: transparent; color: var(--creme); border-color: var(--creme); }
+.filtre.actif { background: var(--or); color: var(--encre); border-color: var(--or); }
+.carte { border-color: var(--creme); box-shadow: 7px 7px 0 var(--or); color: var(--encre); }
+.carte:hover { box-shadow: 11px 11px 0 var(--c); }
+.carte__corps h3 { color: var(--encre); }
+.etape, .moyen, .faq details, .avis-carte { background: var(--fond-3); color: var(--texte-clair); border-color: var(--creme); box-shadow: 6px 6px 0 var(--or); }
+.etape p, .moyen__info, .faq details p, .avis-carte figcaption span { color: var(--gris-clair); }
+.note { background: rgba(245,184,46,.14); color: var(--texte-clair); }
+.fidelite { background: linear-gradient(160deg, #5c0d22, #2a0712); }
+.contact { background: transparent; }
+.pied { background: #0B0206; }
+/* formulaires : restent clairs, lisibles */
+.fiche, .feuille__contenu, .merci__carte, .mes-points { color: var(--encre); }
+.fiche { box-shadow: 8px 8px 0 var(--rose); }
+
+/* ---------- Effets : reflet qui suit le doigt ---------- */
+.reflet { position: fixed; left: 0; top: 0; width: 460px; height: 460px; margin: -230px 0 0 -230px; border-radius: 50%; pointer-events: none; z-index: 89;
+  background: radial-gradient(circle, rgba(255,214,120,.22), rgba(255,92,138,.08) 40%, transparent 70%); mix-blend-mode: screen; opacity: 0; transition: opacity .4s; will-change: transform; }
+.reflet.on { opacity: 1; }
+.curseur { border-color: var(--or); mix-blend-mode: normal; }
+.curseur.sur-lien { background: rgba(245,184,46,.25); }
+
+/* promeneurs : ombre adaptée au fond sombre */
+.promeneur__ombre { background: rgba(0,0,0,.55); }
+.bulle--promeneur { color: var(--encre); }
+
+/* ---------- corrections ---------- */
+.carte-heros__face strong { color: var(--encre); }
+@media (max-width: 980px) {
+  .bulle--hote { left: 50%; top: -14%; translate: -50% 0; max-width: 78vw; transform-origin: bottom center; text-align: center; border-radius: 20px; }
+  .bulle--hote::after { left: 50%; translate: -50% 0; }
+  .bulle--promeneur { max-width: 46vw; }
+}
+
+/* ---------- Personnages qui guettent ---------- */
+.promenade { display: none !important; }
+/* derrière les cartes du catalogue : la tête dépasse du haut */
+.carte { overflow: visible; }
+.carte__media { border-radius: 23px 23px 0 0; }
+.carte__corps { background: #fff; border-radius: 0 0 23px 23px; position: relative; }
+.guette-carte { position: absolute; z-index: -1; bottom: calc(100% - 64px); height: 175px; width: auto; translate: -50% 0; transform: translateY(70%) rotate(-6deg); transform-origin: bottom center; transition: transform .7s cubic-bezier(.34,1.4,.64,1); filter: drop-shadow(0 -4px 10px rgba(0,0,0,.35)); pointer-events: none; }
+.carte.guette .guette-carte { transform: translateY(0) rotate(4deg); }
+.carte:nth-child(1) .guette-carte { height: 220px; }
+/* sur le côté de l'écran */
+.guette-cote { position: fixed; z-index: 55; height: min(42vh, 360px); width: auto; pointer-events: none; transition: transform .9s cubic-bezier(.34,1.3,.64,1); }
+.guette-cote img { height: 100%; width: auto; display: block; filter: drop-shadow(0 12px 18px rgba(0,0,0,.55)); pointer-events: auto; cursor: pointer; -webkit-user-drag: none; }
+.guette-cote.gauche { left: 0; transform: translateX(-110%) rotate(18deg); transform-origin: bottom left; }
+.guette-cote.droite { right: 0; transform: translateX(110%) rotate(-18deg); transform-origin: bottom right; }
+.guette-cote.droite img { transform: scaleX(-1); }
+.guette-cote.gauche.visible { transform: translateX(-42%) rotate(14deg); }
+.guette-cote.droite.visible { transform: translateX(42%) rotate(-14deg); }
+.guette-cote .bulle { position: absolute; top: 4%; width: max-content; max-width: min(240px, 52vw); white-space: normal; font-size: .86rem; color: var(--encre); opacity: 0; transition: opacity .3s, transform .4s cubic-bezier(.34,1.56,.64,1); transform: scale(.7); }
+.guette-cote.gauche .bulle { left: 62%; transform-origin: left bottom; }
+.guette-cote.droite .bulle { right: 62%; transform-origin: right bottom; }
+.guette-cote.gauche .bulle { rotate: -14deg; } .guette-cote.droite .bulle { rotate: 14deg; }
+.guette-cote.parle .bulle { opacity: 1; transform: none; }
+@media (max-width: 640px) { .guette-cote { height: 28vh; } .guette-carte { height: 120px; } }
+
+/* ---------- Indiquer qu'on peut toucher les personnages ---------- */
+.monde__indice { display: inline-flex; align-items: center; gap: 8px; margin: -8px 0 22px; font-weight: 700; font-size: .92rem; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.35); padding: 8px 14px; border-radius: 999px; backdrop-filter: blur(6px); }
+.monde__indice span { display: inline-block; animation: tape 1.3s ease-in-out infinite; }
+.monde-perso .nom { display: inline-flex; align-items: center; gap: 5px; bottom: 14px; box-shadow: 0 0 0 0 rgba(245,184,46,.8); }
+.monde-perso:not(.decouvert) .nom { background: var(--or); animation: appel 1.8s ease-out infinite; }
+.nom__doigt { display: inline-block; animation: tape 1.3s ease-in-out infinite; }
+.monde-perso.decouvert .nom__doigt { display: none; }
+@keyframes appel { 0% { box-shadow: 0 0 0 0 rgba(245,184,46,.8); } 70%, 100% { box-shadow: 0 0 0 14px rgba(245,184,46,0); } }
+/* anneau lumineux au sol sous chaque personnage pas encore découvert */
+.anneau { position: absolute; bottom: 6px; left: 50%; width: 70%; height: 26px; translate: -50% 0; border-radius: 50%; border: 2px solid rgba(245,184,46,.9); box-shadow: 0 0 18px rgba(245,184,46,.7), inset 0 0 12px rgba(245,184,46,.5); animation: anneau 2s ease-in-out infinite; pointer-events: none; z-index: -1; }
+.monde-perso.decouvert .anneau { opacity: 0; transition: opacity .4s; }
+@keyframes anneau { 50% { transform: scale(1.15); opacity: .55; } }
+.monde-perso.appelle img { animation: appelle .9s ease-in-out 2; }
+@keyframes appelle { 30% { transform: rotate(-5deg) translateY(-8px); } 60% { transform: rotate(4deg); } }
+.monde-perso .bulle { top: auto; bottom: calc(82% + 12px); }
+.monde-perso:nth-child(2) .bulle { bottom: calc(70% + 12px); } .monde-perso:nth-child(3) .bulle { bottom: calc(76% + 12px); } .monde-perso:nth-child(4) .bulle { bottom: calc(66% + 12px); }
+/* flèches et points en haut, pour ne plus chevaucher les noms */
+.voyage__nav { bottom: auto; top: 92px; left: auto; right: 24px; transform: none; }
+.voyage__astuce { top: 146px; }
+@media (max-width: 760px) {
+  .voyage__nav { top: auto; bottom: 14px; left: 50%; right: auto; transform: translateX(-50%); }
+  .monde-perso .nom { display: inline-flex; bottom: 70px; font-size: .7rem; }
+  .monde__indice { font-size: .78rem; margin: -4px 0 14px; }
+}
+
+/* =====================================================================
+   Catalogue : images entières, mosaïque pop art, aperçus
+   ===================================================================== */
+.grille { grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.carte, .carte:nth-child(n) { grid-column: span 1; grid-row: auto; }
+.carte__media, .carte:nth-child(1) .carte__media { aspect-ratio: 4 / 4.3; min-height: 0; flex: none; background: #1b0a10; }
+.carte__flou { position: absolute; inset: -20px; background-size: cover; background-position: center; filter: blur(22px) brightness(.75) saturate(1.2); transform: scale(1.1); }
+.carte__media .carte__img { object-fit: contain; z-index: 1; }
+.carte__media video { object-fit: contain; z-index: 2; background: transparent; }
+.carte:hover .carte__media .carte__img { transform: scale(1.04); }
+.carte__tag, .carte__lecture { z-index: 3; }
+.carte__mosaique { position: absolute; inset: 12px; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 8px; }
+.carte__mosaique img { position: static; width: 100%; height: 100%; object-fit: cover; border-radius: 12px; border: 2px solid #fff; animation: tuile 5.4s var(--d) ease-in-out infinite; }
+@keyframes tuile { 0%, 70%, 100% { transform: none; } 78% { transform: scale(1.08) rotate(-3deg); } 86% { transform: scale(.96) rotate(2deg); } }
+.carte.joue .carte__mosaique { opacity: 0; transition: opacity .4s; }
+.carte__apercus { display: flex; gap: 6px; padding: 10px 14px 0; background: #fff; align-items: center; }
+.carte__apercus img { width: 46px; height: 46px; object-fit: cover; border-radius: 10px; border: 2px solid var(--encre); }
+.carte__apercus span { font-weight: 800; font-size: .85rem; color: var(--bordeaux); padding-left: 4px; }
+.carte__corps { border-radius: 0 0 23px 23px; padding-top: 14px; }
+.carte__corps p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+@media (max-width: 980px) { .grille { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .grille { grid-template-columns: 1fr; } }
+
+/* =====================================================================
+   Mur des réalisations
+   ===================================================================== */
+.realisations { overflow: hidden; }
+.mur { display: flex; gap: 22px; overflow-x: auto; padding: 20px max(16px, calc(50vw - 640px)) 40px; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; }
+.mur::-webkit-scrollbar { display: none; }
+.video-carte { flex: 0 0 min(250px, 64vw); scroll-snap-align: center; border: 0; padding: 0; background: none; color: var(--creme); text-align: left; cursor: pointer; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
+.video-carte:nth-child(odd) { transform: translateY(18px) rotate(-1.5deg); } .video-carte:nth-child(even) { transform: rotate(1.5deg); }
+.video-carte:hover { transform: translateY(-8px) scale(1.03); }
+.video-carte__ecran { position: relative; aspect-ratio: 9 / 16; border-radius: 28px; overflow: hidden; border: 3px solid var(--creme); box-shadow: 8px 8px 0 var(--or), 0 30px 60px -20px rgba(0,0,0,.7); background: #000; }
+.video-carte__ecran video, .video-carte__ecran img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.video-carte__ecran::after { content: "▶"; position: absolute; left: 50%; top: 50%; width: 58px; height: 58px; translate: -50% -50%; border-radius: 50%; background: rgba(245,184,46,.95); color: var(--encre); display: grid; place-items: center; font-size: 1.2rem; box-shadow: 0 0 0 0 rgba(245,184,46,.6); animation: pulse-guide 2.4s infinite; }
+.video-carte__type { display: inline-block; margin: 14px 0 4px; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--or); }
+.video-carte strong { display: block; font-family: var(--titre); font-weight: 800; font-size: 1.05rem; line-height: 1.15; }
+.lecteur { width: min(440px, 94vw); max-height: 96vh; background: none; padding: 0; overflow: visible; }
+.lecteur[open] { display: grid; gap: 12px; animation: monte .45s cubic-bezier(.22,1,.36,1); }
+.lecteur::backdrop { background: rgba(8,2,5,.86); backdrop-filter: blur(8px); }
+.lecteur video { width: 100%; max-height: 74vh; border-radius: 24px; border: 3px solid var(--creme); background: #000; }
+.lecteur__fermer { position: absolute; top: -14px; right: -14px; z-index: 2; }
+.lecteur__bas { display: grid; gap: 8px; color: var(--creme); text-align: center; justify-items: center; }
+.lecteur__type { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--or); }
+.lecteur__titre { font-family: var(--titre); font-size: 1.2rem; }
+
+/* =====================================================================
+   Comment ça marche : le chemin illustré
+   ===================================================================== */
+.chemin__piste { position: relative; max-width: 1000px; margin: 0 auto; }
+.chemin__trace { position: absolute; left: 50%; top: 0; width: 160px; height: 100%; translate: -50% 0; overflow: visible; }
+.chemin__trace path { fill: none; stroke: var(--or); stroke-width: 3; stroke-dasharray: 2 6; vector-effect: non-scaling-stroke; opacity: .9; }
+.chemin__marie { position: absolute; left: 50%; top: 0; height: 130px; width: auto; translate: -50% -100%; z-index: 3; filter: drop-shadow(0 10px 14px rgba(0,0,0,.6)); pointer-events: none; transition: transform .15s; }
+.chemin__etapes { list-style: none; margin: 0; padding: 40px 0; display: grid; gap: 70px; }
+.station { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: center; opacity: .35; transform: translateY(30px); transition: opacity .7s, transform .7s cubic-bezier(.22,1,.36,1); }
+.station.vue { opacity: 1; transform: none; }
+.station:nth-child(even) .station__illu { order: 2; }
+.station__texte { background: var(--fond-3); border: 3px solid var(--creme); border-radius: 22px; padding: 22px 24px; box-shadow: 6px 6px 0 var(--or); position: relative; }
+.station__num { position: absolute; top: -18px; left: 20px; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-family: var(--titre); font-weight: 800; background: var(--rose); color: #fff; border: 2.5px solid var(--creme); rotate: -6deg; }
+.station:nth-child(3n+2) .station__num { background: var(--or); color: var(--encre); } .station:nth-child(3n) .station__num { background: var(--turquoise); }
+.station__texte h3 { margin: 8px 0 6px; font-size: 1.2rem; }
+.station__texte p { margin: 0; color: var(--gris-clair); }
+.station__illu { height: 170px; position: relative; display: grid; place-items: center; }
+/* 1. téléphone qui se remplit */
+.tel-mini { width: 92px; height: 160px; border-radius: 18px; border: 3px solid var(--creme); background: #fff; padding: 22px 12px; display: grid; gap: 10px; align-content: start; position: relative; box-shadow: 6px 6px 0 var(--rose); }
+.tel-mini i { height: 10px; border-radius: 6px; background: #eadfe2; position: relative; overflow: hidden; }
+.tel-mini i::after { content: ""; position: absolute; inset: 0; background: var(--bordeaux); transform: scaleX(0); transform-origin: left; }
+.station.vue .tel-mini i:nth-child(1)::after { animation: remplir 1s .3s forwards; } .station.vue .tel-mini i:nth-child(2)::after { animation: remplir 1s .9s forwards; } .station.vue .tel-mini i:nth-child(3)::after { animation: remplir 1s 1.5s forwards; }
+@keyframes remplir { to { transform: scaleX(1); } }
+.tel-mini b { position: absolute; bottom: 14px; left: 50%; translate: -50% 0; width: 34px; height: 34px; border-radius: 50%; background: #25D366; color: #fff; display: grid; place-items: center; transform: scale(0); }
+.station.vue .tel-mini b { animation: pop .5s 2.4s forwards cubic-bezier(.34,1.56,.64,1); }
+@keyframes pop { to { transform: scale(1); } }
+/* 2. calendrier */
+.calendrier { width: 120px; height: 130px; border-radius: 16px; background: #fff; border: 3px solid var(--creme); overflow: hidden; display: grid; grid-template-rows: 36px 1fr; box-shadow: 6px 6px 0 var(--or); transform-origin: top center; }
+.calendrier b { background: var(--rose); color: #fff; display: grid; place-items: center; font-weight: 800; letter-spacing: .1em; }
+.calendrier i { font-style: normal; font-family: var(--titre); font-weight: 800; font-size: 3.2rem; color: var(--encre); display: grid; place-items: center; }
+.station.vue .calendrier { animation: feuille 1.2s .3s cubic-bezier(.34,1.56,.64,1); }
+@keyframes feuille { 0% { transform: rotateX(80deg); } 100% { transform: none; } }
+/* 3. messages WhatsApp */
+.illu-ok { align-content: center; gap: 10px; }
+.bulle-wa { background: #DCF8C6; color: #0b2a12; font-weight: 600; padding: 10px 14px; border-radius: 14px 14px 4px 14px; box-shadow: 0 6px 14px rgba(0,0,0,.3); transform: scale(0); transform-origin: right bottom; justify-self: end; }
+.bulle-wa--2 { background: #fff; border-radius: 14px 14px 14px 4px; transform-origin: left bottom; justify-self: start; }
+.station.vue .bulle-wa { animation: pop .5s .4s forwards cubic-bezier(.34,1.56,.64,1); } .station.vue .bulle-wa--2 { animation-delay: 1.3s; }
+/* 4. pièces qui tombent */
+.illu-acompte { display: flex; align-items: flex-end; justify-content: center; gap: 6px; }
+.piece { width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffe28a, #f5b82e 55%, #b07a12); border: 2px solid #8a5a08; color: #6b4300; display: grid; place-items: center; font-weight: 800; transform: translateY(-160px); opacity: 0; }
+.station.vue .piece { animation: tombe-piece .8s forwards cubic-bezier(.34,1.56,.64,1); }
+.station.vue .piece:nth-child(2) { animation-delay: .25s; } .station.vue .piece:nth-child(3) { animation-delay: .5s; } .station.vue .piece:nth-child(4) { animation-delay: .75s; }
+@keyframes tombe-piece { to { transform: none; opacity: 1; } }
+.moitie { position: absolute; top: 10px; right: 18%; font-family: var(--titre); font-weight: 800; font-size: 2rem; color: var(--or); rotate: 8deg; opacity: 0; }
+.station.vue .moitie { animation: pop .5s 1.3s forwards; transform: scale(0); }
+/* 5. la toile qui se peint */
+.toile { width: 150px; height: 150px; border-radius: 10px; border: 6px solid #d9b26a; overflow: hidden; box-shadow: 6px 6px 0 var(--turquoise); background: #fff; }
+.toile img { width: 100%; height: 100%; object-fit: cover; clip-path: inset(0 100% 0 0); }
+.station.vue .toile img { animation: peindre 2.2s .3s forwards ease-in-out; }
+@keyframes peindre { to { clip-path: inset(0 0 0 0); } }
+.pinceau { position: absolute; font-size: 2.6rem; left: 18%; top: 20%; }
+.station.vue .pinceau { animation: pinceau 2.2s .3s ease-in-out; }
+@keyframes pinceau { 0% { transform: translate(0, 0) rotate(-10deg); } 25% { transform: translate(60px, 30px) rotate(10deg); } 50% { transform: translate(20px, 60px) rotate(-10deg); } 75% { transform: translate(90px, 80px) rotate(10deg); } 100% { transform: translate(150px, 40px); } }
+/* 6. le cadeau */
+.cadeau { font-size: 5rem; }
+.station.vue .cadeau { animation: cadeau 1.2s .3s cubic-bezier(.34,1.56,.64,1); }
+@keyframes cadeau { 0% { transform: scale(.2) rotate(-20deg); } 60% { transform: scale(1.2) rotate(8deg); } 100% { transform: none; } }
+.etoiles { position: absolute; font-size: 2rem; top: 10%; right: 28%; opacity: 0; }
+.station.vue .etoiles { animation: pop .4s 1.2s forwards, scintille 1.5s 1.6s infinite; }
+@keyframes scintille { 50% { opacity: .4; transform: scale(1.3) rotate(20deg); } }
+@media (max-width: 760px) {
+  .chemin__trace { left: 26px; translate: 0; width: 40px; }
+  .chemin__marie { left: 46px; height: 90px; }
+  .station, .station:nth-child(even) { grid-template-columns: 1fr; gap: 14px; padding-left: 64px; }
+  .station:nth-child(even) .station__illu { order: 0; }
+  .station__illu { height: 150px; }
+  .chemin__etapes { gap: 50px; }
+}
+
+/* =====================================================================
+   Fidélité : la tirelire qui se remplit
+   ===================================================================== */
+.tirelire { max-width: 1060px; margin: 40px auto 0; display: grid; grid-template-columns: 1.3fr .7fr; gap: 30px; align-items: center; background: rgba(0,0,0,.25); border: 2px solid rgba(246,231,218,.25); border-radius: 30px; padding: clamp(20px, 4vw, 40px); position: relative; overflow: hidden; }
+.tirelire h3 { font-family: var(--titre); font-weight: 800; font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 16px; }
+.tirelire h3 em { font-family: var(--serif); font-weight: 400; color: var(--or); }
+.tirelire label { display: block; font-weight: 600; margin-bottom: 10px; }
+.tirelire label strong { color: var(--or); font-family: var(--titre); font-size: 1.3rem; }
+#sim-montant { width: 100%; accent-color: var(--or); height: 28px; }
+.tirelire__chiffres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+.tirelire__chiffres div { background: rgba(246,231,218,.08); border-radius: 16px; padding: 12px 14px; display: grid; }
+.tirelire__chiffres span { font-size: .78rem; opacity: .8; }
+.tirelire__chiffres strong { font-family: var(--titre); font-weight: 800; font-size: 1.7rem; }
+.tirelire__chiffres .eco { background: var(--or); color: var(--encre); }
+.jauge { position: relative; height: 18px; border-radius: 99px; background: rgba(246,231,218,.15); overflow: visible; }
+.jauge__barre { height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, var(--rose), var(--or)); transition: width .4s; box-shadow: 0 0 16px rgba(245,184,46,.6); }
+.jauge__palier { position: absolute; right: 0; top: -30px; font-weight: 800; color: var(--or); }
+.tirelire__note { margin: 14px 0 0; font-weight: 600; min-height: 1.4em; }
+.tirelire.debloque { box-shadow: 0 0 0 3px var(--or), 0 0 60px rgba(245,184,46,.35); }
+.tirelire__bocal { display: grid; justify-items: center; gap: 10px; }
+.bocal { position: relative; width: 170px; height: 220px; border: 4px solid rgba(246,231,218,.85); border-top-width: 10px; border-radius: 20px 20px 46px 46px; overflow: hidden; background: rgba(255,255,255,.05); }
+.bocal__pieces { position: absolute; inset: 0; }
+.bocal__pieces span { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffe28a, #f5b82e 55%, #b07a12); border: 2px solid #8a5a08; animation: chute .7s cubic-bezier(.5,0,.75,1) forwards; }
+@keyframes chute { from { transform: translateY(-260px) rotate(0); } to { transform: none; } }
+.bocal__reflet { position: absolute; left: 14px; top: 10px; width: 16px; height: 70%; border-radius: 99px; background: linear-gradient(rgba(255,255,255,.35), transparent); }
+.bocal__etiquette { background: var(--creme); color: var(--encre); font-weight: 800; padding: 6px 14px; border-radius: 10px; rotate: -3deg; }
+@media (max-width: 760px) { .tirelire { grid-template-columns: 1fr; } .tirelire__chiffres { grid-template-columns: 1fr 1fr; } .tirelire__chiffres .eco { grid-column: span 2; } .bocal { width: 130px; height: 170px; } }
+
+/* lien Accueil */
+.nav-accueil span { font-size: 1.15em; margin-right: 2px; }
+.top__logo { position: relative; }

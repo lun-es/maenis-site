@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    /* Même présentation partout : téléphone et tablette affichent la page comme l'iPad à l'horizontale
+       (largeur fixe de 1366). Sur téléphone tenu droit, le haut de page (menu, boutons) est agrandi pour rester lisible. */
+    (function () {
+      if (!matchMedia("(hover: none) and (pointer: coarse)").matches) {
+        // Ordinateur à grand écran : la page est agrandie pour ressembler exactement à l'iPad (1366 de large)
+        var h = document.documentElement;
+        var zoomer = function () {
+          var z = innerWidth > 1400 ? innerWidth / 1366 : 1;
+          h.style.zoom = z === 1 ? "" : String(z);
+          h.style.setProperty("--z", String(z));
+          h.classList.toggle("mode-zoom", z !== 1);
+          window.__z = z;
+        };
+        zoomer(); addEventListener("resize", zoomer);
+        return;
+      }
+      document.querySelector('meta[name="viewport"]').setAttribute("content", "width=1366");
+      var court = Math.min(screen.width, screen.height), html = document.documentElement;
+      if (court >= 600) return;
+      var debout = matchMedia("(orientation: portrait)");
+      function regler() { html.classList.toggle("mode-tel", debout.matches); }
+      regler();
+      if (debout.addEventListener) debout.addEventListener("change", regler); else debout.addListener(regler);
+    })();
+  </script>
+  <title>Maënis Studio · Un studio, mille univers</title>
+  <meta name="description" content="Maënis Studio crée des dessins animés éducatifs où votre enfant est le héros, des portraits pop art, des livres de coloriage personnalisés et des pubs vidéo pour votre boutique.">
+  <meta property="og:title" content="Maënis Studio · Vos idées prennent vie">
+  <meta property="og:description" content="Dessins animés personnalisés, portraits pop art, coloriages, pubs vidéo. Remplissez la fiche de contact et réservez votre rendez-vous.">
+  <meta property="og:image" content="images/popart-bd.webp">
+  <meta name="theme-color" content="#14040A">
+  <link rel="icon" href="images/logo-bordeaux.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Instrument+Serif:ital@0;1&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="monde.css">
+  <link rel="stylesheet" href="nuit.css">
+  <link rel="stylesheet" href="studio.css">
+</head>
+<body>
+  <a class="skip" href="#catalogue">Aller au catalogue</a>
+
+  <!-- Barre de chargement -->
+  <div class="loader" aria-hidden="true"><img src="images/logo-creme.png" alt=""></div>
+
+  <header class="top" id="top">
+    <a class="top__logo" href="#accueil" aria-label="Maënis Studio, accueil"><img src="images/logo-creme.png" alt="Maënis Studio"></a>
+    <nav class="top__nav" aria-label="Menu principal">
+      <a href="#accueil" class="nav-accueil"><span aria-hidden="true">⌂</span> Accueil</a>
+      <a href="#studio">Qui sommes-nous</a>
+      <a href="#voyage">Les mondes</a>
+      <a href="#heros">Héros</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#realisations">Réalisations</a>
+      <a href="#etapes">Comment ça marche</a>
+      <a href="#paiement">Paiement</a>
+      <a href="#fidelite">Fidélité</a>
+      <a href="#tech" class="nav-tech">Maënis Tech</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <a class="btn btn--or btn--petit top__cta" href="#contact" data-ouvrir-fiche>Fiche de contact</a>
+    <button class="top__burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main>
+    <!-- ============ ACCUEIL : le logo et la ronde des personnages ============ -->
+    <section class="intro" id="accueil">
+      <div class="intro__aurore" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="intro__ronde" aria-hidden="true"></div>
+      <div class="intro__centre">
+        <div class="intro__logo"><img src="images/logo-creme.png" alt="Maënis Studio"><span class="intro__brille"></span></div>
+        <h1 class="intro__titre"><span class="mot">Un studio.</span> <em class="mot">Mille</em> <span class="mot">univers.</span></h1>
+        <p class="intro__sous">Dessins animés où votre enfant est le héros · Pop art · Coloriages · Pubs vidéo</p>
+        <div class="intro__actions">
+          <a class="bouton bouton--plein" href="#voyage">Partir en voyage <span aria-hidden="true">→</span></a>
+          <a class="bouton bouton--trait" href="#contact">Fiche de contact</a>
+        </div>
+      </div>
+      <div class="hote" id="hote">
+        <div class="bulle bulle--hote" id="hote-bulle" aria-live="polite"></div>
+        <img src="images/perso-marie-face.webp" alt="Marie, créatrice de Maënis Studio" draggable="false">
+        <span class="hote__ombre" aria-hidden="true"></span>
+      </div>
+      <p class="intro__astuce" aria-hidden="true"><span class="doigt">👆</span> Touchez l'écran, Marie et les personnages</p>
+    </section>
+
+    <!-- Marie, guide de la visite (coin de l'écran) -->
+    <button class="guide-marie" id="guide-marie" type="button" aria-label="Marie, votre guide">
+      <img src="images/perso-marie-face.webp" alt="" draggable="false">
+      <span class="guide-marie__bulle" id="guide-bulle"></span>
+    </button>
+
+    <!-- ============ QUI SOMMES-NOUS ============ -->
+    <section class="section studio" id="studio">
+      <div class="studio__grille">
+        <div class="studio__portrait reveal">
+          <div class="studio__cadre studio__cadre--photo"><img src="images/fondatrice-portrait.jpg" alt="Marie, fondatrice de Maënis Studio" loading="lazy"></div>
+          <p class="studio__signature"><strong data-studio="fondatrice">Marie</strong><span>Fondatrice et créatrice</span></p>
+          <p class="studio__depuis" id="studio-chiffres"></p>
+        </div>
+        <div class="studio__texte">
+          <p class="sur-titre reveal">Qui sommes-nous</p>
+          <h2 class="reveal">Maënis Studio, <em>l'atelier où vos idées prennent vie</em></h2>
+          <p class="studio__intro reveal">Lancé en <strong data-studio="lancement">novembre 2026</strong> par Marie, Maënis Studio est un studio de création au Cameroun. On transforme vos photos et vos idées en <strong>dessins animés</strong>, en <strong>œuvres pop art</strong>, en <strong>livres de coloriage</strong> et en <strong>vidéos</strong> pour les familles, les enfants et les entreprises.</p>
+          <div class="fait-main reveal" id="fait-main">
+            <div class="fait-main__barre" aria-hidden="true"><i></i><i></i><i></i><span>maenisstudio.com</span><b class="fait-main__etat">✎ en cours d'écriture…</b></div>
+            <p class="fait-main__texte" data-ecrire>Ce site aussi est fait maison&nbsp;: il a été <strong class="fait-main__cle">entièrement pensé et réalisé par Marie</strong>, la fondatrice. C'est ce savoir-faire que propose <a href="#tech">Maënis Tech</a> pour votre entreprise.</p>
+            <p class="fait-main__signature" aria-hidden="true">Marie</p>
+          </div>
+          <p class="studio__mission reveal">Notre envie&nbsp;: que chaque enfant se voie en héros, que chaque famille ait une œuvre qui lui ressemble, et que chaque boutique ait une vidéo qui la fait briller.</p>
+        </div>
+      </div>
+      <div class="studio__monde reveal">
+            <p><strong>Vous êtes en France&nbsp;?</strong> Vous pouvez commander depuis la France et vous faire livrer.</p>
+            <p><strong>Partout dans le monde</strong> pour tout ce qui est numérique&nbsp;: sites web, logiciels, tableaux de bord, vidéos, PDF… Les prix sont en FCFA, avec conversion possible dans votre monnaie selon le taux de change du jour, frais en plus. Paiement par PayPal possible.</p>
+      </div>
+      <h3 class="studio__sous-titre reveal">Ce que nous créons</h3>
+      <ol class="studio__index">
+        <li><a href="#offre-dessin-anime-enfant"><strong>Dessins animés éducatifs</strong><span>Votre enfant devient le héros et apprend en s'amusant.</span><i aria-hidden="true">→</i></a></li>
+        <li><a href="#offre-portrait-pop-art"><strong>Pop art et tableaux</strong><span>Votre photo devient une œuvre, en fichier ou encadrée.</span><i aria-hidden="true">→</i></a></li>
+        <li><a href="#offre-livre-coloriage"><strong>Livres de coloriage</strong><span>Sa photo et son quotidien, transformés en dessins à colorier.</span><i aria-hidden="true">→</i></a></li>
+        <li><a href="#offre-pub-video-boutique"><strong>Pubs vidéo et motion design</strong><span>Des vidéos qui font venir les clients.</span><i aria-hidden="true">→</i></a></li>
+        <li><a href="#offre-serie-personnage"><strong>Personnages et séries</strong><span>Votre avatar, votre mascotte, votre univers.</span><i aria-hidden="true">→</i></a></li>
+        <li><a href="#tech"><strong>Maënis Tech</strong><span>Sites web, commandes et tableaux de bord automatisés pour votre entreprise.</span><i aria-hidden="true">→</i></a></li>
+      </ol>
+      <p class="studio__valeurs reveal">Fait main<i>·</i>Conseils inclus<i>·</i>Personnages originaux<i>·</i>Photos privées</p>
+    </section>
+
+    <!-- ============ BANDEAU DES NOMS ============ -->
+    <div class="noms" aria-hidden="true"><div class="noms__piste"></div></div>
+
+    <!-- ============ VOYAGE HORIZONTAL DANS LES MONDES ============ -->
+    <section class="voyage" id="voyage" aria-label="Les mondes Maënis">
+      <div class="voyage__ecran">
+        <div class="voyage__piste" id="voyage-piste"></div>
+        <div class="voyage__nav">
+          <button class="voyage__fleche" data-monde="-1" aria-label="Monde précédent">←</button>
+          <div class="voyage__points" id="voyage-points"></div>
+          <button class="voyage__fleche" data-monde="1" aria-label="Monde suivant">→</button>
+        </div>
+        <p class="voyage__astuce">Faites défiler ou glissez pour changer de monde</p>
+      </div>
+    </section>
+
+    <!-- ============ CHOISIS TON HÉROS : cartes à glisser ============ -->
+    <section class="heros" id="heros">
+      <div class="heros__texte">
+        <p class="etiquette">Choisis ton héros</p>
+        <h2>Qui sera <em>le prochain</em>&nbsp;?</h2>
+        <p>Glissez les cartes, touchez-en une pour la retourner. Votre enfant peut rejoindre l'un d'eux… ou devenir le sien.</p>
+        <div class="heros__boutons">
+          <button class="rond" data-carte="-1" aria-label="Carte précédente">←</button>
+          <button class="rond" data-carte="0" aria-label="Retourner la carte">↻</button>
+          <button class="rond" data-carte="1" aria-label="Carte suivante">→</button>
+        </div>
+        <a class="bouton bouton--plein" href="#offre-serie-personnage">Créer mon personnage <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="pile" id="pile" aria-live="polite"></div>
+    </section>
+
+    <!-- ============ CATALOGUE ============ -->
+    <section class="section catalogue" id="catalogue">
+      <div class="section__tete">
+        <p class="sur-titre reveal">Le catalogue</p>
+        <h2 class="reveal">Choisissez votre <em>univers</em></h2>
+        <p class="section__intro reveal">Cliquez sur une création pour tout découvrir : exemples, formules, prix et la fiche de contact pour prendre rendez-vous.</p>
+        <ol class="parcours reveal" aria-label="Comment commander">
+          <li><span>1</span>Cliquez sur une création</li>
+          <li class="parcours__fleche" aria-hidden="true">→</li>
+          <li><span>2</span>Remplissez la fiche</li>
+          <li class="parcours__fleche" aria-hidden="true">→</li>
+          <li><span>3</span>Recevez votre numéro</li>
+        </ol>
+      </div>
+      <div class="filtres reveal" role="tablist" aria-label="Filtrer le catalogue">
+        <button class="filtre actif" data-filtre="tout" role="tab" aria-selected="true">Tout voir</button>
+        <button class="filtre" data-filtre="enfants" role="tab" aria-selected="false">Pour les enfants</button>
+        <button class="filtre" data-filtre="pop-art" role="tab" aria-selected="false">Pop art</button>
+        <button class="filtre" data-filtre="pro" role="tab" aria-selected="false">Pour les pros</button>
+      </div>
+      <div class="niveaux reveal" aria-label="Les niveaux de création">
+        <p class="niveaux__titre">Conseils inclus à chaque niveau. Le prix s'ajuste selon le niveau choisi, et il est confirmé au rendez-vous&nbsp;:</p>
+        <ol>
+          <li><span>1</span><strong>Catalogue</strong><small>Un modèle du catalogue, à votre nom. C'est le prix affiché.</small></li>
+          <li><span>2</span><strong>Personnalisé</strong><small>On adapte un élément du catalogue à vos goûts.</small></li>
+          <li><span>3</span><strong>Création unique</strong><small>On imagine votre univers de A à Z.</small></li>
+        </ol>
+      </div>
+      <div class="grille" id="grille"></div>
+      <img class="passant passant--catalogue" src="images/perso-popart.webp" alt="" aria-hidden="true">
+    </section>
+
+    <!-- ============ RÉALISATIONS : le mur de vidéos ============ -->
+    <section class="section realisations" id="realisations">
+      <div class="section__tete">
+        <p class="sur-titre reveal">Déjà réalisé au studio</p>
+        <h2 class="reveal">Regardez <em>ce qu'on sait faire</em></h2>
+        <p class="section__intro reveal">Dessins animés, séries, pubs, motion design… Touchez une vidéo pour la regarder en grand, avec le son.</p>
+      </div>
+      <div class="mur" id="mur"></div>
+    </section>
+
+    <dialog class="lecteur" id="lecteur" aria-label="Vidéo">
+      <button class="lecteur__fermer rond" type="button" aria-label="Fermer">✕</button>
+      <video playsinline controls></video>
+      <div class="lecteur__bas"><span class="lecteur__type"></span><strong class="lecteur__titre"></strong><a class="bouton bouton--plein lecteur__offre" href="#">La même pour moi <span aria-hidden="true">→</span></a></div>
+    </dialog>
+
+    <!-- ============ ÉTAPES : le chemin illustré ============ -->
+    <section class="section etapes chemin" id="etapes">
+      <div class="section__tete">
+        <p class="sur-titre reveal">Comment ça marche</p>
+        <h2 class="reveal">De votre idée <em>à votre création</em></h2>
+        <p class="section__intro reveal">Suivez Marie sur le chemin : six étapes, et votre création est entre vos mains.</p>
+      </div>
+      <div class="chemin__piste" id="chemin">
+        <svg class="chemin__trace" viewBox="0 0 100 600" preserveAspectRatio="none" aria-hidden="true"><path id="chemin-path" d="M50 0 C 90 50, 90 90, 50 100 S 10 150, 50 200 S 90 250, 50 300 S 10 350, 50 400 S 90 450, 50 500 S 10 550, 50 600" /></svg>
+        <img class="chemin__marie" id="chemin-marie" src="images/perso-figurine.webp" alt="" aria-hidden="true">
+        <ol class="chemin__etapes">
+          <li class="station"><div class="station__illu illu-fiche" aria-hidden="true"><span class="tel-mini"><i></i><i></i><i></i><b>✓</b></span></div><div class="station__texte"><span class="station__num">1</span><h3>Vous remplissez la fiche</h3><p>Choisissez une création et dites-moi tout. Vous recevez aussitôt votre <strong>numéro client</strong>.</p></div></li>
+          <li class="station"><div class="station__illu illu-rdv" aria-hidden="true"><span class="calendrier"><b>RDV</b><i>12</i></span></div><div class="station__texte"><span class="station__num">2</span><h3>Vous proposez un rendez-vous</h3><p>Le jour, le moment et le moyen qui vous arrangent : appel WhatsApp, visio ou messages.</p></div></li>
+          <li class="station"><div class="station__illu illu-ok" aria-hidden="true"><span class="bulle-wa">Rendez-vous confirmé ! ✅</span><span class="bulle-wa bulle-wa--2">Merci Marie 😍</span></div><div class="station__texte"><span class="station__num">3</span><h3>Je confirme</h3><p>Je vous réponds sur WhatsApp pour confirmer le rendez-vous, ou vous proposer un autre moment.</p></div></li>
+          <li class="station"><div class="station__illu illu-acompte" aria-hidden="true"><span class="piece">F</span><span class="piece">C</span><span class="piece">F</span><span class="piece">A</span><span class="moitie">50 %</span></div><div class="station__texte"><span class="station__num">4</span><h3>Acompte de 50 %</h3><p>Par Orange Money ou PayPal, pour lancer la création. Le reste se paie à la livraison.</p></div></li>
+          <li class="station"><div class="station__illu illu-creation" aria-hidden="true"><span class="toile"><img src="images/popart-warhol.webp" alt=""></span><span class="pinceau">🖌️</span></div><div class="station__texte"><span class="station__num">5</span><h3>Je crée</h3><p>Vous recevez un aperçu, et vous pouvez demander une retouche.</p></div></li>
+          <li class="station"><div class="station__illu illu-livraison" aria-hidden="true"><span class="cadeau">🎁</span><span class="etoiles">✨</span></div><div class="station__texte"><span class="station__num">6</span><h3>Livraison</h3><p>Fichier HD, vidéo ou tableau livré. Vous réglez le solde et vous profitez !</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ AVIS ============ -->
+    <section class="section avis" id="avis" hidden>
+      <div class="section__tete">
+        <p class="sur-titre reveal">Ils m'ont fait confiance</p>
+        <h2 class="reveal">Les avis <em>de mes clients</em></h2>
+      </div>
+      <div class="avis__grille"></div>
+    </section>
+
+    <!-- ============ PAIEMENT ============ -->
+    <section class="section paiement" id="paiement">
+      <div class="section__tete">
+        <p class="sur-titre reveal">Paiement</p>
+        <h2 class="reveal">Simple et <em>sécurisé</em></h2>
+        <p class="section__intro reveal"><strong class="acompte-texte">50 % à la commande</strong>, après la confirmation du rendez-vous. Le reste à la livraison.</p>
+      </div>
+      <div class="moyens">
+        <article class="moyen moyen--om reveal">
+          <div class="moyen__logo" aria-hidden="true"><span>OM</span></div>
+          <h3>Orange Money</h3>
+          <p class="moyen__info" data-paiement="orangeMoney">Le numéro vous est envoyé avec la confirmation du rendez-vous.</p>
+        </article>
+        <article class="moyen moyen--pp reveal">
+          <div class="moyen__logo" aria-hidden="true"><span>P</span></div>
+          <h3>PayPal</h3>
+          <p class="moyen__info" data-paiement="paypal">Le lien de paiement vous est envoyé avec la confirmation du rendez-vous.</p>
+        </article>
+      </div>
+      <p class="note reveal">Indiquez toujours votre <strong>numéro de demande (MS-…)</strong> dans le message du paiement : c'est comme ça que je retrouve votre commande.</p>
+    </section>
+
+    <!-- ============ FIDÉLITÉ ============ -->
+    <section class="section fidelite" id="fidelite">
+      <div class="section__tete">
+        <p class="sur-titre reveal">Programme fidélité</p>
+        <h2 class="reveal">Plus vous créez, <em>plus vous gagnez</em></h2>
+        <p class="section__intro reveal">Dès votre première fiche, vous recevez votre <strong>numéro client</strong> (MS-…). Il est à vous pour toujours et cumule vos points.</p>
+      </div>
+      <div class="regles">
+        <article class="regle reveal"><span class="regle__ico">🪙</span><h3><b data-fid="fcfaParPoint"></b> FCFA = 1 point</h3><p>Chaque commande payée vous rapporte des points.</p></article>
+        <article class="regle regle--or reveal"><span class="regle__ico">🎁</span><h3><b data-fid="palier"></b> points = −<b data-fid="reduction"></b> %</h3><p>Soit <b data-fid="seuil"></b> FCFA de créations : profitez de <b data-fid="reduction2"></b> % sur la commande de votre choix.</p></article>
+        <article class="regle reveal"><span class="regle__ico">🤝</span><h3>Parrainage : +<b data-fid="parrainage"></b> points</h3><p>Votre <strong>code parrainage, c'est votre numéro client</strong>. Un ami le donne dans sa fiche et commande&nbsp;? Les points arrivent chez vous.</p></article>
+        <article class="regle reveal"><span class="regle__ico">🎂</span><h3>Anniversaire : +<b data-fid="anniversaire"></b> points</h3><p>Indiquez votre date d'anniversaire dans la fiche&nbsp;: un cadeau vous attend chaque année.</p></article>
+      </div>
+      <div class="tirelire reveal" id="tirelire">
+        <div class="tirelire__texte">
+          <h3>Combien allez-vous <em>économiser</em>&nbsp;?</h3>
+          <label for="sim-montant">Ce que vous dépensez au studio&nbsp;: <strong id="sim-montant-txt">0 FCFA</strong></label>
+          <input type="range" id="sim-montant" min="0" max="200000" step="2500" value="0">
+          <div class="tirelire__chiffres">
+            <div><span>Points gagnés</span><strong id="sim-points">0</strong></div>
+            <div><span>Réductions débloquées</span><strong id="sim-reducs">0</strong></div>
+            <div class="eco"><span>Économie (sur des commandes de 25 000 FCFA)</span><strong id="sim-eco">0 FCFA</strong></div>
+          </div>
+          <div class="jauge"><div class="jauge__barre" id="sim-jauge"></div><span class="jauge__palier">−10 %</span></div>
+          <p class="tirelire__note" id="sim-note">Glissez le curseur…</p>
+        </div>
+        <div class="tirelire__bocal" aria-hidden="true">
+          <div class="bocal"><div class="bocal__pieces" id="sim-pieces"></div><div class="bocal__reflet"></div></div>
+          <span class="bocal__etiquette">Points Maënis</span>
+        </div>
+      </div>
+      <form class="mes-points reveal" id="mes-points">
+        <h3>Mes points</h3>
+        <div class="mes-points__champs">
+          <input name="client" placeholder="Numéro client (MS-0001)" aria-label="Numéro client" required autocomplete="off">
+          <input name="code" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="Code secret (4 chiffres)" aria-label="Code secret à 4 chiffres" required autocomplete="off">
+          <button class="btn btn--bordeaux" type="submit">Voir mes points</button>
+        </div>
+        <p class="mes-points__aide">Votre code secret s'affiche une seule fois, à votre première fiche. Oublié&nbsp;? Je vous le renvoie sur votre WhatsApp.</p>
+        <p class="mes-points__resultat" role="status"></p>
+      </form>
+    </section>
+
+    <!-- ============ MAËNIS TECH ============ -->
+    <section class="section tech" id="tech">
+      <div class="section__tete">
+        <p class="sur-titre reveal">Maënis Tech · nouveau</p>
+        <h2 class="reveal tech__titre">Votre entreprise, <span class="tech__ecrit" data-phrases='["plus simple à gérer.", "ouverte même à 23 h.", "sans commande perdue.", "pilotée d’un coup d’œil.", "enfin en ligne."]'><span class="tech__mots">plus simple à gérer.</span><span class="tech__curseur" aria-hidden="true"></span></span></h2>
+        <p class="section__intro reveal">Sites web, commandes qui s'organisent toutes seules, tableaux de bord qui calculent pour vous. Vous gagnez du temps, vous ne perdez plus de commandes et vous voyez clair dans votre argent.</p>
+      </div>
+      <div class="tech__grille" id="tech-offres"></div>
+      <div class="tech__pack reveal" id="tech-pack"></div>
+      <div class="tech__suivi reveal" id="tech-suivi"></div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section faq" id="faq">
+      <div class="section__tete">
+        <p class="sur-titre reveal">Questions</p>
+        <h2 class="reveal">Vous vous <em>demandez</em>…</h2>
+      </div>
+      <div class="faq__liste">
+        <details class="reveal"><summary>Que deviennent les photos de mon enfant&nbsp;?</summary><p>Elles servent uniquement à créer sa création. Elles ne sont jamais publiées. Je ne montre une création en exemple qu'avec votre accord.</p></details>
+        <details class="reveal"><summary>Je ne suis pas au Cameroun, c'est possible&nbsp;?</summary><p>Oui. Depuis la France, vous pouvez commander et vous faire livrer (les frais d'expédition dépendent de la destination). Tout ce qui est numérique (vidéos, fichiers HD, PDF, sites web, logiciels, tableaux de bord) se fait pour n'importe quel pays. Les prix sont en FCFA, avec conversion possible dans votre monnaie selon le taux de change du jour, frais en plus. Vous pouvez payer par PayPal.</p></details>
+        <details class="reveal"><summary>Vous livrez où&nbsp;?</summary><p>Les tableaux sont livrés à Douala. Pour les autres villes, on expédie : les frais d'expédition sont à la charge du client et dépendent de la ville.</p></details>
+        <details class="reveal"><summary>Comment j'envoie les photos&nbsp;?</summary><p>Sur WhatsApp ou par mail, après avoir rempli la fiche. Envoyez 2 ou 3 photos de face, bien éclairées, sans lunettes de soleil.</p></details>
+        <details class="reveal"><summary>Le rendez-vous est obligatoire&nbsp;?</summary><p>Il permet de bien comprendre ce que vous voulez. Il peut se faire par appel WhatsApp, en visio ou simplement par messages.</p></details>
+        <details class="reveal"><summary>Et si le résultat ne me plaît pas&nbsp;?</summary><p>Vous recevez un aperçu avant la version finale, et vous pouvez demander une retouche.</p></details>
+        <details class="reveal"><summary>Pourquoi un acompte&nbsp;?</summary><p>Chaque création est faite sur mesure et demande du temps et des outils d'animation payants. L'acompte de 50 % lance le travail, le reste se paie à la livraison.</p></details>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <div class="contact__grille">
+        <div class="contact__texte">
+          <p class="sur-titre reveal">Fiche de contact</p>
+          <h2 class="reveal">Parlons de <em>votre projet</em></h2>
+          <p class="reveal">Remplissez la fiche et proposez un rendez-vous. Vous recevez un numéro de demande, et je vous confirme le rendez-vous sur WhatsApp.</p>
+          <ul class="canaux reveal">
+            <li><a class="canal" data-lien="whatsapp" href="#" target="_blank" rel="noopener"><span class="canal__ico">💬</span><span><strong>WhatsApp</strong><small data-texte="whatsappAffiche"></small></span></a></li>
+            <li><a class="canal" data-lien="email" href="#"><span class="canal__ico">✉️</span><span><strong>Mail</strong><small data-texte="email"></small></span></a></li>
+          </ul>
+          <div class="reseaux reveal" aria-label="Réseaux sociaux"></div>
+          <img class="contact__marie" src="images/perso-marie-face.webp" alt="Marie, créatrice de Maënis Studio" loading="lazy">
+        </div>
+        <div class="contact__fiche reveal" id="fiche-generale"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <img src="images/logo-creme.png" alt="Maënis Studio" class="pied__logo">
+    <p>Dessins animés, pop art et vidéos sur mesure.<br>Créations originales : aucun personnage ni aucune marque protégés.</p>
+    <div class="reseaux reseaux--pied"></div>
+    <p class="pied__mini">© <span data-annee></span> Maënis Studio · Marie · <a data-lien="email" href="#">Mail</a></p>
+  </footer>
+
+  <!-- Personnages qui se baladent -->
+  <div class="promenade" aria-hidden="true">
+    <div class="promeneur"><div class="promeneur__corps"><img alt=""></div><div class="bulle bulle--promeneur"></div></div>
+  </div>
+
+  <!-- Fiche d'une offre -->
+  <dialog class="feuille" id="feuille" aria-labelledby="feuille-titre">
+    <div class="feuille__contenu">
+      <button class="feuille__fermer rond" aria-label="Fermer">✕</button>
+      <div class="feuille__media"></div>
+      <div class="feuille__texte"></div>
+    </div>
+  </dialog>
+
+  <!-- Confirmation -->
+  <dialog class="merci" id="merci" aria-labelledby="merci-titre">
+    <canvas class="feu" aria-hidden="true"></canvas>
+    <div class="merci__contenu">
+      <div class="merci__marie">
+        <div class="bulle bulle--merci" id="merci-bulle"></div>
+        <img src="images/perso-marie-face.webp" alt="Marie, de Maënis Studio">
+      </div>
+      <div class="merci__carte">
+      <h2 id="merci-titre">Bravo, c'est envoyé&nbsp;!</h2>
+      <p class="merci__label">Votre numéro client</p>
+      <p class="merci__id" id="merci-id">MS-0000</p>
+      <p class="merci__commande">Commande n° <strong id="merci-commande">MS-0000-01</strong></p>
+      <p class="merci__garder" id="merci-garder"></p>
+      <div class="merci__code" id="merci-code" hidden><span>Votre code secret</span><strong id="merci-code-val">0000</strong><small>Il protège vos points : ne le donnez à personne. Capture d'écran conseillée&nbsp;!</small></div>
+      <a class="merci__parrain" id="merci-parrain" href="#" target="_blank" rel="noopener">🤝 Partager mon code parrainage <strong id="merci-parrain-code"></strong></a>
+      <p class="merci__info" id="merci-info"></p>
+      <p class="merci__guide" id="merci-guide"><span class="fleche-bas" aria-hidden="true">↓</span> Dernière étape&nbsp;: appuyez sur ce bouton</p>
+      <div class="merci__actions">
+        <a class="btn btn--or" id="merci-whatsapp" href="#" target="_blank" rel="noopener">Envoyer sur WhatsApp</a>
+        <button class="btn btn--ligne" id="merci-copier" type="button">Copier mon numéro client</button>
+      </div>
+      <button class="merci__fermer" type="button">Fermer</button>
+      </div>
+    </div>
+  </dialog>
+
+  <canvas class="feux" aria-hidden="true"></canvas>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  <script src="monde.js"></script>
+</body>
+</html>
