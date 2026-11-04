@@ -195,13 +195,13 @@ window.MAENIS = {
         { nom: "Fichier HD, style du catalogue", prix: 15000, detail: "Un style du catalogue, 1 proposition, 1 retouche, aperçu sur votre mur" },
         { nom: "Création unique, fichier HD", prix: 25000, detail: "Un style imaginé pour vous, plusieurs propositions, 2 retouches" },
         { nom: "Tableau 40 × 60 sous verre anti-reflet", prix: 50000, detail: "Encadré, verre anti-reflet, livré à Douala", populaire: true },
-        { nom: "Tableau 40 × 60 en plexiglas", prix: 35000, detail: "Encadré, plexiglas (plus léger, incassable), livré à Douala" },
+        { nom: "Tableau 40 × 60 en plexiglas", prix: 45000, detail: "Encadré, plexiglas (plus léger, incassable), livré à Douala" },
         { nom: "Tableau 60 × 90 sous verre anti-reflet", prix: 75000, detail: "Grand format encadré, verre anti-reflet, livré à Douala" },
-        { nom: "Tableau 60 × 90 en plexiglas", prix: 60000, detail: "Grand format encadré, plexiglas, livré à Douala" },
-        { nom: "Duo de tableaux 40 × 60 sous verre anti-reflet", prix: 91000, detail: "2 tableaux assortis · en plexiglas : 64 000 FCFA" },
-        { nom: "Trio de tableaux 40 × 60 sous verre anti-reflet", prix: 129000, detail: "3 tableaux assortis · en plexiglas : 90 000 FCFA" },
-        { nom: "Duo de tableaux 60 × 90 sous verre anti-reflet", prix: 137000, detail: "2 grands tableaux assortis · en plexiglas : 109 000 FCFA" },
-        { nom: "Trio de tableaux 60 × 90 sous verre anti-reflet", prix: 194000, detail: "3 grands tableaux assortis · en plexiglas : 155 000 FCFA" }
+        { nom: "Tableau 60 × 90 en plexiglas", prix: 70000, detail: "Grand format encadré, plexiglas, livré à Douala" },
+        { nom: "Duo de tableaux 40 × 60 sous verre anti-reflet", prix: 91000, detail: "2 tableaux assortis · en plexiglas : 82 000 FCFA" },
+        { nom: "Trio de tableaux 40 × 60 sous verre anti-reflet", prix: 129000, detail: "3 tableaux assortis · en plexiglas : 116 000 FCFA" },
+        { nom: "Duo de tableaux 60 × 90 sous verre anti-reflet", prix: 137000, detail: "2 grands tableaux assortis · en plexiglas : 127 000 FCFA" },
+        { nom: "Trio de tableaux 60 × 90 sous verre anti-reflet", prix: 194000, detail: "3 grands tableaux assortis · en plexiglas : 181 000 FCFA" }
       ],
       inclus: [
         "Un aperçu de l'œuvre sur votre mur avant validation",
