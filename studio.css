@@ -467,3 +467,40 @@ html.mode-tel { font-size: 30px; }
 .mode-tel .tirelire__chiffres .eco { grid-column: 1 / -1; }
 .mode-tel .tirelire__chiffres strong { font-size: 1.3rem; white-space: nowrap; }
 .mode-tel .tirelire__chiffres span { font-size: .75rem; }
+
+/* Téléphone : « Qui sommes-nous » présenté comme sur ordinateur (photo à gauche, texte à droite) (04/11) */
+.mode-tel .studio__grille { grid-template-columns: 230px 1fr; gap: 28px; }
+.mode-tel .studio__portrait { position: static; }
+.mode-tel .studio__portrait .studio__cadre { width: 230px; }
+.mode-tel .studio__signature strong { font-size: 1.5rem; }
+.mode-tel .studio__signature span { font-size: .62rem; }
+.mode-tel .studio__depuis { font-size: .6rem; }
+.studio__depuis .chiffre { white-space: nowrap; }
+/* Téléphone : chiffres de la fondatrice un par ligne, police un peu plus petite ; cadre « fait maison » à l'horizontale sur toute la largeur */
+.mode-tel .studio__depuis { font-size: .55rem; letter-spacing: .08em; line-height: 1.7; }
+.mode-tel .studio__depuis i { display: none; }
+.mode-tel .studio__depuis .chiffre { display: block; }
+.mode-tel .studio__signature span { font-size: .58rem; white-space: nowrap; }
+.mode-tel .studio__texte { display: contents; }
+.mode-tel .studio__grille { grid-template-columns: 230px 1fr; grid-auto-flow: row dense; align-items: start; }
+.mode-tel .studio__portrait { grid-column: 1; grid-row: 1 / span 3; }
+.mode-tel .studio__texte > .sur-titre, .mode-tel .studio__texte > h2, .mode-tel .studio__intro { grid-column: 2; }
+.mode-tel .fait-main, .mode-tel .studio__texte > .plus-btn, .mode-tel .studio__mission { grid-column: 1 / -1; }
+.mode-tel .fait-main__texte { min-height: 3.4em; }
+.mode-tel .studio__signature span { font-size: .5rem; letter-spacing: .04em; }
+.mode-tel .studio__depuis { font-size: .5rem; letter-spacing: .04em; }
+.mode-tel .fait-main__texte { min-height: 0 !important; }
+.mode-tel .studio__texte > .plus-btn { justify-self: start; }
+
+/* Téléphone : grilles de prix en bandes simples (nom + prix), flèche pour le détail (04/11) */
+.inclus-titre { display: none; }
+.mode-tel .tarif { cursor: pointer; position: relative; padding-right: 44px; }
+.mode-tel .tarif small { display: none; }
+.mode-tel .tarif.ouvert small { display: block; margin-top: 4px; }
+.mode-tel .tarif::after { content: "\25BE"; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--bordeaux); opacity: .7; transition: transform .25s; }
+.mode-tel .tarif.ouvert::after { transform: translateY(-50%) rotate(180deg); }
+.mode-tel .tarif .euro { display: inline; margin-left: .3em; }
+.mode-tel .inclus-titre { display: flex; width: 100%; justify-content: space-between; align-items: center; margin: 4px 0 10px; padding: 14px 18px; border-radius: 16px; border: 1.5px solid rgba(110,16,35,.15); background: #fff; color: var(--encre); font: inherit; font-weight: 700; cursor: pointer; }
+.mode-tel .inclus-titre::after { content: "\25BE"; color: var(--bordeaux); transition: transform .25s; }
+.mode-tel .inclus-titre.ouvert::after { transform: rotate(180deg); }
+.mode-tel .inclus-titre:not(.ouvert) + .inclus { display: none; }

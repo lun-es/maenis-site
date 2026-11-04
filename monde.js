@@ -614,7 +614,8 @@
       [String((C.mondes || []).length), "mondes à explorer"],
       [String((C.offres || []).length), "créations au catalogue"]
     ].filter((d) => d[0]);
-    chiffres.textContent = `Depuis ${(S.lancement || "").toLowerCase()} · ${(C.personnages || []).length} personnages originaux · ${(C.mondes || []).length} mondes`;
+    // chaque chiffre reste avec son mot (jamais « 22 » seul en fin de ligne)
+    chiffres.innerHTML = [`Depuis ${(S.lancement || "").toLowerCase()}`, `${(C.personnages || []).length} personnages originaux`, `${(C.mondes || []).length} mondes`].map((t) => `<span class="chiffre">${t}</span>`).join('<i aria-hidden="true"> · </i>');
   }
 })();
 

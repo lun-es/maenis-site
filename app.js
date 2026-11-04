@@ -472,12 +472,17 @@
       <h2 id="feuille-titre">${echap(o.titre)}</h2>
       <p class="feuille__accroche">${echap(o.accroche)}</p>
       <div class="tarifs">${o.formules.map((f) => `<div class="tarif ${f.populaire && o.formules.length > 1 ? "pop" : ""}"><span><strong>${echap(f.nom)}</strong><small>${echap(f.detail)}</small></span><b>${prixF(f)}</b></div>`).join("")}</div>${C.euro && C.euro.note ? `<p class="note-euro">${echap(C.euro.note)}</p>` : ""}
+      <button type="button" class="inclus-titre" aria-expanded="false">Ce qui est inclus</button>
       <ul class="inclus"><li><strong>Rendez-vous conseil inclus</strong> : on choisit ensemble ce qui vous ressemble</li>${o.inclus.map((i) => `<li>${echap(i)}</li>`).join("")}</ul>
       <span class="delai">⏱ ${echap(o.delai)}</span>
       <a class="guide" href="#" data-vers-fiche><span class="guide__texte">Ça vous plaît&nbsp;? Remplissez la fiche juste en dessous</span><span class="guide__fleche" aria-hidden="true">↓</span></a>
       ${construireFiche(o)}
       <button class="btn btn--or flottant-fiche" type="button" data-vers-fiche>Remplir la fiche <span aria-hidden="true">↓</span></button>`;
     brancherFiche(feuille);
+    // téléphone : chaque formule en simple bande (nom + prix), la flèche déplie le détail ; idem pour « Ce qui est inclus »
+    $$(".tarif", feuille).forEach((t) => t.addEventListener("click", () => t.classList.toggle("ouvert")));
+    const it = $(".inclus-titre", feuille);
+    if (it) it.addEventListener("click", () => { const ouvre = it.getAttribute("aria-expanded") !== "true"; it.setAttribute("aria-expanded", String(ouvre)); it.classList.toggle("ouvert", ouvre); });
     const texte = $(".feuille__texte", feuille), ficheO = $("form.fiche", texte), bouton = $(".flottant-fiche", feuille);
     $$("[data-vers-fiche]", feuille).forEach((b) => b.addEventListener("click", (e) => {
       e.preventDefault();

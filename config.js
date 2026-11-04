@@ -160,8 +160,8 @@ window.MAENIS = {
       galerie: ["images/enfant-aicha.webp", "images/enfant-apprend.webp", "images/famille.webp"],
       formules: [
         { nom: "Une vidéo + 1 coloriage offert", prix: 20000, apartir: true, detail: "Votre enfant en héros d'une vidéo éducative · prix selon la longueur" },
-        { nom: "Abonnement 4 vidéos par mois", prix: 45500, apartir: true, detail: "Une nouvelle vidéo chaque vendredi soir · selon le contenu souhaité", populaire: true },
-        { nom: "Abonnement famille, frères et sœurs", prix: 60000, apartir: true, detail: "Tous les enfants dans les aventures, chaque mois · selon le contenu souhaité" }
+        { nom: "Abonnement 4 vidéos par mois", prix: 45500, apartir: true, detail: "Une nouvelle vidéo chaque vendredi soir, 1 coloriage offert avec chaque vidéo · selon le contenu souhaité", populaire: true },
+        { nom: "Abonnement famille, frères et sœurs", prix: 60000, apartir: true, detail: "Tous les enfants dans les aventures, chaque mois, coloriages offerts · selon le contenu souhaité" }
       ],
       inclus: [
         "Son personnage 3D à partir de 2 ou 3 photos",
@@ -194,17 +194,18 @@ window.MAENIS = {
       formules: [
         { nom: "Fichier HD, style du catalogue", prix: 15000, detail: "Un style du catalogue, 1 proposition, 1 retouche, aperçu sur votre mur" },
         { nom: "Création unique, fichier HD", prix: 25000, detail: "Un style imaginé pour vous, plusieurs propositions, 2 retouches" },
-        { nom: "Tableau 40 × 60 sous verre anti-reflet", prix: 50000, detail: "Encadré, verre anti-reflet, livré à Douala", populaire: true },
-        { nom: "Tableau 40 × 60 en plexiglas", prix: 45000, detail: "Encadré, plexiglas (plus léger, incassable), livré à Douala" },
-        { nom: "Tableau 60 × 90 sous verre anti-reflet", prix: 75000, detail: "Grand format encadré, verre anti-reflet, livré à Douala" },
-        { nom: "Tableau 60 × 90 en plexiglas", prix: 70000, detail: "Grand format encadré, plexiglas, livré à Douala" },
-        { nom: "Duo de tableaux 40 × 60 sous verre anti-reflet", prix: 91000, detail: "2 tableaux assortis · en plexiglas : 82 000 FCFA" },
-        { nom: "Trio de tableaux 40 × 60 sous verre anti-reflet", prix: 129000, detail: "3 tableaux assortis · en plexiglas : 116 000 FCFA" },
-        { nom: "Duo de tableaux 60 × 90 sous verre anti-reflet", prix: 137000, detail: "2 grands tableaux assortis · en plexiglas : 127 000 FCFA" },
-        { nom: "Trio de tableaux 60 × 90 sous verre anti-reflet", prix: 194000, detail: "3 grands tableaux assortis · en plexiglas : 181 000 FCFA" }
+        { nom: "Tableau 40 × 60 sous verre anti-reflet", prix: 50000, detail: "Encadré, verre anti-reflet", populaire: true },
+        { nom: "Tableau 40 × 60 en plexiglas", prix: 40000, detail: "Encadré, plexiglas (plus léger, incassable)" },
+        { nom: "Tableau 60 × 90 sous verre anti-reflet", prix: 75000, detail: "Grand format encadré, verre anti-reflet" },
+        { nom: "Tableau 60 × 90 en plexiglas", prix: 65000, detail: "Grand format encadré, plexiglas" },
+        { nom: "Duo de tableaux 40 × 60 sous verre anti-reflet", prix: 91000, detail: "2 tableaux assortis (−9 %) · en plexiglas : 73 000 FCFA" },
+        { nom: "Trio de tableaux 40 × 60 sous verre anti-reflet", prix: 129000, detail: "3 tableaux assortis (−14 %) · en plexiglas : 103 000 FCFA" },
+        { nom: "Duo de tableaux 60 × 90 sous verre anti-reflet", prix: 137000, detail: "2 grands tableaux assortis (−9 %) · en plexiglas : 118 000 FCFA" },
+        { nom: "Trio de tableaux 60 × 90 sous verre anti-reflet", prix: 194000, detail: "3 grands tableaux assortis (−14 %) · en plexiglas : 168 000 FCFA" }
       ],
       inclus: [
         "Un aperçu de l'œuvre sur votre mur avant validation",
+        "Tableaux : style du catalogue inclus. Création unique sur tableau : +10 000 FCFA par tableau",
         "Cadre noir, blanc ou doré, sous verre anti-reflet ou en plexiglas",
         "Hors Cameroun : la main-d'œuvre et les matériaux n'étant pas les mêmes, le prix des tableaux sera ajusté",
         "Livraison à Douala. Ailleurs : expédition possible, frais à la charge du client selon la ville",
@@ -232,9 +233,9 @@ window.MAENIS = {
       image: "images/coloriage-couverture.webp",
       galerie: ["images/coloriage-livre-kribi.webp", "images/coloriage-feuille-foot.webp", "images/coloriage-couverture.webp", "images/coloriage-lion.webp", "images/coloriage-noel.webp", "images/coloriage-marche.webp", "images/coloriage-anniversaire.webp"],
       formules: [
-        { nom: "Feuille de coloriage personnalisée", prix: 2500, detail: "Sa photo transformée en dessin, dans un décor qu'il aime" },
-        { nom: "Pack 5 feuilles", prix: 10000, detail: "5 scènes de sa vie : la maison, l'école, le marché, ses jeux…" },
-        { nom: "Livre de coloriage 20 pages en PDF", prix: 22000, detail: "Son histoire en 20 dessins + une couverture en couleur", populaire: true },
+        { nom: "Feuille de coloriage personnalisée imprimée", prix: 2500, apartir: true, detail: "Sa photo transformée en dessin, dans un décor qu'il aime · en PDF : 2 000 FCFA" },
+        { nom: "Pack 5 feuilles imprimées", prix: 10000, apartir: true, detail: "5 scènes de sa vie : la maison, l'école, le marché, ses jeux… · en PDF : 8 000 FCFA" },
+        { nom: "Livre de coloriage 20 pages imprimé et relié", prix: 22000, apartir: true, detail: "Son histoire en 20 dessins + une couverture en couleur · en PDF : 16 000 FCFA", populaire: true },
         { nom: "Frères et sœurs, anniversaires, écoles", prix: 0, detail: "Tous les enfants héros ensemble, tarif groupe" }
       ],
       inclus: [
@@ -243,8 +244,8 @@ window.MAENIS = {
         "Ce qu'il aime : son doudou, ses jouets, ses animaux, ses plats, ses héros… et les personnes qu'il aime",
         "Son prénom sur la couverture et sur les pages",
         "Traits noirs épais, faciles à colorier dès 3 ans",
-        "Le PDF prêt à imprimer en haute qualité",
-        "La fiche pour l'imprimeur : papier, format, reliure",
+        "Imprimé et relié, ou en PDF haute qualité si vous préférez imprimer vous-même",
+        "En PDF : la fiche pour votre imprimeur (papier, format, reliure). Version imprimée livrée à Douala, ailleurs frais d'envoi à votre charge",
         "Un aperçu gratuit avant de payer, une retouche offerte"
       ],
       delai: "Aperçu sous 24 à 48 h",
@@ -271,8 +272,8 @@ window.MAENIS = {
         { nom: "Express", prix: 20000, apartir: true, detail: "Vous envoyez votre idée, je la réalise" },
         { nom: "Sur mesure", prix: 38000, apartir: true, detail: "Idée, script, voix, musique, tout ensemble", populaire: true },
         { nom: "Pack 2 vidéos express", prix: 37000, apartir: true, detail: "Deux vidéos de base" },
-        { nom: "Pack 3 vidéos express", prix: 52000, apartir: true, detail: "Trois vidéos de base" },
-        { nom: "Pack 3 vidéos sur mesure", prix: 98000, apartir: true, detail: "Trois vidéos créées de A à Z" }
+        { nom: "Pack 3 vidéos express", prix: 55000, apartir: true, detail: "Trois vidéos de base (−9 %)" },
+        { nom: "Pack 3 vidéos sur mesure", prix: 107000, apartir: true, detail: "Trois vidéos créées de A à Z (−6 %)" }
       ],
       inclus: [
         "Prête entre 3 et 5 jours",
