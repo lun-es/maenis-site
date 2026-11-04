@@ -515,3 +515,13 @@ html.mode-tel { font-size: 30px; }
 .mode-tel .guette-cote.gauche .bulle { rotate: -14deg !important; }
 .mode-tel .guette-cote.droite .bulle { rotate: 14deg !important; }
 .mode-tel .guide-marie__bulle { font-size: .55rem; max-width: 260px; padding: 8px 12px; }
+
+/* Menu ☰ : vrai panneau opaque sous la barre du haut (avant, il était transparent et se mélangeait à la page) (04/11) */
+@media (max-width: 1240px) {
+  .top__nav { position: absolute; inset: 100% 0 auto 0; height: calc(100dvh - 100%); z-index: 5; background: var(--fond, #14040A);
+    justify-content: flex-start; padding: 34px 24px 60px; gap: 6px; overflow-y: auto; box-shadow: 0 30px 60px rgba(0,0,0,.5); }
+  .top__nav a { width: 100%; max-width: 520px; text-align: center; padding: 14px 10px; border-bottom: 1px solid rgba(246,231,218,.12); font-size: clamp(1.1rem, 4vw, 1.6rem); }
+  .top__nav a:last-child { border-bottom: 0; }
+  .top.ouvert { background: var(--fond, #14040A); }
+}
+body.menu-ouvert { overflow: hidden; }

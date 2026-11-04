@@ -92,8 +92,9 @@
   $(".top__burger").addEventListener("click", () => {
     const o = top.classList.toggle("ouvert");
     $(".top__burger").setAttribute("aria-expanded", o);
+    document.body.classList.toggle("menu-ouvert", o);
   });
-  $$(".top__nav a").forEach((a) => a.addEventListener("click", () => top.classList.remove("ouvert")));
+  $$(".top__nav a").forEach((a) => a.addEventListener("click", () => { top.classList.remove("ouvert"); document.body.classList.remove("menu-ouvert"); }));
   const liensNav = $$(".top__nav a");
   const obsNav = new IntersectionObserver((es) => es.forEach((e) => {
     if (e.isIntersecting) liensNav.forEach((a) => a.classList.toggle("actif", a.hash === "#" + e.target.id));
