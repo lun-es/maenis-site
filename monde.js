@@ -171,10 +171,10 @@
     points.innerHTML = C.mondes.map((m, i) => `<button aria-label="Aller au monde ${echap(m.titre)}" data-i="${i}"></button>`).join("");
     const barre = document.createElement("div"); barre.className = "voyage__barre"; $(".voyage__ecran").appendChild(barre);
     const mondes = $$(".monde", pisteV), fonds = $$(".monde__fond", pisteV);
-    // Téléphone : l'écran du voyage garde la hauteur d'un iPad (1100 px), centré, pour le même rendu
+    // Téléphone : l'écran du voyage garde la hauteur d'un iPad (1100 px), centré ; 600 px de défilement par monde pour un voyage plus court
     const tel = () => document.documentElement.classList.contains("mode-tel");
     const ecranH = () => (tel() ? 1100 : innerHeight);
-    const hauteur = () => { voyage.style.height = tel() ? `${N * 1100}px` : `${N * innerHeight / Z()}px`; };
+    const hauteur = () => { voyage.style.height = tel() ? `${(N - 1) * 600 + 1100}px` : `${N * innerHeight / Z()}px`; };
     hauteur(); addEventListener("resize", hauteur);
     // mesures en pixels d'écran (justes aussi quand la page est agrandie sur grand écran)
     const etendue = () => voyage.getBoundingClientRect().height - ecranH();

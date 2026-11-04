@@ -20,8 +20,9 @@
         zoomer(); addEventListener("resize", zoomer);
         return;
       }
-      document.querySelector('meta[name="viewport"]').setAttribute("content", "width=1366");
       var court = Math.min(screen.width, screen.height), html = document.documentElement;
+      // Tablette : présentation iPad horizontal (1366). Téléphone : présentation tablette verticale (820), deux fois plus lisible.
+      document.querySelector('meta[name="viewport"]').setAttribute("content", court >= 600 ? "width=1366" : "width=820");
       if (court >= 600) return;
       var debout = matchMedia("(orientation: portrait)");
       function regler() { html.classList.toggle("mode-tel", debout.matches); }
@@ -114,7 +115,7 @@
             <p class="fait-main__texte" data-ecrire>Ce site aussi est fait maison&nbsp;: il a été <strong class="fait-main__cle">entièrement pensé et réalisé par Marie</strong>, la fondatrice. C'est ce savoir-faire que propose <a href="#tech">Maënis Tech</a> pour votre entreprise.</p>
             <p class="fait-main__signature" aria-hidden="true">Marie</p>
           </div>
-          <p class="studio__mission reveal">Notre envie&nbsp;: que chaque enfant se voie en héros, que chaque famille ait une œuvre qui lui ressemble, et que chaque boutique ait une vidéo qui la fait briller.</p>
+          <p class="studio__mission reveal" data-plus="Notre envie">Notre envie&nbsp;: que chaque enfant se voie en héros, que chaque famille ait une œuvre qui lui ressemble, et que chaque boutique ait une vidéo qui la fait briller.</p>
         </div>
       </div>
       <div class="studio__monde reveal">
@@ -278,7 +279,7 @@
         <article class="regle reveal"><span class="regle__ico">🤝</span><h3>Parrainage : +<b data-fid="parrainage"></b> points</h3><p>Votre <strong>code parrainage, c'est votre numéro client</strong>. Un ami le donne dans sa fiche et commande&nbsp;? Les points arrivent chez vous.</p></article>
         <article class="regle reveal"><span class="regle__ico">🎂</span><h3>Anniversaire : +<b data-fid="anniversaire"></b> points</h3><p>Indiquez votre date d'anniversaire dans la fiche&nbsp;: un cadeau vous attend chaque année.</p></article>
       </div>
-      <div class="tirelire reveal" id="tirelire">
+      <div class="tirelire reveal" id="tirelire" data-plus="Calculer mes économies">
         <div class="tirelire__texte">
           <h3>Combien allez-vous <em>économiser</em>&nbsp;?</h3>
           <label for="sim-montant">Ce que vous dépensez au studio&nbsp;: <strong id="sim-montant-txt">0 FCFA</strong></label>
@@ -296,7 +297,7 @@
           <span class="bocal__etiquette">Points Maënis</span>
         </div>
       </div>
-      <form class="mes-points reveal" id="mes-points">
+      <form class="mes-points reveal" id="mes-points" data-plus="Voir mes points">
         <h3>Mes points</h3>
         <div class="mes-points__champs">
           <input name="client" placeholder="Numéro client (MS-0001)" aria-label="Numéro client" required autocomplete="off">
@@ -315,9 +316,10 @@
         <h2 class="reveal tech__titre">Votre entreprise, <span class="tech__ecrit" data-phrases='["plus simple à gérer.", "ouverte même à 23 h.", "sans commande perdue.", "pilotée d’un coup d’œil.", "enfin en ligne."]'><span class="tech__mots">plus simple à gérer.</span><span class="tech__curseur" aria-hidden="true"></span></span></h2>
         <p class="section__intro reveal">Sites web, commandes qui s'organisent toutes seules, tableaux de bord qui calculent pour vous. Vous gagnez du temps, vous ne perdez plus de commandes et vous voyez clair dans votre argent.</p>
       </div>
+      <p class="tech__glisser">Glissez pour voir les 4 offres →</p>
       <div class="tech__grille" id="tech-offres"></div>
       <div class="tech__pack reveal" id="tech-pack"></div>
-      <div class="tech__suivi reveal" id="tech-suivi"></div>
+      <div class="tech__suivi reveal" id="tech-suivi" data-plus="Le suivi mensuel"></div>
     </section>
 
     <!-- ============ FAQ ============ -->

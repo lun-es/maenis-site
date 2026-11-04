@@ -422,7 +422,7 @@
         <span class="tech-carte__ico" aria-hidden="true">${o.ico}</span>
         <h3>${echap(o.titre)}</h3>
         <p class="tech-carte__change">${echap(o.change)}</p>
-        <ul>${o.points.map((x) => `<li>${echap(x)}</li>`).join("")}</ul>
+        <ul data-plus="Détails">${o.points.map((x) => `<li>${echap(x)}</li>`).join("")}</ul>
         <p class="tech-carte__prix"><small>à partir de</small><b>${prix(o.prix)}</b><span>suivi à partir de ${prix(o.suivi)} / mois</span></p>
         ${vers(o.titre)}
       </article>`).join("");
@@ -618,4 +618,18 @@
   // promenade(); remplacée par les personnages qui guettent (monde.js)
 
   observer();
+
+  /* ---------- Téléphone : parties secondaires repliées derrière un bouton « Plus » ---------- */
+  const replier = () => {
+    if (!document.documentElement.classList.contains("mode-tel")) return;
+    $$("[data-plus]").forEach((el) => {
+      if (el.dataset.plusPret) return;
+      el.dataset.plusPret = "1";
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "plus-btn"; b.textContent = el.dataset.plus; b.setAttribute("aria-expanded", "false");
+      el.hidden = true; el.before(b);
+      b.addEventListener("click", () => { const ouvert = el.hidden; el.hidden = !ouvert; b.setAttribute("aria-expanded", String(ouvert)); });
+    });
+  };
+  replier();
 })();
