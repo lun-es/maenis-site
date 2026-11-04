@@ -427,10 +427,22 @@
         ${vers(o.titre)}
       </article>`).join("");
     const P = T.pack;
+    const prixDe = (id) => (T.offres.find((x) => x.id === id) || {}).prix || 0;
+    const pub = (C.offres.find((x) => x.id === "pub-video-boutique") || { des: 0 }).des;
+    const pieces = [["🌐", "Site web", prixDe("site")], ["📦", "Commandes automatiques", prixDe("commandes")], ["🎬", "Pub vidéo Express", pub]];
     $("#tech-pack").innerHTML = `
-      <div><p class="tech__pack-tag">✦ ${echap(P.titre)}</p><h3>${echap(P.detail)}</h3>
-      <p>Tout pour lancer votre activité en ligne : le site, les commandes rangées automatiquement et une pub vidéo pour vous faire connaître.</p></div>
-      <div class="tech__pack-prix"><small>à partir de</small><b>${prix(P.prix)}</b><s>${prix(P.sansPack)} séparément</s><span>suivi à partir de ${prix(P.suivi)} / mois</span>${vers(P.titre)}</div>`;
+      <div class="ticket__corps">
+        <p class="ticket__haut">${echap(P.titre)}</p>
+        <h3 class="ticket__titre">Votre activité <em>en ligne</em>, en une séance</h3>
+        <ul class="ticket__programme">${pieces.map(([ico, nom, px]) => `<li>${ico} ${nom}${px ? `<s>${fr(px)} FCFA</s>` : ""}</li>`).join("")}</ul>
+        <p class="ticket__suivi">Suivi à partir de ${prixTexte(P.suivi)} / mois</p>
+        ${vers(P.titre)}
+      </div>
+      <div class="ticket__talon">
+        <small>à partir de</small><b>${fr(P.prix)} FCFA</b>${C.euro ? `<em class="euro">≈ ${fr(euros(P.prix))} €</em>` : ""}
+        <span class="ticket__eco">−${fr(P.sansPack - P.prix)} FCFA</span>
+        <span class="ticket__num" aria-hidden="true">N° MS · LANCEMENT</span>
+      </div>`;
     const S = T.suivi;
     $("#tech-suivi").innerHTML = `
       <h3>Le suivi mensuel</h3>
@@ -632,4 +644,7 @@
     });
   };
   replier();
+  if (document.documentElement.classList.contains("mode-tel")) {
+    $$(".regle").forEach((r) => { const h = $("h3", r); if (h) { h.setAttribute("role", "button"); h.tabIndex = 0; h.addEventListener("click", () => r.classList.toggle("ouverte")); } });
+  }
 })();

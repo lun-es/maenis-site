@@ -194,6 +194,7 @@
           <li><span>3</span><strong>Création unique</strong><small>On imagine votre univers de A à Z.</small></li>
         </ol>
       </div>
+      <p class="glisser">Glissez pour voir toutes les créations →</p>
       <div class="grille" id="grille"></div>
       <img class="passant passant--catalogue" src="images/perso-popart.webp" alt="" aria-hidden="true">
     </section>
@@ -224,11 +225,12 @@
       <div class="chemin__piste" id="chemin">
         <svg class="chemin__trace" viewBox="0 0 100 600" preserveAspectRatio="none" aria-hidden="true"><path id="chemin-path" d="M50 0 C 90 50, 90 90, 50 100 S 10 150, 50 200 S 90 250, 50 300 S 10 350, 50 400 S 90 450, 50 500 S 10 550, 50 600" /></svg>
         <img class="chemin__marie" id="chemin-marie" src="images/perso-figurine.webp" alt="" aria-hidden="true">
+        <p class="glisser">Glissez pour suivre les 6 étapes →</p>
         <ol class="chemin__etapes">
           <li class="station"><div class="station__illu illu-fiche" aria-hidden="true"><span class="tel-mini"><i></i><i></i><i></i><b>✓</b></span></div><div class="station__texte"><span class="station__num">1</span><h3>Vous remplissez la fiche</h3><p>Choisissez une création et dites-moi tout. Vous recevez aussitôt votre <strong>numéro client</strong>.</p></div></li>
           <li class="station"><div class="station__illu illu-rdv" aria-hidden="true"><span class="calendrier"><b>RDV</b><i>12</i></span></div><div class="station__texte"><span class="station__num">2</span><h3>Vous proposez un rendez-vous</h3><p>Le jour, le moment et le moyen qui vous arrangent : appel WhatsApp, visio ou messages.</p></div></li>
           <li class="station"><div class="station__illu illu-ok" aria-hidden="true"><span class="bulle-wa">Rendez-vous confirmé ! ✅</span><span class="bulle-wa bulle-wa--2">Merci Marie 😍</span></div><div class="station__texte"><span class="station__num">3</span><h3>Je confirme</h3><p>Je vous réponds sur WhatsApp pour confirmer le rendez-vous, ou vous proposer un autre moment.</p></div></li>
-          <li class="station"><div class="station__illu illu-acompte" aria-hidden="true"><span class="piece">F</span><span class="piece">C</span><span class="piece">F</span><span class="piece">A</span><span class="moitie">50 %</span></div><div class="station__texte"><span class="station__num">4</span><h3>Acompte de 50 %</h3><p>Par Orange Money ou PayPal, pour lancer la création. Le reste se paie à la livraison.</p></div></li>
+          <li class="station"><div class="station__illu illu-acompte" aria-hidden="true"><span class="piece">F</span><span class="piece">C</span><span class="piece">F</span><span class="piece">A</span><span class="moitie">50 %</span></div><div class="station__texte"><span class="station__num">4</span><h3>Acompte de 50 %</h3><p>Par Orange Money ou PayPal (le numéro ou le lien arrive avec la confirmation), en indiquant votre numéro MS-…. Le reste se paie à la livraison.</p></div></li>
           <li class="station"><div class="station__illu illu-creation" aria-hidden="true"><span class="toile"><img src="images/popart-warhol.webp" alt=""></span><span class="pinceau">🖌️</span></div><div class="station__texte"><span class="station__num">5</span><h3>Je crée</h3><p>Vous recevez un aperçu, et vous pouvez demander une retouche.</p></div></li>
           <li class="station"><div class="station__illu illu-livraison" aria-hidden="true"><span class="cadeau">🎁</span><span class="etoiles">✨</span></div><div class="station__texte"><span class="station__num">6</span><h3>Livraison</h3><p>Fichier HD, vidéo ou tableau livré. Vous réglez le solde et vous profitez !</p></div></li>
         </ol>
@@ -273,13 +275,13 @@
         <h2 class="reveal">Plus vous créez, <em>plus vous gagnez</em></h2>
         <p class="section__intro reveal">Dès votre première fiche, vous recevez votre <strong>numéro client</strong> (MS-…). Il est à vous pour toujours et cumule vos points.</p>
       </div>
-      <div class="regles">
+      <div class="regles"><p class="regles__titre">Comment ça marche ? Touchez une ligne :</p>
         <article class="regle reveal"><span class="regle__ico">🪙</span><h3><b data-fid="fcfaParPoint"></b> FCFA = 1 point</h3><p>Chaque commande payée vous rapporte des points.</p></article>
         <article class="regle regle--or reveal"><span class="regle__ico">🎁</span><h3><b data-fid="palier"></b> points = −<b data-fid="reduction"></b> %</h3><p>Soit <b data-fid="seuil"></b> FCFA de créations : profitez de <b data-fid="reduction2"></b> % sur la commande de votre choix.</p></article>
         <article class="regle reveal"><span class="regle__ico">🤝</span><h3>Parrainage : +<b data-fid="parrainage"></b> points</h3><p>Votre <strong>code parrainage, c'est votre numéro client</strong>. Un ami le donne dans sa fiche et commande&nbsp;? Les points arrivent chez vous.</p></article>
         <article class="regle reveal"><span class="regle__ico">🎂</span><h3>Anniversaire : +<b data-fid="anniversaire"></b> points</h3><p>Indiquez votre date d'anniversaire dans la fiche&nbsp;: un cadeau vous attend chaque année.</p></article>
       </div>
-      <div class="tirelire reveal" id="tirelire" data-plus="Calculer mes économies">
+      <div class="tirelire reveal" id="tirelire">
         <div class="tirelire__texte">
           <h3>Combien allez-vous <em>économiser</em>&nbsp;?</h3>
           <label for="sim-montant">Ce que vous dépensez au studio&nbsp;: <strong id="sim-montant-txt">0 FCFA</strong></label>
@@ -318,7 +320,7 @@
       </div>
       <p class="tech__glisser">Glissez pour voir les 4 offres →</p>
       <div class="tech__grille" id="tech-offres"></div>
-      <div class="tech__pack reveal" id="tech-pack"></div>
+      <div class="coffret reveal" id="tech-pack"></div>
       <div class="tech__suivi reveal" id="tech-suivi" data-plus="Le suivi mensuel"></div>
     </section>
 

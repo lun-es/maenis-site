@@ -645,7 +645,7 @@
       let parti = false;
       new IntersectionObserver(async ([en], obs) => {
         if (!en.isIntersecting || parti) return;
-        parti = true; obs.disconnect();
+        parti = true; obs.disconnect(); bloc.classList.add("ok");   // le croquis du carnet se dessine pendant que le texte s'écrit
         await attendre(500);
         for (let i = 0; i < lettres.length; i++) {
           if (i) lettres[i - 1].classList.remove("curseur-ici");
