@@ -525,3 +525,18 @@ html.mode-tel { font-size: 30px; }
   .top.ouvert { background: var(--fond, #14040A); }
 }
 body.menu-ouvert { overflow: hidden; }
+
+/* Bouton du menu bien visible : 3 traits + le mot « Menu », dans une pastille (04/11) */
+.top__burger { width: auto; height: auto; display: none; align-items: center; gap: 10px; padding: 10px 18px 10px 14px; border-radius: 999px;
+  background: rgba(246,231,218,.1); border: 1.5px solid rgba(246,231,218,.45); color: var(--creme); cursor: pointer; }
+@media (max-width: 1240px) { .top__burger { display: inline-flex; } }
+.top__burger-traits { position: relative; display: block; width: 24px; height: 18px; font-style: normal; }
+.top__burger .top__burger-traits span { position: absolute; left: 0; right: 0; height: 2.5px; border-radius: 2px; background: currentColor; transition: transform .3s, opacity .3s; }
+.top__burger .top__burger-traits span:nth-child(1) { top: 0; }
+.top__burger .top__burger-traits span:nth-child(2) { top: 7.5px; }
+.top__burger .top__burger-traits span:nth-child(3) { top: 15px; }
+.top.ouvert .top__burger .top__burger-traits span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.top.ouvert .top__burger .top__burger-traits span:nth-child(2) { opacity: 0; }
+.top.ouvert .top__burger .top__burger-traits span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+.top__burger-mot { font-family: var(--etiquette, sans-serif); font-weight: 700; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; }
+.mode-tel .top__burger-mot { font-size: .7rem; }
