@@ -15,8 +15,8 @@ window.MAENIS = {
     fondatrice: "Marie"
   },
 
-  whatsapp: "33758322771",              // sans + ni espaces
-  whatsappAffiche: "+33 7 58 32 27 71",
+  whatsapp: "237690164222",              // sans + ni espaces
+  whatsappAffiche: "+237 6 90 16 42 22",
   email: "marie.maenisstudio@gmail.com",
 
   reseaux: {
