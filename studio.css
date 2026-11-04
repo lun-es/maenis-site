@@ -540,3 +540,9 @@ body.menu-ouvert { overflow: hidden; }
 .top.ouvert .top__burger .top__burger-traits span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 .top__burger-mot { font-family: var(--etiquette, sans-serif); font-weight: 700; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; }
 .mode-tel .top__burger-mot { font-size: .7rem; }
+
+/* La barre du haut et le bouton Menu passent devant les effets (feux, cercles du doigt) ; pas de cercles de curseur sur écran tactile (04/11) */
+.top { z-index: 95; }
+@media (hover: none) { .curseur, .curseur-suiveur, .reflet { display: none !important; } }
+.top__burger { -webkit-appearance: none; appearance: none; -webkit-tap-highlight-color: transparent; color: var(--creme) !important; font: inherit; }
+.top__burger-mot { color: var(--creme) !important; }

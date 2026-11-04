@@ -355,7 +355,7 @@
   window.__maenisBoucle = boucle2;
   let appui = false, dernierePos = 0;
   addEventListener("pointerdown", (e) => {
-    if (e.target.closest("input, select, textarea, label, dialog")) return;
+    if (e.target.closest("input, select, textarea, label, dialog, .top")) return;   // pas d'anneaux sur la barre du haut ni sur le bouton Menu
     appui = true; vague(e.clientX, e.clientY, 1.2);
   }, { passive: true });
   addEventListener("pointerup", () => (appui = false), { passive: true });
