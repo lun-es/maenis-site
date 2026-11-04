@@ -504,3 +504,14 @@ html.mode-tel { font-size: 30px; }
 .mode-tel .inclus-titre::after { content: "\25BE"; color: var(--bordeaux); transition: transform .25s; }
 .mode-tel .inclus-titre.ouvert::after { transform: rotate(180deg); }
 .mode-tel .inclus-titre:not(.ouvert) + .inclus { display: none; }
+
+/* Téléphone : les personnages qui surgissent sur les côtés parlent en petites bulles de dialogue (04/11) */
+.mode-tel .guette-cote .bulle { font-size: .58rem; line-height: 1.3; max-width: 280px; padding: 10px 14px; border-radius: 22px; rotate: 0deg !important; top: -6%; pointer-events: none; box-shadow: 0 6px 14px rgba(0,0,0,.35); }
+.mode-tel .guette-cote.gauche .bulle { left: 58%; border-bottom-left-radius: 6px; }
+.mode-tel .guette-cote.droite .bulle { right: 58%; border-bottom-right-radius: 6px; }
+.mode-tel .guette-cote .bulle::after { bottom: -8px; }
+.mode-tel .guette-cote.gauche .bulle::after { left: 10px; }
+.mode-tel .guette-cote.droite .bulle::after { left: auto; right: 10px; }
+.mode-tel .guette-cote.gauche .bulle { rotate: -14deg !important; }
+.mode-tel .guette-cote.droite .bulle { rotate: 14deg !important; }
+.mode-tel .guide-marie__bulle { font-size: .55rem; max-width: 260px; padding: 8px 12px; }

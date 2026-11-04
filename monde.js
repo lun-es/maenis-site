@@ -222,16 +222,20 @@
     // glisser horizontalement (doigt ou souris) = changer de monde
     let g = null;
     const ecran = $(".voyage__ecran");
-    ecran.addEventListener("pointerdown", (e) => { if (!e.target.closest("a, button, .monde-perso")) g = { x: e.clientX, y: e.clientY, s: scrollY }; });
+    // le glissement ne vaut que pour le doigt posé sur l'écran du voyage ; il s'arrête dès que le doigt se lève
+    // ou que le téléphone reprend la main (défilement vertical) : sinon un glissement ailleurs ramenait la page aux mondes
+    ecran.addEventListener("pointerdown", (e) => { if (!e.target.closest("a, button, .monde-perso")) g = { id: e.pointerId, x: e.clientX, y: e.clientY, s: scrollY, bouge: false }; });
     addEventListener("pointermove", (e) => {
-      if (!g) return;
+      if (!g || e.pointerId !== g.id) return;
       const dx = e.clientX - g.x, dy = e.clientY - g.y;
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 6) {
+        g.bouge = true;
         document.documentElement.style.scrollBehavior = "auto";
         scrollTo(0, g.s - dx * etendue() / ((N - 1) * innerWidth) * 1.4);
       }
     });
-    addEventListener("pointerup", () => { if (g) { g = null; allerA(Math.round(pLisse * (N - 1))); } });
+    addEventListener("pointerup", (e) => { if (g && e.pointerId === g.id) { const b = g.bouge; g = null; if (b) allerA(Math.round(pLisse * (N - 1))); } });
+    addEventListener("pointercancel", () => { g = null; });
     ecran.addEventListener("wheel", (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); scrollBy(0, e.deltaX); } }, { passive: false });
     // personnages : saut + bulle
     $$(".monde-perso", pisteV).forEach((el) => {
