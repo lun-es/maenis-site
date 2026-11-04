@@ -277,3 +277,9 @@ html.mode-tel .tech-carte, html.mode-tel .tech__pack > * { min-width: 0; }
 .mode-zoom .hote { height: min(78vh / var(--z), 720px); }
 .mode-zoom .pile { height: min(560px, 74vh / var(--z)); }
 .mode-zoom .guette-cote { height: min(42vh / var(--z), 360px); }
+
+/* Prix en euros et « à partir de » (04/11) */
+.euro { display: block; font-style: normal; font-size: .72em; font-weight: 500; opacity: .7; white-space: nowrap; }
+.apartir { display: block; font-size: .62em; font-weight: 500; opacity: .75; text-transform: none; }
+.prix .euro { margin-top: .1em; }
+.note-euro { font-size: .8rem; opacity: .7; margin: .6rem 0 0; line-height: 1.4; }

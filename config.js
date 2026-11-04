@@ -26,6 +26,13 @@ window.MAENIS = {
     youtube: "https://www.youtube.com/channel/UCS12h1o3K390T3pG81qwlXA"
   },
 
+  // Prix en euros affichés à côté des FCFA : taux fixe FCFA → euro + frais (en %), arrondi à l'euro supérieur
+  euro: {
+    taux: 655.957,
+    frais: 10,
+    note: "Prix en euros donnés à titre indicatif (taux de conversion + frais). Hors Cameroun, la main-d'œuvre et les matériaux n'étant pas les mêmes, les tarifs des produits physiques (tableaux, impressions) seront ajustés."
+  },
+
   paiement: {
     acompte: 50,                        // pourcentage payé à la confirmation
     orangeMoney: "",                    // numéro Orange Money (sinon : envoyé à la confirmation)
@@ -111,6 +118,7 @@ window.MAENIS = {
   /* ----------------------------------------------------------------------
      CATALOGUE
      prix : nombre en FCFA (0 = sur devis). « des » = prix d'appel affiché.
+     apartir: true → affiche « à partir de » devant le prix.
      ---------------------------------------------------------------------- */
   // ---------- Maënis Tech (sites, commandes, tableaux de bord) ----------
   // Prix « à partir de », ajustés au rendez-vous. Délai de réponse du suivi : 3 jours ouvrés minimum.
@@ -144,16 +152,16 @@ window.MAENIS = {
       categorie: "enfants",
       titre: "Votre enfant, héros de son dessin animé",
       accroche: "Il devient un personnage de dessin animé et apprend en s'amusant : l'alphabet, les couleurs, les bonnes habitudes… De 1 à 6 ans, en français ou en anglais.",
-      des: 19500,
+      des: 20000,
       couleur: "#F5C542",
       image: "images/enfant-aicha.webp",
       video: "videos/enfants.mp4",
       poster: "videos/enfants.jpg",
       galerie: ["images/enfant-aicha.webp", "images/enfant-apprend.webp", "images/famille.webp"],
       formules: [
-        { nom: "Une vidéo + 1 coloriage offert", prix: 19500, detail: "Votre enfant en héros d'une vidéo éducative" },
-        { nom: "Abonnement 4 vidéos par mois", prix: 45500, detail: "Une nouvelle vidéo chaque vendredi soir", populaire: true },
-        { nom: "Abonnement famille, frères et sœurs", prix: 58500, detail: "Tous les enfants dans les aventures, chaque mois" }
+        { nom: "Une vidéo + 1 coloriage offert", prix: 20000, apartir: true, detail: "Votre enfant en héros d'une vidéo éducative · prix selon la longueur" },
+        { nom: "Abonnement 4 vidéos par mois", prix: 45500, apartir: true, detail: "Une nouvelle vidéo chaque vendredi soir · selon le contenu souhaité", populaire: true },
+        { nom: "Abonnement famille, frères et sœurs", prix: 60000, apartir: true, detail: "Tous les enfants dans les aventures, chaque mois · selon le contenu souhaité" }
       ],
       inclus: [
         "Son personnage 3D à partir de 2 ou 3 photos",
@@ -186,18 +194,19 @@ window.MAENIS = {
       formules: [
         { nom: "Fichier HD, style du catalogue", prix: 15000, detail: "Un style du catalogue, 1 proposition, 1 retouche, aperçu sur votre mur" },
         { nom: "Création unique, fichier HD", prix: 25000, detail: "Un style imaginé pour vous, plusieurs propositions, 2 retouches" },
-        { nom: "Tableau 40 × 60 sous verre", prix: 40000, detail: "Encadré, sous verre, livré à Douala", populaire: true },
-        { nom: "Tableau 40 × 60 en plexiglas", prix: 50000, detail: "Encadré, plexiglas (plus léger, incassable), livré à Douala" },
-        { nom: "Tableau 60 × 90 sous verre", prix: 65000, detail: "Grand format encadré, sous verre, livré à Douala" },
-        { nom: "Tableau 60 × 90 en plexiglas", prix: 75000, detail: "Grand format encadré, plexiglas, livré à Douala" },
-        { nom: "Duo de tableaux 40 × 60 sous verre", prix: 73000, detail: "2 tableaux assortis · en plexiglas : 91 000 FCFA" },
-        { nom: "Trio de tableaux 40 × 60 sous verre", prix: 103000, detail: "3 tableaux assortis · en plexiglas : 129 000 FCFA" },
-        { nom: "Duo de tableaux 60 × 90 sous verre", prix: 119000, detail: "2 grands tableaux assortis · en plexiglas : 137 000 FCFA" },
-        { nom: "Trio de tableaux 60 × 90 sous verre", prix: 167000, detail: "3 grands tableaux assortis · en plexiglas : 193 000 FCFA" }
+        { nom: "Tableau 40 × 60 sous verre anti-reflet", prix: 50000, detail: "Encadré, verre anti-reflet, livré à Douala", populaire: true },
+        { nom: "Tableau 40 × 60 en plexiglas", prix: 35000, detail: "Encadré, plexiglas (plus léger, incassable), livré à Douala" },
+        { nom: "Tableau 60 × 90 sous verre anti-reflet", prix: 75000, detail: "Grand format encadré, verre anti-reflet, livré à Douala" },
+        { nom: "Tableau 60 × 90 en plexiglas", prix: 60000, detail: "Grand format encadré, plexiglas, livré à Douala" },
+        { nom: "Duo de tableaux 40 × 60 sous verre anti-reflet", prix: 91000, detail: "2 tableaux assortis · en plexiglas : 64 000 FCFA" },
+        { nom: "Trio de tableaux 40 × 60 sous verre anti-reflet", prix: 129000, detail: "3 tableaux assortis · en plexiglas : 90 000 FCFA" },
+        { nom: "Duo de tableaux 60 × 90 sous verre anti-reflet", prix: 137000, detail: "2 grands tableaux assortis · en plexiglas : 109 000 FCFA" },
+        { nom: "Trio de tableaux 60 × 90 sous verre anti-reflet", prix: 194000, detail: "3 grands tableaux assortis · en plexiglas : 155 000 FCFA" }
       ],
       inclus: [
         "Un aperçu de l'œuvre sur votre mur avant validation",
-        "Cadre noir, blanc ou doré, sous verre ou en plexiglas (+10 000 FCFA)",
+        "Cadre noir, blanc ou doré, sous verre anti-reflet ou en plexiglas",
+        "Hors Cameroun : la main-d'œuvre et les matériaux n'étant pas les mêmes, le prix des tableaux sera ajusté",
         "Livraison à Douala. Ailleurs : expédition possible, frais à la charge du client selon la ville",
         "Style « figurine dans sa boîte » : votre personnage façon jouet de collection, en fichier HD ou en tableau (c'est une image, pas un jouet)",
         "D'autres styles possibles en rendez-vous",
@@ -207,7 +216,7 @@ window.MAENIS = {
       champs: [
         { nom: "style", label: "Style qui vous plaît", type: "chips", options: ["Bande dessinée", "Warhol (4 couleurs)", "Wax", "Graffiti", "Collage", "Figurine", "Figurine dans sa boîte", "Je ne sais pas encore"] },
         { nom: "qui", label: "Qui sera sur l'œuvre ?", type: "select", options: ["Moi", "Un couple", "Ma famille", "Un enfant", "C'est un cadeau pour quelqu'un"] },
-        { nom: "protection", label: "Verre ou plexiglas (pour un tableau)", type: "select", options: ["Pas de tableau, fichier seulement", "Sous verre", "En plexiglas (+10 000 FCFA par tableau)", "Conseillez-moi"] },
+        { nom: "protection", label: "Verre ou plexiglas (pour un tableau)", type: "select", options: ["Pas de tableau, fichier seulement", "Sous verre anti-reflet", "En plexiglas", "Conseillez-moi"] },
         { nom: "cadre", label: "Cadre (pour un tableau)", type: "select", options: ["Pas de tableau, fichier seulement", "Noir", "Blanc", "Doré"] },
         { nom: "livraison", label: "Livraison du tableau", type: "select", options: ["Pas de tableau, fichier seulement", "À Douala", "Expédition dans une autre ville (frais à ma charge)", "Expédition hors du Cameroun (frais à ma charge)"] }
       ]
@@ -225,7 +234,7 @@ window.MAENIS = {
       formules: [
         { nom: "Feuille de coloriage personnalisée", prix: 2500, detail: "Sa photo transformée en dessin, dans un décor qu'il aime" },
         { nom: "Pack 5 feuilles", prix: 10000, detail: "5 scènes de sa vie : la maison, l'école, le marché, ses jeux…" },
-        { nom: "Livre de coloriage 20 pages en PDF", prix: 20000, detail: "Son histoire en 20 dessins + une couverture en couleur", populaire: true },
+        { nom: "Livre de coloriage 20 pages en PDF", prix: 22000, detail: "Son histoire en 20 dessins + une couverture en couleur", populaire: true },
         { nom: "Frères et sœurs, anniversaires, écoles", prix: 0, detail: "Tous les enfants héros ensemble, tarif groupe" }
       ],
       inclus: [
@@ -259,11 +268,11 @@ window.MAENIS = {
       poster: "videos/pub-boutique.jpg",
       galerie: ["images/pub-robe-noel.webp", "images/pub-marie.webp", "images/pub-sur-mesure.webp"],
       formules: [
-        { nom: "Express", prix: 20000, detail: "Vous envoyez votre idée, je la réalise" },
-        { nom: "Sur mesure", prix: 38000, detail: "Idée, script, voix, musique, tout ensemble", populaire: true },
-        { nom: "Pack 2 vidéos express", prix: 37000, detail: "Deux vidéos de base" },
-        { nom: "Pack 3 vidéos express", prix: 52000, detail: "Trois vidéos de base" },
-        { nom: "Pack 3 vidéos sur mesure", prix: 98000, detail: "Trois vidéos créées de A à Z" }
+        { nom: "Express", prix: 20000, apartir: true, detail: "Vous envoyez votre idée, je la réalise" },
+        { nom: "Sur mesure", prix: 38000, apartir: true, detail: "Idée, script, voix, musique, tout ensemble", populaire: true },
+        { nom: "Pack 2 vidéos express", prix: 37000, apartir: true, detail: "Deux vidéos de base" },
+        { nom: "Pack 3 vidéos express", prix: 52000, apartir: true, detail: "Trois vidéos de base" },
+        { nom: "Pack 3 vidéos sur mesure", prix: 98000, apartir: true, detail: "Trois vidéos créées de A à Z" }
       ],
       inclus: [
         "Prête entre 3 et 5 jours",

@@ -6,7 +6,12 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const calme = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const echap = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const prix = (n) => (n ? n.toLocaleString("fr-FR").replace(/ /g, " ") + " FCFA" : "Sur devis");
+  const fr = (n) => n.toLocaleString("fr-FR").replace(/[\u202f\u00a0]/g, " ");
+  // Prix en euros : conversion FCFA → euro (taux fixe) + frais, arrondi à l'euro supérieur (réglages dans config.js : euro)
+  const euros = (n) => (n && C.euro ? Math.ceil((n / C.euro.taux) * (1 + C.euro.frais / 100)) : 0);
+  const prix = (n) => (n ? fr(n) + " FCFA" + (C.euro ? ` <em class="euro">≈ ${fr(euros(n))} €</em>` : "") : "Sur devis");
+  const prixTexte = (n) => (n ? fr(n) + " FCFA" + (C.euro ? ` (≈ ${fr(euros(n))} €)` : "") : "Sur devis");
+  const prixF = (f) => (f.apartir && f.prix ? `<small class="apartir">à partir de</small> ` : "") + prix(f.prix);
   const lienWA = (texte) => `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(texte)}`;
   const NOMS_CAT = { enfants: "Pour les enfants", "pop-art": "Pop art", pro: "Pour les pros" };
 
@@ -33,7 +38,6 @@
 
   /* ---------- Fidélité ---------- */
   const F = C.fidelite;
-  const fr = (n) => n.toLocaleString("fr-FR").replace(/\u202f/g, " ");
   const valeursFid = { fcfaParPoint: fr(F.fcfaParPoint), palier: F.palier, reduction: F.reduction, reduction2: F.reduction, seuil: fr(F.palier * F.fcfaParPoint), parrainage: F.parrainage, anniversaire: F.anniversaire };
   $$("[data-fid]").forEach((el) => (el.textContent = valeursFid[el.dataset.fid]));
   const memoire = { lire: (k) => { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }, ecrire: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
@@ -223,7 +227,7 @@
         <select id="${uid}-offre" name="offre" required><option value="">Choisir…</option>${C.offres.map((o) => `<option>${echap(o.titre)}</option>`).join("")}${C.tech ? `<optgroup label="Maënis Tech">${C.tech.offres.map((o) => `<option>Maënis Tech : ${echap(o.titre)}</option>`).join("")}<option>Maënis Tech : ${echap(C.tech.pack.titre)}</option></optgroup>` : ""}<option>Autre chose</option></select></div>`;
     const formules = offre ? `
       <fieldset><legend><span class="num">${n()}</span>Choisissez la formule</legend><div class="formules-choix">
-        ${offre.formules.map((f, i) => `<div class="formule-choix"><input type="radio" id="${uid}-fo${i}" name="formule" value="${echap(f.nom)} (${prix(f.prix)})" ${f.populaire ? "checked" : ""} required><label for="${uid}-fo${i}"><span>${echap(f.nom)}<small>${echap(f.detail)}</small></span><b>${prix(f.prix)}</b></label></div>`).join("")}
+        ${offre.formules.map((f, i) => `<div class="formule-choix"><input type="radio" id="${uid}-fo${i}" name="formule" value="${echap(f.nom)} (${f.apartir && f.prix ? "à partir de " : ""}${prixTexte(f.prix)})" ${f.populaire ? "checked" : ""} required><label for="${uid}-fo${i}"><span>${echap(f.nom)}<small>${echap(f.detail)}</small></span><b>${prixF(f)}</b></label></div>`).join("")}
         <div class="formule-choix"><input type="radio" id="${uid}-fox" name="formule" value="Je veux en parler en rendez-vous"><label for="${uid}-fox"><span>Je ne sais pas encore<small>On en parle pendant le rendez-vous</small></span><b>…</b></label></div>
       </div></fieldset>` : "";
     const niveau = champHTML({ nom: "niveau", label: "Niveau de création", type: "select", options: ["1. Catalogue : un modèle du catalogue à mon nom", "2. Personnalisé : on adapte un élément du catalogue", "3. Création unique : mon univers de A à Z", "Je ne sais pas, conseillez-moi"] }, uid);
@@ -455,7 +459,7 @@
       <p class="sur-titre">${NOMS_CAT[o.categorie] || ""}</p>
       <h2 id="feuille-titre">${echap(o.titre)}</h2>
       <p class="feuille__accroche">${echap(o.accroche)}</p>
-      <div class="tarifs">${o.formules.map((f) => `<div class="tarif ${f.populaire && o.formules.length > 1 ? "pop" : ""}"><span><strong>${echap(f.nom)}</strong><small>${echap(f.detail)}</small></span><b>${prix(f.prix)}</b></div>`).join("")}</div>
+      <div class="tarifs">${o.formules.map((f) => `<div class="tarif ${f.populaire && o.formules.length > 1 ? "pop" : ""}"><span><strong>${echap(f.nom)}</strong><small>${echap(f.detail)}</small></span><b>${prixF(f)}</b></div>`).join("")}</div>${C.euro && C.euro.note ? `<p class="note-euro">${echap(C.euro.note)}</p>` : ""}
       <ul class="inclus"><li><strong>Rendez-vous conseil inclus</strong> : on choisit ensemble ce qui vous ressemble</li>${o.inclus.map((i) => `<li>${echap(i)}</li>`).join("")}</ul>
       <span class="delai">⏱ ${echap(o.delai)}</span>
       <a class="guide" href="#" data-vers-fiche><span class="guide__texte">Ça vous plaît&nbsp;? Remplissez la fiche juste en dessous</span><span class="guide__fleche" aria-hidden="true">↓</span></a>
