@@ -147,7 +147,7 @@ window.MAENIS = {
 
   offres: [
     {
-      id: "dessin-anime-enfant",
+      id: "dessin-anime-enfant", photos: 4,
       guetteur: "zara-etoiles",
       categorie: "enfants",
       titre: "Votre enfant, héros de son dessin animé",
@@ -169,7 +169,7 @@ window.MAENIS = {
         "En français, en anglais ou les deux",
         "Un thème au choix : alphabet, chiffres, couleurs, formes, animaux, politesse, hygiène…"
       ],
-      delai: "Abonnement : une nouvelle vidéo chaque vendredi soir",
+      delai: "Vidéo prête en 4 à 7 jours selon la complexité (souvent avant !) · abonnement : une nouvelle vidéo chaque vendredi soir",
       champs: [
         { nom: "prenom_enfant", label: "Prénom de l'enfant", type: "text", requis: true },
         { nom: "age_enfant", label: "Son âge", type: "select", options: ["1 an", "2 ans", "3 ans", "4 ans", "5 ans", "6 ans", "Plus de 6 ans"], requis: true },
@@ -179,7 +179,7 @@ window.MAENIS = {
       ]
     },
     {
-      id: "portrait-pop-art",
+      id: "portrait-pop-art", photos: 4,
       guetteur: "princesse-ayo",
       categorie: "pop-art",
       titre: "Votre photo en œuvre pop art",
@@ -213,7 +213,7 @@ window.MAENIS = {
         "D'autres styles possibles en rendez-vous",
         "Idéal en cadeau : anniversaire, mariage, fête des mères"
       ],
-      delai: "Tableau livré en 10 à 15 jours",
+      delai: "Tableau livré en 7 jours maximum",
       champs: [
         { nom: "style", label: "Style qui vous plaît", type: "chips", options: ["Bande dessinée", "Warhol (4 couleurs)", "Wax", "Graffiti", "Collage", "Figurine", "Figurine dans sa boîte", "Je ne sais pas encore"] },
         { nom: "qui", label: "Qui sera sur l'œuvre ?", type: "select", options: ["Moi", "Un couple", "Ma famille", "Un enfant", "C'est un cadeau pour quelqu'un"] },
@@ -223,7 +223,7 @@ window.MAENIS = {
       ]
     },
     {
-      id: "livre-coloriage",
+      id: "livre-coloriage", photos: 4,
       guetteur: "papillon-pepin",
       categorie: "enfants",
       titre: "Son monde à lui, en livre de coloriage",
@@ -248,7 +248,7 @@ window.MAENIS = {
         "En PDF : la fiche pour votre imprimeur (papier, format, reliure). Version imprimée livrée à Douala, ailleurs frais d'envoi à votre charge",
         "Un aperçu gratuit avant de payer, une retouche offerte"
       ],
-      delai: "Aperçu sous 24 à 48 h",
+      delai: "Aperçu sous 24 à 48 h · livre imprimé livré en 10 jours après l'acompte",
       champs: [
         { nom: "prenom_enfant", label: "Prénom de l'enfant (ou des enfants)", type: "text", requis: true },
         { nom: "age_enfant", label: "Âge", type: "text" },
@@ -257,7 +257,7 @@ window.MAENIS = {
       ]
     },
     {
-      id: "pub-video-boutique",
+      id: "pub-video-boutique", photosOption: true,
       guetteur: "mama-tokpa",
       categorie: "pro",
       titre: "La pub vidéo de votre boutique",
@@ -317,7 +317,7 @@ window.MAENIS = {
       ]
     },
     {
-      id: "serie-personnage",
+      id: "serie-personnage", photosOption: true,
       guetteur: "fee-liya",
       categorie: "pro",
       titre: "Votre personnage ou votre série animée",

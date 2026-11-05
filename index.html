@@ -40,10 +40,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Instrument+Serif:ital@0;1&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=202611042012">
-  <link rel="stylesheet" href="monde.css?v=202611042012">
-  <link rel="stylesheet" href="nuit.css?v=202611042012">
-  <link rel="stylesheet" href="studio.css?v=202611042012">
+  <link rel="stylesheet" href="style.css?v=202611051011">
+  <link rel="stylesheet" href="monde.css?v=202611051011">
+  <link rel="stylesheet" href="nuit.css?v=202611051011">
+  <link rel="stylesheet" href="studio.css?v=202611051011">
 </head>
 <body>
   <a class="skip" href="#catalogue">Aller au catalogue</a>
@@ -230,7 +230,7 @@
           <li class="station"><div class="station__illu illu-fiche" aria-hidden="true"><span class="tel-mini"><i></i><i></i><i></i><b>✓</b></span></div><div class="station__texte"><span class="station__num">1</span><h3>Vous remplissez la fiche</h3><p>Choisissez une création et dites-moi tout. Vous recevez aussitôt votre <strong>numéro client</strong>.</p></div></li>
           <li class="station"><div class="station__illu illu-rdv" aria-hidden="true"><span class="calendrier"><b>RDV</b><i>12</i></span></div><div class="station__texte"><span class="station__num">2</span><h3>Vous proposez un rendez-vous</h3><p>Le jour, le moment et le moyen qui vous arrangent : appel WhatsApp, visio ou messages.</p></div></li>
           <li class="station"><div class="station__illu illu-ok" aria-hidden="true"><span class="bulle-wa">Rendez-vous confirmé ! ✅</span><span class="bulle-wa bulle-wa--2">Merci Marie 😍</span></div><div class="station__texte"><span class="station__num">3</span><h3>Je confirme</h3><p>Je vous réponds sur WhatsApp pour confirmer le rendez-vous, ou vous proposer un autre moment.</p></div></li>
-          <li class="station"><div class="station__illu illu-acompte" aria-hidden="true"><span class="piece">F</span><span class="piece">C</span><span class="piece">F</span><span class="piece">A</span><span class="moitie">50 %</span></div><div class="station__texte"><span class="station__num">4</span><h3>Acompte de 50 %</h3><p>Par Orange Money ou PayPal (le numéro ou le lien arrive avec la confirmation), en indiquant votre numéro MS-…. Le reste se paie à la livraison.</p></div></li>
+          <li class="station"><div class="station__illu illu-acompte" aria-hidden="true"><span class="piece">F</span><span class="piece">C</span><span class="piece">F</span><span class="piece">A</span><span class="moitie">50 %</span></div><div class="station__texte"><span class="station__num">4</span><h3>Acompte de 50 %</h3><p>Par Orange Money ou PayPal, avec votre numéro MS-…. Faites une capture d'écran du paiement et déposez-la avec le lien reçu par mail : la création démarre dès la confirmation. Le reste se paie avant la livraison, de la même façon.</p></div></li>
           <li class="station"><div class="station__illu illu-creation" aria-hidden="true"><span class="toile"><img src="images/popart-warhol.webp" alt=""></span><span class="pinceau">🖌️</span></div><div class="station__texte"><span class="station__num">5</span><h3>Je crée</h3><p>Vous recevez un aperçu, et vous pouvez demander une retouche.</p></div></li>
           <li class="station"><div class="station__illu illu-livraison" aria-hidden="true"><span class="cadeau">🎁</span><span class="etoiles">✨</span></div><div class="station__texte"><span class="station__num">6</span><h3>Livraison</h3><p>Fichier HD, vidéo ou tableau livré. Vous réglez le solde et vous profitez !</p></div></li>
         </ol>
@@ -337,7 +337,7 @@
         <details class="reveal"><summary>Comment j'envoie les photos&nbsp;?</summary><p>Sur WhatsApp ou par mail, après avoir rempli la fiche. Envoyez 2 ou 3 photos de face, bien éclairées, sans lunettes de soleil.</p></details>
         <details class="reveal"><summary>Le rendez-vous est obligatoire&nbsp;?</summary><p>Il permet de bien comprendre ce que vous voulez. Il peut se faire par appel WhatsApp, en visio ou simplement par messages.</p></details>
         <details class="reveal"><summary>Et si le résultat ne me plaît pas&nbsp;?</summary><p>Vous recevez un aperçu avant la version finale, et vous pouvez demander une retouche.</p></details>
-        <details class="reveal"><summary>Pourquoi un acompte&nbsp;?</summary><p>Chaque création est faite sur mesure et demande du temps et des outils d'animation payants. L'acompte de 50 % lance le travail, le reste se paie à la livraison.</p></details>
+        <details class="reveal"><summary>Pourquoi un acompte&nbsp;?</summary><p>Chaque création est faite sur mesure et demande du temps et des outils d'animation payants. L'acompte de 50 % lance le travail, le reste se paie avant la livraison. Pour chaque paiement, vous déposez la capture d'écran avec le lien reçu par mail.</p></details>
       </div>
     </section>
 
@@ -400,6 +400,7 @@
       <p class="merci__info" id="merci-info"></p>
       <p class="merci__guide" id="merci-guide"><span class="fleche-bas" aria-hidden="true">↓</span> Dernière étape&nbsp;: appuyez sur ce bouton</p>
       <div class="merci__actions">
+        <a class="btn btn--bordeaux" id="merci-espace" href="espace.html" hidden>Suivre ma commande</a>
         <a class="btn btn--or" id="merci-whatsapp" href="#" target="_blank" rel="noopener">Envoyer sur WhatsApp</a>
         <button class="btn btn--ligne" id="merci-copier" type="button">Copier mon numéro client</button>
       </div>
@@ -409,8 +410,9 @@
   </dialog>
 
   <canvas class="feux" aria-hidden="true"></canvas>
-  <script src="config.js?v=202611042012"></script>
-  <script src="app.js?v=202611042012"></script>
-  <script src="monde.js?v=202611042012"></script>
+  <script src="config.js?v=202611051011"></script>
+  <script src="photos.js?v=202611051011"></script>
+  <script src="app.js?v=202611051011"></script>
+  <script src="monde.js?v=202611051011"></script>
 </body>
 </html>

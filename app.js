@@ -206,45 +206,108 @@
     });
   }));
 
-  /* ---------- Fiche de contact ---------- */
+  /* ---------- Fiche de contact : un panier de créations ---------- */
   const aujourdhui = new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
-  let compteurFiche = 0;
-  const champHTML = (ch, uid) => {
-    const id = `${uid}-${ch.nom}`;
+  let compteurFiche = 0, compteurArticle = 0;
+  const PHOTOS = window.MaenisPhotos;
+  const photosDe = new Map();                 // section d'article → photos préparées
+  const champHTML = (ch, aid) => {
+    const id = `${aid}-${ch.nom}`, nom = `${aid}:d_${ch.nom}`;
     const req = ch.requis ? " required" : "";
     const lab = `<label for="${id}">${echap(ch.label)}${ch.requis ? ' <span class="req">*</span>' : ""}</label>`;
-    if (ch.type === "select") return `<div class="champ">${lab}<select id="${id}" name="d_${ch.nom}"${req}><option value="">Choisir…</option>${ch.options.map((o) => `<option>${echap(o)}</option>`).join("")}</select></div>`;
-    if (ch.type === "textarea") return `<div class="champ champ--plein">${lab}<textarea id="${id}" name="d_${ch.nom}"${req}></textarea></div>`;
-    if (ch.type === "chips") return `<div class="champ champ--plein"><span class="label">${echap(ch.label)}</span><div class="puces">${ch.options.map((o) => `<label class="puce"><input type="checkbox" name="d_${ch.nom}" value="${echap(o)}"><span>${echap(o)}</span></label>`).join("")}</div></div>`;
-    return `<div class="champ">${lab}<input id="${id}" name="d_${ch.nom}" type="text"${req}></div>`;
+    if (ch.type === "select") return `<div class="champ">${lab}<select id="${id}" name="${nom}"${req}><option value="">Choisir…</option>${ch.options.map((o) => `<option>${echap(o)}</option>`).join("")}</select></div>`;
+    if (ch.type === "textarea") return `<div class="champ champ--plein">${lab}<textarea id="${id}" name="${nom}"${req}></textarea></div>`;
+    if (ch.type === "chips") return `<div class="champ champ--plein"><span class="label">${echap(ch.label)}</span><div class="puces">${ch.options.map((o) => `<label class="puce"><input type="checkbox" name="${nom}" value="${echap(o)}"><span>${echap(o)}</span></label>`).join("")}</div></div>`;
+    return `<div class="champ">${lab}<input id="${id}" name="${nom}" type="text"${req}></div>`;
+  };
+  const TECH = C.tech ? [...C.tech.offres.map((o) => ({ titre: "Maënis Tech : " + o.titre, prix: o.prix, tech: true })), { titre: "Maënis Tech : " + C.tech.pack.titre, prix: C.tech.pack.prix, tech: true }] : [];
+  const offreParTitre = (t) => C.offres.find((o) => o.titre === t) || TECH.find((o) => o.titre === t) || null;
+  const estPhysique = (texte) => /tableau|imprim|reli/i.test(texte || "");
+
+  const corpsOffre = (o, aid) => {
+    if (!o || o.tech) return "";
+    const formules = `<div class="formules-choix">
+        ${o.formules.map((f, i) => `<div class="formule-choix"><input type="radio" id="${aid}-fo${i}" name="${aid}:formule" value="${echap(f.nom)}" data-prix="${f.prix || 0}" ${f.populaire ? "checked" : ""} required><label for="${aid}-fo${i}"><span>${echap(f.nom)}<small>${echap(f.detail)}</small></span><b>${prixF(f)}</b></label></div>`).join("")}
+        <div class="formule-choix"><input type="radio" id="${aid}-fox" name="${aid}:formule" value="Je veux en parler en rendez-vous" data-prix="0"><label for="${aid}-fox"><span>Je ne sais pas encore<small>On en parle pendant le rendez-vous</small></span><b>…</b></label></div>
+      </div>`;
+    const niveau = champHTML({ nom: "niveau", label: "Niveau de création", type: "select", options: ["1. Catalogue : un modèle du catalogue à mon nom", "2. Personnalisé : on adapte un élément du catalogue", "3. Création unique : mon univers de A à Z", "Je ne sais pas, conseillez-moi"] }, aid);
+    return `<p class="article__sous">La formule</p>${formules}<p class="article__sous">Parlez-moi du projet</p><div class="champs">${niveau}${(o.champs || []).map((c) => champHTML(c, aid)).join("")}</div>`;
+  };
+
+  const photosHTML = (o, aid, autre) => {
+    if (!o || !(o.photos || o.photosOption)) return "";
+    const n = o.photos || 0;
+    return `<div class="photos" data-requises="${n}">
+      <p class="article__sous">${n ? `Vos photos <span class="req">*</span>` : "Photos ou logo (facultatif)"}</p>
+      <p class="photos__consigne">${n ? `<strong>${n} photos minimum</strong> de la personne : de face, de profil, de trois quarts et en entier. De jour, près d'une fenêtre, sans filtre.` : "Votre logo, vos produits ou votre boutique : ça m'aide à préparer le rendez-vous."}</p>
+      ${autre ? `<label class="photos__memes"><input type="checkbox" name="${aid}:memes" value="${autre.lettre}"> <span>Mêmes photos que la création ${autre.num}</span></label>` : ""}
+      <div class="photos__grille"></div>
+      <label class="photos__ajout"><input type="file" accept="image/*" multiple><span>📷 Ajouter des photos</span></label>
+      <p class="photos__etat" aria-live="polite">${n ? `0 / ${n}` : ""}</p>
+    </div>`;
+  };
+
+  const articleHTML = (aid, index, offreFixe) => {
+    const choix = offreFixe ? `<input type="hidden" name="${aid}:offre" value="${echap(offreFixe.titre)}">` : `
+      <div class="champ champ--plein"><label for="${aid}-offre">Ce qui vous intéresse <span class="req">*</span></label>
+        <select id="${aid}-offre" name="${aid}:offre" class="article__offre" required><option value="">Choisir…</option>${C.offres.map((o) => `<option>${echap(o.titre)}</option>`).join("")}${TECH.length ? `<optgroup label="Maënis Tech">${TECH.map((o) => `<option>${echap(o.titre)}</option>`).join("")}</optgroup>` : ""}<option>Autre chose</option></select></div>`;
+    return `<section class="article" data-aid="${aid}">
+      <header class="article__tete"><span class="article__num">Création ${index + 1}${offreFixe ? ` · ${echap(offreFixe.titre)}` : ""}</span>${index ? `<button type="button" class="article__retirer">Retirer</button>` : ""}</header>
+      ${choix}
+      <div class="article__corps">${offreFixe ? corpsOffre(offreFixe, aid) : ""}</div>
+      <div class="article__photos">${offreFixe ? photosHTML(offreFixe, aid, null) : ""}</div>
+      <div class="pourqui">
+        <span class="article__sous">C'est pour…</span>
+        <div class="pourqui__choix">
+          <label><input type="radio" name="${aid}:pour" value="moi" checked><span>Moi</span></label>
+          <label><input type="radio" name="${aid}:pour" value="cadeau"><span>🎁 Un cadeau</span></label>
+        </div>
+        <div class="cadeau" hidden>
+          <p class="cadeau__offerte">💌 Une <strong>carte personnalisée assortie</strong> est offerte avec chaque cadeau.</p>
+          <div class="champs">
+            <div class="champ"><label for="${aid}-occ">Occasion</label><select id="${aid}-occ" name="${aid}:occasion"><option value="">Choisir…</option><option>Anniversaire</option><option>Mariage</option><option>Naissance</option><option>Fête des mères</option><option>Fête des pères</option><option>Noël</option><option>Saint-Valentin</option><option>Remerciement</option><option>Autre</option></select></div>
+            <div class="champ"><label for="${aid}-pd">Prénom de la personne</label><input id="${aid}-pd" name="${aid}:prenom_dest" autocomplete="off"></div>
+            <div class="champ champ--plein"><label for="${aid}-carte">Message pour la carte <small>(ex. « Joyeux anniversaire Maman ! »)</small></label><textarea id="${aid}-carte" name="${aid}:carte" maxlength="400"></textarea></div>
+            <div class="champ"><label for="${aid}-ds">Pour quelle date&nbsp;?</label><input id="${aid}-ds" name="${aid}:date_souhaitee" type="date" min="${aujourdhui}"></div>
+            <label class="consent cadeau__anonyme"><input type="checkbox" name="${aid}:anonyme" value="oui"> <span>Cadeau anonyme (on ne dit pas de qui il vient)</span></label>
+          </div>
+          <div class="cadeau__livraison" hidden>
+            <span class="article__sous">Où le livrer&nbsp;?</span>
+            <div class="pourqui__choix">
+              <label><input type="radio" name="${aid}:livrer_a" value="moi" checked><span>À moi</span></label>
+              <label><input type="radio" name="${aid}:livrer_a" value="destinataire"><span>Directement à la personne</span></label>
+            </div>
+            <div class="champs cadeau__dest" hidden>
+              <div class="champ"><label for="${aid}-dn">Nom de la personne</label><input id="${aid}-dn" name="${aid}:dest_nom"></div>
+              <div class="champ"><label for="${aid}-dt">Son téléphone <small>(pour la livraison)</small></label><input id="${aid}-dt" name="${aid}:dest_tel" type="tel"></div>
+              <div class="champ"><label for="${aid}-dv">Ville</label><input id="${aid}-dv" name="${aid}:dest_ville"></div>
+              <div class="champ"><label for="${aid}-da">Quartier, adresse, repères</label><input id="${aid}-da" name="${aid}:dest_adresse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>`;
   };
 
   const construireFiche = (offre) => {
     const uid = "f" + ++compteurFiche;
     let etape = 0;
     const n = () => ++etape;
-    const choixOffre = offre ? `<input type="hidden" name="offre" value="${echap(offre.titre)}">` : `
-      <div class="champ champ--plein"><label for="${uid}-offre">Ce qui vous intéresse <span class="req">*</span></label>
-        <select id="${uid}-offre" name="offre" required><option value="">Choisir…</option>${C.offres.map((o) => `<option>${echap(o.titre)}</option>`).join("")}${C.tech ? `<optgroup label="Maënis Tech">${C.tech.offres.map((o) => `<option>Maënis Tech : ${echap(o.titre)}</option>`).join("")}<option>Maënis Tech : ${echap(C.tech.pack.titre)}</option></optgroup>` : ""}<option>Autre chose</option></select></div>`;
-    const formules = offre ? `
-      <fieldset><legend><span class="num">${n()}</span>Choisissez la formule</legend><div class="formules-choix">
-        ${offre.formules.map((f, i) => `<div class="formule-choix"><input type="radio" id="${uid}-fo${i}" name="formule" value="${echap(f.nom)} (${f.apartir && f.prix ? "à partir de " : ""}${prixTexte(f.prix)})" ${f.populaire ? "checked" : ""} required><label for="${uid}-fo${i}"><span>${echap(f.nom)}<small>${echap(f.detail)}</small></span><b>${prixF(f)}</b></label></div>`).join("")}
-        <div class="formule-choix"><input type="radio" id="${uid}-fox" name="formule" value="Je veux en parler en rendez-vous"><label for="${uid}-fox"><span>Je ne sais pas encore<small>On en parle pendant le rendez-vous</small></span><b>…</b></label></div>
-      </div></fieldset>` : "";
-    const niveau = champHTML({ nom: "niveau", label: "Niveau de création", type: "select", options: ["1. Catalogue : un modèle du catalogue à mon nom", "2. Personnalisé : on adapte un élément du catalogue", "3. Création unique : mon univers de A à Z", "Je ne sais pas, conseillez-moi"] }, uid);
-    const specifiques = offre ? `<fieldset><legend><span class="num">${n()}</span>Parlez-moi de votre projet</legend><div class="champs">${niveau}${(offre.champs || []).map((c) => champHTML(c, uid)).join("")}</div></fieldset>` : "";
     return `
-    <form class="fiche" novalidate>
+    <form class="fiche" novalidate data-uid="${uid}">
       <h3>Fiche de prise de contact</h3>
       <p class="fiche__sous">${offre ? echap(offre.titre) + " · " : ""}Réponse et confirmation du rendez-vous sur WhatsApp.</p>
-      ${formules}
-      ${specifiques}
+      <fieldset class="panier"><legend><span class="num">${n()}</span>Vos créations</legend>
+        <div class="panier__liste">${articleHTML(uid + "a" + ++compteurArticle, 0, offre)}</div>
+        <button type="button" class="panier__ajout">+ Ajouter une autre création</button>
+        <p class="panier__total" aria-live="polite"></p>
+      </fieldset>
       <fieldset><legend><span class="num">${n()}</span>Vos coordonnées</legend><div class="champs">
-        ${choixOffre}
         <div class="champ"><label for="${uid}-nom">Nom et prénom <span class="req">*</span></label><input id="${uid}-nom" name="nom" autocomplete="name" required></div>
-        <div class="champ"><label for="${uid}-wa">Numéro WhatsApp <span class="req">*</span></label><input id="${uid}-wa" name="whatsapp" type="tel" autocomplete="tel" placeholder="+237 6…" required pattern="[+0-9 ().-]{8,}"></div>
-        <div class="champ"><label for="${uid}-mail">Adresse mail</label><input id="${uid}-mail" name="email" type="email" autocomplete="email"></div>
+        <div class="champ"><label for="${uid}-wa">Numéro WhatsApp <span class="req">*</span></label><input id="${uid}-wa" name="whatsapp" type="tel" autocomplete="tel" placeholder="+237 6…" required pattern="[0-9+ \\(\\)\\.\\-]{8,}"></div>
+        <div class="champ"><label for="${uid}-mail">Adresse mail <span class="req">*</span></label><input id="${uid}-mail" name="email" type="email" autocomplete="email" required></div>
         <div class="champ"><label for="${uid}-ville">Ville et pays <span class="req">*</span></label><input id="${uid}-ville" name="ville" autocomplete="address-level2" required></div>
+        <div class="champ champ--plein"><label for="${uid}-adr">Quartier, adresse de livraison <small>(pour un tableau ou un livre imprimé)</small></label><input id="${uid}-adr" name="adresse" autocomplete="street-address" placeholder="Ex. Bonapriso, près de la pharmacie…"></div>
         <div class="champ"><label for="${uid}-num">Votre numéro client <small>(si vous en avez déjà un)</small></label><input id="${uid}-num" name="numero_client" placeholder="MS-0001" autocomplete="off" value="${echap(memoire.lire("maenis-numero-client"))}"></div>
         <div class="champ"><label for="${uid}-anniv">Date d'anniversaire <small>(+${F.anniversaire} points cadeaux)</small></label><input id="${uid}-anniv" name="anniversaire" type="date" max="${aujourdhui}"></div>
         <div class="champ champ--plein"><label for="${uid}-parrain">Code parrainage <small>(le numéro client de l'ami qui vous envoie, ex. MS-0001)</small></label><input id="${uid}-parrain" name="parrain" autocomplete="off" value="${echap(memoire.lire("maenis-parrain"))}"></div>
@@ -254,46 +317,131 @@
         <div class="champ"><label for="${uid}-cr">Moment <span class="req">*</span></label><select id="${uid}-cr" name="rdv_creneau" required><option value="">Choisir…</option><option>Matin (9 h - 12 h)</option><option>Après-midi (12 h - 17 h)</option><option>Soir (17 h - 20 h)</option></select></div>
         <div class="champ"><label for="${uid}-moy">Comment&nbsp;?</label><select id="${uid}-moy" name="rdv_moyen"><option>Appel WhatsApp</option><option>Visio</option><option>Messages WhatsApp</option></select></div>
         <div class="champ"><label for="${uid}-pay">Paiement prévu</label><select id="${uid}-pay" name="paiement"><option>Orange Money</option><option>PayPal</option><option>Je ne sais pas encore</option></select></div>
-        <div class="champ champ--plein"><label for="${uid}-msg">Autre chose à me dire</label><textarea id="${uid}-msg" name="message" placeholder="Occasion, date souhaitée pour la livraison, idées…">${echap(window.universChoisi ? "Univers souhaité : " + window.universChoisi : "")}</textarea></div>
+        <div class="champ champ--plein"><label for="${uid}-msg">Autre chose à me dire</label><textarea id="${uid}-msg" name="message" placeholder="Idées, contraintes, questions…">${echap(window.universChoisi ? "Univers souhaité : " + window.universChoisi : "")}</textarea></div>
       </div></fieldset>
       <input class="piege" name="site_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="fiche__acompte"><strong>Comment se passe l'acompte ?</strong> Une fois le prix fixé ensemble, vous recevez <strong>par mail un lien</strong>. Après votre versement de ${C.paiement.acompte} % (Orange Money ou PayPal), faites une <strong>capture d'écran</strong> du paiement et déposez-la avec ce lien : dès qu'elle est confirmée, votre création entre en production.</div>
       <p class="fiche__derniere"><span class="num">${n()}</span>Cochez la case, puis appuyez sur le bouton <span class="fleche-bas" aria-hidden="true">↓</span></p>
-      <label class="consent"><input type="checkbox" name="accord" required> <span>J'ai compris que le rendez-vous sera confirmé par Marie, et qu'un acompte de ${C.paiement.acompte} % est demandé avant le début de la création. Mes informations servent uniquement à traiter ma demande.</span></label>
+      <label class="consent"><input type="checkbox" name="accord" required> <span>J'ai compris que le rendez-vous sera confirmé par Marie, qu'un acompte de ${C.paiement.acompte} % est demandé avant le début de la création, et que je déposerai la capture d'écran de mon paiement avec le lien reçu par mail. Mes informations et mes photos servent uniquement à ma commande.</span></label>
       <button class="btn btn--bordeaux fiche__envoi" type="submit">Envoyer ma fiche et recevoir mon numéro <span aria-hidden="true">→</span></button>
       <p class="fiche__erreur" role="alert"></p>
-      <p class="fiche__bas">Les photos s'envoient ensuite sur WhatsApp ou par mail.</p>
+      <p class="fiche__bas">Vous pourrez suivre votre commande et envoyer d'autres photos depuis « Mon espace ».</p>
     </form>`;
   };
 
-  const LABELS = {};
-  C.offres.forEach((o) => (o.champs || []).forEach((c) => (LABELS[c.nom] = c.label)));
+  /* --- comportement d'un article : choix de l'offre, photos, cadeau --- */
+  const articlesDe = (form) => $$(".article", form);
+  const offreDe = (sec) => offreParTitre(($(`[name="${sec.dataset.aid}:offre"]`, sec) || {}).value);
+  const formuleDe = (sec) => $(`[name="${sec.dataset.aid}:formule"]:checked`, sec);
+  const majArticle = (sec) => {
+    const aid = sec.dataset.aid, o = offreDe(sec), f = formuleDe(sec);
+    const texte = (o ? o.titre : "") + " " + (f ? f.value : "");
+    const cadeau = $(`[name="${aid}:pour"]:checked`, sec).value === "cadeau";
+    $(".cadeau", sec).hidden = !cadeau;
+    $(".cadeau__livraison", sec).hidden = !estPhysique(texte);
+    $(".cadeau__dest", sec).hidden = $(`[name="${aid}:livrer_a"]:checked`, sec).value !== "destinataire";
+    const memes = $(".photos__memes input", sec);
+    const p = $(".photos", sec);
+    if (p) { $(".photos__grille", p).hidden = $(".photos__ajout", p).hidden = !!(memes && memes.checked); majPhotos(sec); }
+    majTotal(sec.closest("form"));
+  };
+  const majPhotos = (sec) => {
+    const p = $(".photos", sec); if (!p) return;
+    const l = photosDe.get(sec) || [], n = Number(p.dataset.requises), bonnes = l.filter((x) => x.avis.ok).length;
+    $(".photos__grille", p).innerHTML = l.map((x, i) => `<figure class="photo ${x.avis.ok ? (x.avis.attention ? "photo--doute" : "photo--ok") : "photo--non"}">
+      <img src="${x.apercu}" alt=""><figcaption>${x.avis.ok ? (x.avis.attention ? "⚠️ " : "✓ ") : "✗ "}${x.avis.texte}</figcaption>
+      <button type="button" class="photo__retirer" data-i="${i}" aria-label="Retirer cette photo">×</button></figure>`).join("");
+    const memes = $(".photos__memes input", sec);
+    $(".photos__etat", p).textContent = memes && memes.checked ? "Mêmes photos que l'autre création ✓"
+      : n ? (bonnes >= n ? `✓ ${bonnes} photos, c'est parfait` : `${bonnes} / ${n} photos`) + (l.length > bonnes ? " · les photos trop petites ne comptent pas" : "")
+      : (l.length ? `${l.length} fichier${l.length > 1 ? "s" : ""}` : "");
+  };
+  const remplirArticle = (sec) => {
+    const o = offreDe(sec), aid = sec.dataset.aid, form = sec.closest("form");
+    $(".article__corps", sec).innerHTML = corpsOffre(o, aid);
+    const idx = articlesDe(form).indexOf(sec);
+    const avant = articlesDe(form).slice(0, idx).map((s, i) => ({ s, i, o: offreDe(s) })).filter((x) => x.o && x.o.photos).pop();
+    photosDe.delete(sec);
+    $(".article__photos", sec).innerHTML = photosHTML(o, aid, o && o.photos && avant ? { lettre: String.fromCharCode(65 + avant.i), num: avant.i + 1 } : null);
+    majArticle(sec);
+  };
+  const majTotal = (form) => {
+    if (!form) return;
+    let t = 0, tous = true;
+    articlesDe(form).forEach((s) => { const f = formuleDe(s), o = offreDe(s); const p = f ? Number(f.dataset.prix) : o && o.tech ? o.prix : 0; if (p) t += p; else tous = false; });
+    const el = $(".panier__total", form), n = articlesDe(form).length;
+    el.innerHTML = t ? `${n > 1 ? n + " créations · " : ""}prix de départ : <strong>${tous ? "" : "au moins "}${prixTexte(t)}</strong> <small>(le prix final est fixé ensemble au rendez-vous)</small>` : "";
+  };
+  const brancherArticle = (sec) => {
+    sec.addEventListener("change", async (e) => {
+      if (e.target.matches(".article__offre")) return remplirArticle(sec);
+      if (e.target.matches(".photos__ajout input")) {
+        const l = photosDe.get(sec) || []; photosDe.set(sec, l);
+        const etat = $(".photos__etat", sec); etat.textContent = "Préparation des photos…";
+        for (const f of [...e.target.files].slice(0, 12)) {
+          try { const x = await PHOTOS.preparer(f); x.avis = PHOTOS.avis(x); l.push(x); }
+          catch (err) { l.push({ apercu: "", avis: { ok: false, texte: "Format illisible" } }); }
+        }
+        e.target.value = "";
+        return majPhotos(sec);
+      }
+      majArticle(sec);
+    });
+    sec.addEventListener("click", (e) => {
+      const r = e.target.closest(".photo__retirer");
+      if (r) { (photosDe.get(sec) || []).splice(Number(r.dataset.i), 1); return majPhotos(sec); }
+      if (e.target.closest(".article__retirer")) {
+        const form = sec.closest("form"); photosDe.delete(sec); sec.remove();
+        articlesDe(form).forEach((s, i) => { const t = $(".article__num", s); t.textContent = t.textContent.replace(/^Création \d+/, "Création " + (i + 1)); });
+        majTotal(form);
+      }
+    });
+    majArticle(sec);
+  };
+
   const lireFiche = (form) => {
-    const fd = new FormData(form);
-    const d = { details: {} };
-    for (const [k, v] of fd.entries()) {
-      if (k.startsWith("d_")) {
+    const d = {}, groupes = {};
+    for (const [k, v] of new FormData(form).entries()) {
+      const i = k.indexOf(":");
+      if (i < 0) { d[k] = v; continue; }
+      const aid = k.slice(0, i), cle = k.slice(i + 1), g = (groupes[aid] = groupes[aid] || { details: {} });
+      if (cle.startsWith("d_")) {
         if (!v) continue;
         const champ = form.querySelector(`[name="${k}"]`)?.closest(".champ");
-        const n = (champ && $("label, .label", champ)?.textContent.replace("*", "").trim()) || LABELS[k.slice(2)] || k.slice(2);
-        d.details[n] = d.details[n] ? d.details[n] + ", " + v : v;
-      } else d[k] = v;
+        const n = (champ && $("label, .label", champ)?.textContent.replace("*", "").trim()) || cle.slice(2);
+        g.details[n] = g.details[n] ? g.details[n] + ", " + v : v;
+      } else g[cle] = v;
     }
+    d.articles = articlesDe(form).map((sec) => {
+      const g = groupes[sec.dataset.aid] || { details: {} }, o = offreDe(sec), f = formuleDe(sec), p = $(".photos", sec);
+      const a = { offre: g.offre || "", formule: g.formule || "", prix_depart: f ? Number(f.dataset.prix) || 0 : o && o.tech ? o.prix : 0, details: g.details,
+        photos_requises: p && !g.memes ? Number(p.dataset.requises) : 0, photos_option: !!(p && !Number(p.dataset.requises)), memes_photos: g.memes || "", pour: g.pour || "moi" };
+      if (a.pour === "cadeau") Object.assign(a, { occasion: g.occasion || "", prenom_dest: g.prenom_dest || "", carte: g.carte || "", date_souhaitee: g.date_souhaitee || "",
+        anonyme: !!g.anonyme, livrer_a: estPhysique(a.offre + " " + a.formule) ? g.livrer_a || "moi" : "", dest_nom: g.dest_nom || "", dest_tel: g.dest_tel || "", dest_ville: g.dest_ville || "", dest_adresse: g.dest_adresse || "" });
+      return a;
+    });
+    d.offre = d.articles.map((a) => a.offre).join(" + ");
+    d.formule = d.articles[0] ? d.articles[0].formule : "";
     d.fuseau = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
     return d;
   };
 
   const resume = (d, id) => {
-    const l = [`Bonjour Marie ! Voici ma fiche de contact${id ? " (client " + id.client + ", commande " + id.commande + ")" : ""} :`, "",
-      `• Création : ${d.offre}`];
-    if (d.formule) l.push(`• Formule : ${d.formule}`);
-    for (const [k, v] of Object.entries(d.details)) l.push(`• ${k} : ${v}`);
-    l.push(`• Nom : ${d.nom}`, `• WhatsApp : ${d.whatsapp}`);
+    const l = [`Bonjour Marie ! Voici ma fiche de contact${id ? " (client " + id.client + ", commande " + id.commande + ")" : ""} :`, ""];
+    d.articles.forEach((a, i) => {
+      l.push(`• Création ${i + 1} : ${a.offre}${a.formule ? " · " + a.formule : ""}`);
+      for (const [k, v] of Object.entries(a.details)) l.push(`   ${k} : ${v}`);
+      if (a.pour === "cadeau") l.push(`   🎁 Cadeau${a.occasion ? " (" + a.occasion + ")" : ""}${a.prenom_dest ? " pour " + a.prenom_dest : ""}${a.carte ? " · carte : « " + a.carte + " »" : ""}`);
+    });
+    l.push("", `• Nom : ${d.nom}`, `• WhatsApp : ${d.whatsapp}`);
     if (d.email) l.push(`• Mail : ${d.email}`);
-    l.push(`• Ville : ${d.ville}`, `• Rendez-vous souhaité : ${new Date(d.rdv_date + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}, ${d.rdv_creneau}, ${d.rdv_moyen}`,
-      `• Paiement prévu : ${d.paiement}`);
+    l.push(`• Ville : ${d.ville}`);
+    if (d.adresse) l.push(`• Adresse : ${d.adresse}`);
+    l.push(`• Rendez-vous souhaité : ${new Date(d.rdv_date + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}, ${d.rdv_creneau}, ${d.rdv_moyen}`, `• Paiement prévu : ${d.paiement}`);
     if (d.anniversaire) l.push(`• Anniversaire : ${new Date(d.anniversaire + "T12:00").toLocaleDateString("fr-FR", { day: "numeric", month: "long" })}`);
     if (d.parrain) l.push(`• Parrainé par : ${d.parrain}`);
     if (d.message) l.push(`• Message : ${d.message}`);
+    if (!id || !id.jeton) l.push("", "(J'envoie mes photos juste après ce message.)");
     return l.join("\n");
   };
 
@@ -307,6 +455,8 @@
     return { client, commande: `${client}-${String(rang).padStart(2, "0")}`, nouveau: !d.numero_client && !memoire.lire("maenis-numero-client"), points: null };
   };
 
+  const posterJSON = async (o) => { const r = await fetch(C.backendUrl, { method: "POST", body: JSON.stringify(o) }); return r.json(); };
+
   const envoyer = async (form) => {
     const err = $(".fiche__erreur", form);
     err.textContent = "";
@@ -317,29 +467,51 @@
       premier?.focus();
       return;
     }
+    const secs = articlesDe(form);
+    for (let i = 0; i < secs.length; i++) {
+      const p = $(".photos", secs[i]), memes = $(".photos__memes input", secs[i]);
+      if (!p || !Number(p.dataset.requises) || (memes && memes.checked)) continue;
+      const bonnes = (photosDe.get(secs[i]) || []).filter((x) => x.avis.ok).length;
+      if (bonnes < Number(p.dataset.requises)) {
+        err.textContent = `Ajoutez au moins ${p.dataset.requises} photos nettes pour la création ${i + 1} (il y en a ${bonnes}).`;
+        p.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+    }
     const d = lireFiche(form);
     if (d.site_web) return; // robot
     delete d.site_web;
     const bouton = $(".fiche__envoi", form);
     bouton.disabled = true;
     bouton.textContent = "Envoi en cours…";
-    let id = null, enregistre = false;
+    let id = null, enregistre = false, photosRatees = 0;
     if (C.backendUrl) {
       try {
-        const r = await fetch(C.backendUrl, { method: "POST", body: JSON.stringify(d) });
-        const j = await r.json();
-        if (j.ok && j.idClient) { id = { client: j.idClient, commande: j.idCommande, nouveau: j.nouveau, points: j.points, code: j.code }; enregistre = true; }
+        const j = await posterJSON(d);
+        if (j.ok && j.idClient) { id = { client: j.idClient, commande: j.idCommande, nouveau: j.nouveau, points: j.points, code: j.code, jeton: j.jeton }; enregistre = true; }
+        if (enregistre && j.articles) {
+          const envois = [];
+          secs.forEach((s, i) => (photosDe.get(s) || []).filter((x) => x.avis.ok && x.data).forEach((x, k) => envois.push({ article: j.articles[i], index: k + 1, x })));
+          for (let n = 0; n < envois.length; n++) {
+            bouton.textContent = `Envoi des photos ${n + 1} / ${envois.length}…`;
+            const e = envois[n], corps = { action: "photo", commande: j.idCommande, jeton: j.jeton, article: e.article, index: e.index, mime: e.x.mime, data: e.x.data, largeur: e.x.largeur, hauteur: e.x.hauteur, nettete: e.x.nettete };
+            let r = null;
+            for (let essai = 0; essai < 2 && !(r && r.ok); essai++) { try { r = await posterJSON(corps); } catch (x) { r = null; } }
+            if (!(r && r.ok)) photosRatees++;
+          }
+        }
       } catch (e) { /* on passe par WhatsApp */ }
     }
     if (!id) id = idLocal(d);
     memoire.ecrire("maenis-numero-client", id.client);
     bouton.disabled = false;
     bouton.innerHTML = 'Envoyer ma fiche et recevoir mon numéro <span aria-hidden="true">→</span>';
-    afficherMerci(id, d, enregistre);
+    afficherMerci(id, d, enregistre, photosRatees);
     form.reset();
+    secs.forEach((s, i) => { photosDe.delete(s); if (i) s.remove(); else majArticle(s); });
   };
 
-  const afficherMerci = (id, d, enregistre) => {
+  const afficherMerci = (id, d, enregistre, photosRatees = 0) => {
     const dlg = $("#merci");
     $("#merci-id").textContent = id.client;
     $("#merci-commande").textContent = id.commande;
@@ -348,13 +520,16 @@
       ? `Ravie de vous revoir&nbsp;! Vous avez déjà <strong>${id.points} points</strong> de fidélité.`
       : `<strong>Gardez bien votre numéro client</strong> (faites une capture d'écran)&nbsp;: il est à vous pour toujours et cumule vos points de fidélité.`;
     $("#merci-info").innerHTML = enregistre
-      ? "Votre demande est bien enregistrée. Je vous confirme le rendez-vous sur WhatsApp. Indiquez votre numéro de commande dans le message du paiement."
-      : "Pour que je reçoive votre fiche, envoyez-la-moi sur WhatsApp. Je vous confirme ensuite le rendez-vous.";
+      ? "Votre demande est bien enregistrée et un mail de confirmation est parti. Je vous confirme le rendez-vous sur WhatsApp." +
+        (photosRatees ? ` <strong>${photosRatees} photo${photosRatees > 1 ? "s ne sont" : " n'est"} pas passée${photosRatees > 1 ? "s" : ""}</strong> : renvoyez-la depuis « Suivre ma commande ».` : "")
+      : "Pour que je reçoive votre fiche, envoyez-la-moi sur WhatsApp (avec vos photos). Je vous confirme ensuite le rendez-vous.";
     $("#merci-guide").hidden = enregistre;
     $("#merci-code").hidden = !id.code;
     if (id.code) $("#merci-code-val").textContent = id.code;
     $("#merci-parrain-code").textContent = id.client;
     $("#merci-parrain").hidden = !enregistre; // un numéro provisoire ne peut pas servir de code parrainage
+    const espace = $("#merci-espace");
+    if (espace) { espace.hidden = !(enregistre && id.jeton); espace.href = `espace.html?c=${encodeURIComponent(id.commande)}&j=${encodeURIComponent(id.jeton || "")}`; }
     const lienSite = location.origin + location.pathname + "?parrain=" + encodeURIComponent(id.client);
     $("#merci-parrain").href = "https://wa.me/?text=" + encodeURIComponent(`Je viens de réserver ma création chez Maënis Studio 🎨 Dessins animés, pop art, coloriages… Mon code parrainage : ${id.client}. Il est déjà rempli avec ce lien : ${lienSite}`);
     const wa = $("#merci-whatsapp");
@@ -410,7 +585,17 @@
   });
   $(".merci__fermer").addEventListener("click", () => $("#merci").close());
 
-  const brancherFiche = (racine) => $$("form.fiche", racine).forEach((f) => f.addEventListener("submit", (e) => { e.preventDefault(); envoyer(f); }));
+  const brancherFiche = (racine) => $$("form.fiche", racine).forEach((f) => {
+    f.addEventListener("submit", (e) => { e.preventDefault(); envoyer(f); });
+    articlesDe(f).forEach(brancherArticle);
+    $(".panier__ajout", f).addEventListener("click", () => {
+      const liste = $(".panier__liste", f), n = articlesDe(f).length;
+      if (n >= 8) return;
+      liste.insertAdjacentHTML("beforeend", articleHTML(f.dataset.uid + "a" + ++compteurArticle, n, null));
+      const s = liste.lastElementChild; brancherArticle(s);
+      s.scrollIntoView({ behavior: "smooth", block: "start" }); setTimeout(() => $("select", s)?.focus({ preventScroll: true }), 400);
+    });
+  });
   $("#fiche-generale").innerHTML = construireFiche(null);
   brancherFiche($("#fiche-generale"));
 
@@ -453,7 +638,7 @@
       </div>
       <p class="tech__regles">${echap(S.regles)}</p>`;
     $$("[data-tech]").forEach((b) => b.addEventListener("click", () => {
-      const sel = $("#fiche-generale select[name=offre]");
+      const sel = $("#fiche-generale .article__offre");
       if (sel) { sel.value = b.dataset.tech; sel.dispatchEvent(new Event("change", { bubbles: true })); }
     }));
   }
