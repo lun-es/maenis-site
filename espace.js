@@ -39,9 +39,24 @@
         <div class="barre" aria-hidden="true"><i style="width:${pc}%"></i></div>
         <p class="art__etat"><strong>${echap(ETAT_ART[a.etape] || a.etape)}</strong>${a.date && !/Livré|Annulé/.test(a.etape) ? ` · prévue pour le ${jour(a.date)}` : ""}</p>
         <div class="art__liens">
-          ${a.apercu ? `<a class="btn btn--petit" href="${echap(a.apercu)}" target="_blank" rel="noopener">👀 Voir l'aperçu</a>` : ""}
+          ${a.apercu && !a.vignette ? `<a class="btn btn--petit" href="${echap(a.apercu)}" target="_blank" rel="noopener">👀 Voir l'aperçu</a>` : ""}
           ${a.fichier ? `<a class="btn btn--petit" href="${echap(a.fichier)}" target="_blank" rel="noopener">⬇️ Mon fichier final</a>` : ""}
         </div>
+        ${a.apercu && !/Livré|Annulé/.test(a.etape) ? `<div class="apercu" data-apercu="${echap(a.id)}">
+          <p class="sous" style="margin-top:14px">Votre aperçu</p>
+          ${a.vignette ? `<a href="${echap(a.apercu)}" target="_blank" rel="noopener"><img class="apercu__img" src="${echap(a.vignette)}" alt="Aperçu de votre création (avec filigrane)"></a>` : ""}
+          ${a.etape === "Aperçu envoyé" ? `<div class="apercu__choix">
+            <button class="btn" type="button" data-avis="valide">✅ Je valide</button>
+            <button class="btn btn--blanc" type="button" data-avis="retouche">✏️ Je demande une retouche</button>
+          </div>
+          <form class="apercu__retouche" hidden>
+            <div class="champ"><label>Qu'aimeriez-vous changer ou ajouter ?</label><textarea name="message" required placeholder="Ex. plus de couleurs, enlever le chapeau, ajouter son doudou…"></textarea></div>
+            <p class="date">Retouches comprises : ${a.retouchesIncluses}${a.retouches ? ` · déjà demandées : ${a.retouches}` : ""}${a.retouches >= a.retouchesIncluses ? " · au-delà, Marie vous dira si un petit supplément s'applique." : ""}</p>
+            <button class="btn btn--bordeaux" type="submit">Envoyer ma demande</button>
+          </form>` : a.etape === "Retouches" ? `<p class="info info--attente">✏️ Votre demande de retouche est bien reçue : je vous envoie le nouvel aperçu dès qu'il est prêt.</p>`
+            : /✅/.test(a.avisClient) ? `<p class="info">✅ Vous avez validé cet aperçu, merci !</p>` : ""}
+          <p class="etat-apercu" aria-live="polite"></p>
+        </div>` : ""}
         ${besoinPhotos ? `<div class="payer" style="background:#FFF4F6;border-color:rgba(232,69,122,.45)">
           <p><strong>${a.avisPhotos === "À refaire" ? "J'ai besoin de nouvelles photos 📷" : `Il manque des photos (${recues} / ${a.photosRequises})`}</strong></p>
           ${a.consigne ? `<p style="font-size:.92rem">${echap(a.consigne)}</p>` : `<p style="font-size:.92rem">De face, de profil, de trois quarts et en entier. De jour, près d'une fenêtre, sans filtre.</p>`}
@@ -108,6 +123,25 @@
         } catch (err) { etat.innerHTML = `L'envoi n'a pas marché. Réessayez, ou <a href="${wa("Bonjour Marie, voici ma capture de paiement pour " + f.dataset.commande)}">envoyez-la sur WhatsApp</a>.`; b.disabled = false; b.textContent = "Envoyer ma capture"; }
       });
     });
+    $$("[data-apercu]", racine).forEach((z) => {
+      const envoyer = async (decision, message) => {
+        const bloc = z.closest("[data-commande-id]"), etat = $(".etat-apercu", z);
+        etat.textContent = "Envoi…";
+        try {
+          const r = await poster({ action: "avis-apercu", commande: bloc.dataset.commandeId, jeton: bloc.dataset.jeton, article: z.dataset.apercu, decision, message });
+          if (!r.ok) throw new Error(r.erreur);
+          $$(".apercu__choix, .apercu__retouche", z).forEach((x) => x.remove());
+          etat.innerHTML = decision === "valide" ? `<span class="info" style="display:block">✅ Merci ! Marie est prévenue : elle prépare la version finale.</span>`
+            : `<span class="info info--attente" style="display:block">✏️ Merci, c'est noté ! Je vous envoie le nouvel aperçu dès qu'il est prêt.${r.horsForfait ? " Cette retouche dépasse celles comprises dans votre formule : je vous dis s'il y a un petit supplément." : ""}</span>`;
+        } catch (err) { etat.textContent = "L'envoi n'a pas marché, réessayez dans un instant."; }
+      };
+      $$("[data-avis]", z).forEach((b) => b.addEventListener("click", () => {
+        if (b.dataset.avis === "valide") return envoyer("valide", "");
+        $(".apercu__retouche", z).hidden = false; $("textarea", z).focus();
+      }));
+      const f = $(".apercu__retouche", z);
+      if (f) f.addEventListener("submit", (ev) => { ev.preventDefault(); envoyer("retouche", f.message.value); });
+    });
     $$("input[data-photos]", racine).forEach((inp) => {
       const zone = inp.closest(".payer"), liste = [];
       inp.addEventListener("change", async () => {
@@ -136,6 +170,10 @@
   const afficherCommandes = (cmds, prenom, entete) => {
     app.innerHTML = entete + cmds.map((k) => `<div data-commande-id="${echap(k.id)}" data-jeton="${echap(k.jeton)}">${vueCommande(k, prenom)}</div>`).join("");
     brancherCommande(app);
+    const ids = cmds.map((k) => k.id).join(", ");
+    const texte = `Bonjour Marie ! C'est ${prenom}${ids ? " (commande " + ids + ")" : ""}. `;
+    app.insertAdjacentHTML("beforeend", `<a class="btn" href="${wa(texte)}" target="_blank" rel="noopener" style="margin-top:4px">💬 Écrire à Marie sur WhatsApp</a>`);
+    $$('.e-pied a[href^="https://wa.me"]').forEach((l) => (l.href = wa(texte)));
   };
 
   const parLien = async () => {

@@ -87,3 +87,7 @@ h1 em { font-family: "Instrument Serif", serif; font-weight: 400; color: var(--o
 .e-pied a { color: var(--or); }
 [hidden] { display: none !important; }
 @media (prefers-reduced-motion: reduce) { .chargement::before { animation: none; } }
+.apercu__img { display: block; width: 100%; border-radius: 16px; margin: 4px 0 12px; box-shadow: 0 10px 30px -14px rgba(28,5,11,.5); }
+.apercu__choix { display: grid; gap: 10px; }
+.btn--blanc { background: #fff; color: var(--bordeaux); box-shadow: 0 4px 0 rgba(110,16,35,.25); border: 2px solid rgba(110,16,35,.25); }
+.apercu__retouche { margin-top: 12px; }
