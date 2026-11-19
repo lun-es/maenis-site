@@ -259,10 +259,10 @@ window.MAENIS = {
   // Prix « à partir de », ajustés au rendez-vous. Délai de réponse du suivi : 3 jours ouvrés minimum.
   tech: {
     offres: [
-      { id: "site", ico: "🌐", titre: "Votre site web", prix: 100000, suivi: 10000,
+      { id: "site", ico: "🌐", titre: "Votre site web", prix: 120000, suivi: 10000,
         change: "Vos clients vous trouvent, voient vos produits et vous écrivent sur WhatsApp en un clic, même à 23 h.",
         points: ["Page animée : présentation, produits, prix, avis, plan d'accès", "Bouton WhatsApp et liens vers vos réseaux", "Lisible sur téléphone, rapide même en 3G"] },
-      { id: "commandes", ico: "📦", titre: "Vos commandes s'organisent toutes seules", prix: 70000, suivi: 10000,
+      { id: "commandes", ico: "📦", titre: "Vos commandes s'organisent toutes seules", prix: 85000, suivi: 10000,
         change: "Fini les commandes perdues dans WhatsApp ou dans le cahier : chaque commande arrive rangée, avec un numéro.",
         points: ["Le client remplit une fiche et reçoit un numéro de commande", "Tout arrive dans un tableau : à préparer, payée, livrée", "Une alerte à chaque nouvelle commande ; option fidélité"] },
       { id: "tableau", ico: "📊", titre: "Tableau de bord automatisé", prix: 60000, suivi: 7500,
@@ -272,7 +272,7 @@ window.MAENIS = {
         change: "Un outil fait pour votre façon de travailler, au lieu de vous adapter à un logiciel compliqué.",
         points: ["Commandes, clients, stock, rendez-vous, équipe…", "Sur devis, après un rendez-vous pour comprendre le besoin"] }
     ],
-    pack: { titre: "Pack Lancement", detail: "Site web + commandes automatisées + pub vidéo Express", prix: 170000, sansPack: 190000, suivi: 15000 },
+    pack: { titre: "Pack Lancement", detail: "Site web + commandes automatisées + pub vidéo Express", prix: 205000, sansPack: 231000, suivi: 15000 },
     suivi: {
       essentiel: "hébergement, sauvegardes, corrections de pannes, 1 petite modification par mois",
       prioritaire: "tout l'Essentiel + 3 modifications par mois + un point visio mensuel, vos demandes passent en premier (environ 2 fois le prix de l'Essentiel)",
@@ -287,16 +287,17 @@ window.MAENIS = {
       categorie: "enfants",
       titre: "Votre enfant, héros de son dessin animé",
       accroche: "Il devient un personnage de dessin animé et apprend en s'amusant : l'alphabet, les couleurs, les bonnes habitudes… De 1 à 6 ans, en français ou en anglais.",
-      des: 20000,
+      des: 38000,
       couleur: "#F5C542",
       image: "images/enfant-aicha.webp",
       video: "videos/enfants.mp4",
       poster: "videos/enfants.jpg",
       galerie: ["images/enfant-aicha.webp", "images/enfant-apprend.webp", "images/famille.webp"],
       formules: [
-        { nom: "Une vidéo + 1 coloriage offert", prix: 20000, apartir: true, detail: "Votre enfant en héros d'une vidéo éducative · prix selon la longueur" },
-        { nom: "Abonnement 4 vidéos par mois", prix: 45500, apartir: true, detail: "Une nouvelle vidéo chaque vendredi soir, 1 coloriage offert avec chaque vidéo · selon le contenu souhaité", populaire: true },
-        { nom: "Abonnement famille, frères et sœurs", prix: 60000, apartir: true, detail: "Tous les enfants dans les aventures, chaque mois, coloriages offerts · selon le contenu souhaité" }
+        { nom: "Une vidéo + 1 coloriage offert", prix: 38000, apartir: true, detail: "Votre enfant en héros d'une vidéo éducative · prix selon la longueur" },
+        { nom: "L'alphabet complet, de A à Z", prix: 62000, apartir: true, detail: "Les 26 lettres, chacune avec son mot et son image, une longue vidéo à revoir, 1 coloriage offert" },
+        { nom: "Abonnement 4 vidéos par mois", prix: 75000, apartir: true, detail: "Une nouvelle vidéo chaque vendredi soir, 1 coloriage offert avec chaque vidéo · selon le contenu souhaité", populaire: true },
+        { nom: "Abonnement famille, frères et sœurs", prix: 102000, apartir: true, detail: "Tous les enfants dans les aventures, chaque mois, coloriages offerts · selon le contenu souhaité" }
       ],
       inclus: [
         "Son personnage 3D à partir de 2 ou 3 photos",
@@ -319,7 +320,7 @@ window.MAENIS = {
       categorie: "pop-art",
       titre: "Votre photo en œuvre pop art",
       accroche: "Un tableau unique, rien qu'à vous : bande dessinée, Warhol, wax, graffiti, collage, figurine ou figurine dans sa boîte.",
-      des: 15000,
+      des: 26000,
       couleur: "#E8457A",
       image: "images/popart-bd.webp",
       mosaique: ["images/popart-bd.webp", "images/popart-warhol.webp", "images/popart-wax.webp", "images/popart-graffiti.webp", "images/popart-collage.webp", "images/popart-figurine.webp"],
@@ -327,16 +328,16 @@ window.MAENIS = {
       poster: "videos/popart-site.jpg",
       galerie: ["images/popart-bd.webp", "images/tricia-boite.webp", "images/popart-warhol.webp", "images/popart-wax.webp", "images/popart-graffiti.webp", "images/popart-collage.webp", "images/popart-figurine.webp", "images/tricia-fiche.webp", "images/galerie-princesse-ayo-boite.webp", "images/salon-bd.webp", "images/salon-graffiti.webp"],
       formules: [
-        { nom: "Fichier HD, style du catalogue", prix: 15000, detail: "Un style du catalogue, 1 proposition, 1 retouche, aperçu sur votre mur" },
-        { nom: "Création unique, fichier HD", prix: 25000, detail: "Un style imaginé pour vous, plusieurs propositions, 2 retouches" },
+        { nom: "Fichier HD, style du catalogue", prix: 26000, detail: "Un style du catalogue, 1 proposition, 1 retouche, aperçu sur votre mur" },
+        { nom: "Création unique, fichier HD", prix: 32000, detail: "Un style imaginé pour vous, plusieurs propositions, 2 retouches" },
         { nom: "Tableau 40 × 60 sous verre anti-reflet", prix: 50000, detail: "Encadré, verre anti-reflet", populaire: true },
         { nom: "Tableau 40 × 60 en plexiglas", prix: 40000, detail: "Encadré, plexiglas (plus léger, incassable)" },
         { nom: "Tableau 60 × 90 sous verre anti-reflet", prix: 75000, detail: "Grand format encadré, verre anti-reflet" },
         { nom: "Tableau 60 × 90 en plexiglas", prix: 65000, detail: "Grand format encadré, plexiglas" },
-        { nom: "Duo de tableaux 40 × 60 sous verre anti-reflet", prix: 91000, detail: "2 tableaux assortis (−9 %) · en plexiglas : 73 000 FCFA" },
-        { nom: "Trio de tableaux 40 × 60 sous verre anti-reflet", prix: 129000, detail: "3 tableaux assortis (−14 %) · en plexiglas : 103 000 FCFA" },
-        { nom: "Duo de tableaux 60 × 90 sous verre anti-reflet", prix: 137000, detail: "2 grands tableaux assortis (−9 %) · en plexiglas : 118 000 FCFA" },
-        { nom: "Trio de tableaux 60 × 90 sous verre anti-reflet", prix: 194000, detail: "3 grands tableaux assortis (−14 %) · en plexiglas : 168 000 FCFA" }
+        { nom: "Duo de tableaux 40 × 60 sous verre anti-reflet", prix: 91000, detail: "2 tableaux assortis, 9 000 FCFA d'économie · en plexiglas : 73 000 FCFA" },
+        { nom: "Trio de tableaux 40 × 60 sous verre anti-reflet", prix: 129000, detail: "3 tableaux assortis, 21 000 FCFA d'économie · en plexiglas : 103 000 FCFA" },
+        { nom: "Duo de tableaux 60 × 90 sous verre anti-reflet", prix: 137000, detail: "2 grands tableaux assortis, 13 000 FCFA d'économie · en plexiglas : 118 000 FCFA" },
+        { nom: "Trio de tableaux 60 × 90 sous verre anti-reflet", prix: 194000, detail: "3 grands tableaux assortis, 31 000 FCFA d'économie · en plexiglas : 168 000 FCFA" }
       ],
       inclus: [
         "Un aperçu de l'œuvre sur votre mur avant validation",
@@ -370,7 +371,7 @@ window.MAENIS = {
       formules: [
         { nom: "Feuille de coloriage personnalisée imprimée", prix: 2500, apartir: true, detail: "Sa photo transformée en dessin, dans un décor qu'il aime · en PDF : 2 000 FCFA" },
         { nom: "Pack 5 feuilles imprimées", prix: 10000, apartir: true, detail: "5 scènes de sa vie : la maison, l'école, le marché, ses jeux… · en PDF : 8 000 FCFA" },
-        { nom: "Livre de coloriage 20 pages imprimé et relié", prix: 22000, apartir: true, detail: "Son histoire en 20 dessins + une couverture en couleur · en PDF : 16 000 FCFA", populaire: true },
+        { nom: "Livre de coloriage 20 pages imprimé et relié", prix: 38000, apartir: true, detail: "Son histoire en 20 dessins + une couverture en couleur · en PDF : 16 000 FCFA", populaire: true },
         { nom: "Frères et sœurs, anniversaires, écoles", prix: 0, detail: "Tous les enfants héros ensemble, tarif groupe" }
       ],
       inclus: [
@@ -397,18 +398,19 @@ window.MAENIS = {
       categorie: "pro",
       titre: "La pub vidéo de votre boutique",
       accroche: "30 secondes pour faire briller votre boutique. Les prix affichés sont ceux d'une vidéo de base : le prix final dépend du travail demandé et du type d'animation (motion design, dessin animé 3D, vidéo super réaliste…).",
-      des: 20000,
+      des: 26000,
       couleur: "#7FD17A",
       image: "images/pub-marie.webp",
       video: "videos/pub-parfum.mp4",
       poster: "videos/pub-parfum.jpg",
       galerie: ["images/pub-robe-noel.webp", "images/pub-marie.webp", "images/pub-sur-mesure.webp"],
       formules: [
-        { nom: "Express", prix: 20000, apartir: true, detail: "Vous envoyez votre idée, je la réalise" },
-        { nom: "Sur mesure", prix: 38000, apartir: true, detail: "Idée, script, voix, musique, tout ensemble", populaire: true },
-        { nom: "Pack 2 vidéos express", prix: 37000, apartir: true, detail: "Deux vidéos de base" },
-        { nom: "Pack 3 vidéos express", prix: 55000, apartir: true, detail: "Trois vidéos de base (−9 %)" },
-        { nom: "Pack 3 vidéos sur mesure", prix: 107000, apartir: true, detail: "Trois vidéos créées de A à Z (−6 %)" }
+        { nom: "Express", prix: 26000, apartir: true, detail: "Vous envoyez votre idée, je la réalise" },
+        { nom: "Sur mesure", prix: 45000, apartir: true, detail: "Idée, script, voix, musique, tout ensemble", populaire: true },
+        { nom: "Pack 2 vidéos express", prix: 49000, apartir: true, detail: "Deux vidéos de base, 3 000 FCFA d'économie" },
+        { nom: "Pack 3 vidéos express", prix: 71000, apartir: true, detail: "Trois vidéos de base, 7 000 FCFA d'économie" },
+        { nom: "Pub 3D studio", prix: 75000, apartir: true, detail: "Votre produit recréé en 3D réaliste, lumière et matières de pub, comme nos parfums et soins : sans tournage ni photo" },
+        { nom: "Pack 3 vidéos sur mesure", prix: 127000, apartir: true, detail: "Trois vidéos créées de A à Z, 8 000 FCFA d'économie" }
       ],
       inclus: [
         "Prête entre 3 et 5 jours",

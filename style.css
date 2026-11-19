@@ -577,3 +577,12 @@ dialog::backdrop { background: rgba(28,5,11,.7); backdrop-filter: blur(6px); }
 .offres-cartes.choisi .offres-cartes__cat, .offres-cartes.choisi .offre-carte[aria-pressed="false"] { display: none; }
 .offres-cartes.choisi .offres-cartes__changer { display: inline-block; }
 .feuille .offre-carte { background: var(--creme-2); }
+
+.regles__note { max-width: 640px; margin: 14px auto 0; text-align: center; font-size: .9rem; line-height: 1.5; color: rgba(246,235,221,.82); }
+
+/* lien « Fiche de contact » dans le menu du téléphone (19/11 : le bouton du haut est caché sur téléphone) */
+.top__nav a.nav-contact { display: none; }
+@media (max-width: 860px) {
+  .top__nav a.nav-contact { display: inline-block; margin-top: 6px; padding: 12px 28px; border-radius: 999px; background: var(--or); color: var(--nuit); font-style: normal; font-family: var(--corps); font-weight: 700; font-size: 1.25rem; }
+  .top__nav a.nav-contact::after { display: none; }
+}
