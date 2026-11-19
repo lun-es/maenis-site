@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fr" data-racine="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Les kits Maënis · Crée tes vidéos et ton site en code</title>
+  <meta name="description" content="Les kits Maënis Studio : les outils, les prompts et les fichiers qu'on utilise pour fabriquer nos vidéos et nos sites en code. Paiement unique, sans abonnement, guide gratuit.">
+  <meta property="og:title" content="Les kits Maënis · Crée tes vidéos et ton site en code">
+  <meta property="og:description" content="Guide gratuit, Kit Montage, Kit Motion, Kit 3D réaliste, Kit Site et Pack Studio. Paiement unique, sans abonnement.">
+  <meta property="og:image" content="../images/kits/kit-3d-pate.webp">
+  <meta name="theme-color" content="#14040A">
+  <link rel="icon" href="../images/logo-bordeaux.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kits.css?v=202611191739">
+</head>
+<body>
+  <a class="skip" href="#kits">Aller aux kits</a>
+
+  <div class="k-app" id="k-app" role="region" aria-label="Conseil d'ouverture" hidden>
+    <span>Tu lis cette page dans TikTok ou Instagram&nbsp;? Si un bouton ne s'ouvre pas, ouvre la page dans ton navigateur.</span>
+    <button type="button" id="k-copier">Copier le lien</button>
+  </div>
+
+  <header class="k-tete">
+    <a class="k-tete__logo" href="../" data-accueil aria-label="Maënis Studio, retour à l'accueil"><img src="../images/logo-creme.png" alt="Maënis Studio" width="390" height="335"></a>
+    <a class="k-tete__retour" href="../" data-accueil><span aria-hidden="true">⌂</span> Accueil</a>
+  </header>
+
+  <main>
+    <!-- ============ ACCROCHE ============ -->
+    <section class="k-accroche">
+      <div class="k-accroche__texte">
+        <p class="k-bienvenue" id="k-bienvenue" hidden></p>
+        <p class="etiquette">Les kits Maënis · paiement unique</p>
+        <h1>Crée tes vidéos et ton site <em>en code</em>, comme nous.</h1>
+        <p class="k-chapo">Des kits courts et concrets&nbsp;: les outils, les prompts et les fichiers qu'on utilise chaque jour pour @fait.en.code, @pate.codee, @pub.en.code et seethatbeauty. Tu paies une seule fois, sans abonnement.</p>
+        <div class="k-actions">
+          <a class="bouton bouton--plein" href="#kits">Voir les kits <span aria-hidden="true">→</span></a>
+          <a class="bouton bouton--trait" href="#gratuit">Le guide gratuit</a>
+        </div>
+      </div>
+      <div class="k-accroche__images">
+        <div class="k-vitrine">
+          <figure class="v1"><img src="../images/kits/kit-3d-pate.webp" alt="Anneau de pâte pastel entouré de billes, rendu 3D fait en code" width="720" height="720"></figure>
+          <figure class="v2"><img src="../images/kits/kit-motion-diamant.webp" alt="Diamant aux arêtes dorées, rendu 3D fait en code" width="720" height="720"></figure>
+          <figure class="v3"><img src="../images/kits/recette-flacon.webp" alt="Flacon de parfum en verre sur un socle noir, rendu 3D fait en code" width="720" height="720"></figure>
+        </div>
+        <p class="k-legende">Ces trois images sont des rendus 3D faits en code, avec Blender piloté en Python.</p>
+      </div>
+    </section>
+
+    <ul class="k-puces" id="k-puces" aria-label="En bref"></ul>
+
+    <!-- ============ GUIDE GRATUIT ============ -->
+    <section class="k-section" id="gratuit">
+      <div class="k-gratuit reveal" id="k-guide"></div>
+    </section>
+
+    <!-- ============ LES KITS ============ -->
+    <section class="k-section" id="kits">
+      <div class="k-tete-section">
+        <p class="sur-titre reveal">Les kits</p>
+        <h2 class="reveal">Choisis par où <em>commencer</em></h2>
+        <p class="k-intro reveal">Chaque kit part d'une vidéo ou d'un site qu'on a vraiment faits. Pas de théorie&nbsp;: des étapes, des prompts à copier et des fichiers prêts à modifier.</p>
+      </div>
+      <div class="k-grille" id="k-grille"></div>
+      <p class="k-note reveal" id="k-note" hidden></p>
+      <div class="k-pack reveal" id="k-pack"></div>
+    </section>
+
+    <!-- ============ COMMENT ÇA MARCHE ============ -->
+    <section class="k-section" id="etapes">
+      <div class="k-tete-section">
+        <p class="sur-titre reveal">Comment ça marche</p>
+        <h2 class="reveal">Trois gestes, <em>c'est tout</em></h2>
+      </div>
+      <ol class="k-etapes" data-etapes="reservation">
+        <li class="k-etape reveal"><span>1</span><h3>Tu réserves sur WhatsApp</h3><p>Le bouton ouvre WhatsApp avec le message déjà écrit. Tu l'envoies, ton prix de lancement est gardé.</p></li>
+        <li class="k-etape reveal"><span>2</span><h3>On te prévient</h3><p>Dès que le kit est prêt et que le paiement est ouvert (Orange Money, MTN MoMo ou carte bancaire), tu reçois le lien.</p></li>
+        <li class="k-etape reveal"><span>3</span><h3>Tu paies une seule fois</h3><p>Tu télécharges tes fichiers juste après le paiement. Pas d'abonnement, ils restent à toi.</p></li>
+      </ol>
+      <ol class="k-etapes" data-etapes="paiement" hidden>
+        <li class="k-etape reveal"><span>1</span><h3>Tu choisis ton kit</h3><p>Le bouton t'emmène sur la page de paiement sécurisée.</p></li>
+        <li class="k-etape reveal"><span>2</span><h3>Tu paies une seule fois</h3><p>Orange Money ou MTN MoMo au Cameroun, carte bancaire en France et ailleurs. Le prix s'affiche dans ta monnaie.</p></li>
+        <li class="k-etape reveal"><span>3</span><h3>Tu reçois tout de suite</h3><p>Tu télécharges tes fichiers juste après le paiement et un e-mail de confirmation t'arrive.</p></li>
+      </ol>
+    </section>
+
+    <!-- ============ LISTE D'ATTENTE DE LA FORMATION ============ -->
+    <section class="k-section" id="formation">
+      <div class="k-attente reveal">
+        <p class="sur-titre">Bientôt</p>
+        <h2>La formation <em>en direct</em></h2>
+        <p class="k-intro" id="k-formation-resume"></p>
+        <ul class="k-regles" id="k-formation-regles"></ul>
+        <div class="k-actions" id="k-formation-actions"></div>
+        <p class="k-petit">Tu envoies le message déjà écrit sur le WhatsApp de Maënis Studio&nbsp;: tu es sur la liste, et prévenu dès que la date est fixée.</p>
+      </div>
+    </section>
+
+    <!-- ============ QUESTIONS ============ -->
+    <section class="k-section" id="questions">
+      <div class="k-tete-section">
+        <p class="sur-titre reveal">Questions</p>
+        <h2 class="reveal">Avant de <em>te lancer</em></h2>
+      </div>
+      <div class="k-faq">
+        <details class="reveal"><summary>Faut-il un gros ordinateur&nbsp;?</summary><p>Pour le montage, le motion et le site, non&nbsp;: on travaille nous-mêmes dans des sessions Claude Code en ligne, depuis un ordinateur modeste. Pour la 3D réaliste, le calcul est plus long sans carte graphique&nbsp;: le kit donne les réglages et nos vrais temps de rendu.</p></details>
+        <details class="reveal"><summary>Faut-il payer Claude&nbsp;?</summary><p>Oui. Claude Code demande un abonnement Claude payant, à prendre directement chez Anthropic. Tous les autres outils des kits sont gratuits.</p></details>
+        <details class="reveal"><summary>Je n'ai jamais monté de vidéo. C'est pour moi&nbsp;?</summary><p>Commence par le guide gratuit, puis le Kit Montage ou le Kit Motion&nbsp;: ils partent de zéro. Le Kit 3D et le Kit Site viennent ensuite.</p></details>
+        <details class="reveal" data-etapes="reservation"><summary>Je réserve&nbsp;: est-ce que je paie maintenant&nbsp;?</summary><p>Non. Réserver, c'est envoyer un message WhatsApp&nbsp;: tu ne paies rien aujourd'hui et tu ne t'engages à rien. On te prévient quand le kit est prêt, et tu décides à ce moment-là.</p></details>
+        <details class="reveal"><summary>Est-ce que je vais gagner de l'argent avec ça&nbsp;?</summary><p>On ne promet aucun revenu. Un kit t'apprend à fabriquer des vidéos et un site&nbsp;; ce que tu en fais dépend de toi, de ton travail et de ton public.</p></details>
+        <details class="reveal"><summary>Et si un fichier ne s'ouvre pas&nbsp;?</summary><p>Écris-nous sur WhatsApp&nbsp;: on corrige ou on remplace le fichier.</p></details>
+        <details class="reveal"><summary>Avez-vous un lien avec Claude&nbsp;?</summary><p>Non. Maënis Studio est un studio indépendant. Claude est une marque d'Anthropic&nbsp;; on utilise l'outil comme toi.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <a href="../" data-accueil aria-label="Retour à l'accueil de Maënis Studio"><img src="../images/logo-creme.png" alt="Maënis Studio" class="pied__logo" width="390" height="335" loading="lazy"></a>
+    <p>Studio de création entre la France et le Cameroun&nbsp;:<br>vidéos, motion design, sites et tableaux.</p>
+    <div class="reseaux" id="k-reseaux" aria-label="Réseaux sociaux"></div>
+    <p class="pied__contact"><a id="k-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp <span id="k-numero"></span></a> · <a id="k-mail" href="#"></a></p>
+    <p class="pied__mention">Prix en FCFA. Le montant en euros est donné à titre indicatif (taux fixe)&nbsp;: le montant exact s'affiche au moment du paiement. Maënis Studio est indépendant et sans lien avec Anthropic, éditeur de Claude.</p>
+    <p class="pied__mini">© <span id="k-annee"></span> Maënis Studio · Marie · <a href="../" data-accueil>maenisstudio.com</a></p>
+  </footer>
+
+  <div class="k-barre" id="k-barre" aria-hidden="true">
+    <span>Guide gratuit, kits dès <b id="k-des"></b></span>
+    <a class="bouton bouton--plein" href="#kits" tabindex="-1">Voir les kits</a>
+  </div>
+
+  <noscript><p style="padding:20px;text-align:center">Pour voir les kits, active JavaScript ou écris-nous sur WhatsApp&nbsp;: <a href="https://wa.me/237690164222">+237 6 90 16 42 22</a>.</p></noscript>
+
+  <script src="../config.js?v=202611191739"></script>
+  <script src="../ref.js?v=202611191739"></script>
+  <script src="kits.js?v=202611191739"></script>
+</body>
+</html>

@@ -559,3 +559,21 @@ dialog::backdrop { background: rgba(28,5,11,.7); backdrop-filter: blur(6px); }
 .promeneur.vole { bottom: 70px; }
 .promeneur.vole.marche .promeneur__corps { animation: vol 1.1s ease-in-out infinite alternate; }
 @keyframes vol { from { transform: translateY(0) rotate(-4deg); } to { transform: translateY(-26px) rotate(4deg); } }
+
+/* choix de l'offre en gros boutons à toucher (19/11) */
+.liste-cachee { position: absolute !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none; overflow: hidden; }
+.offres-cartes { display: grid; gap: 6px; margin-top: 4px; border-radius: 18px; transition: box-shadow .25s var(--ease); }
+.offres-cartes.a-choisir { box-shadow: 0 0 0 3px #c0392b; padding: 8px; }
+.offres-cartes__cat { margin: 12px 0 2px; font-family: var(--etiquette); font-weight: 700; font-size: .78rem; letter-spacing: .04em; color: var(--bordeaux); }
+.offres-cartes__liste { display: grid; gap: 8px; }
+.offre-carte {
+  display: block; width: 100%; min-height: 54px; padding: 14px 16px; text-align: left; font: 500 1rem/1.35 var(--corps); color: var(--texte);
+  border-radius: 16px; border: 1.5px solid rgba(110,16,35,.16); background: #fff; cursor: pointer; transition: all .25s var(--ease);
+}
+.offre-carte:active { transform: scale(.98); }
+.offre-carte:focus-visible { outline: 3px solid var(--or); }
+.offre-carte[aria-pressed="true"] { border-color: var(--bordeaux); box-shadow: 0 0 0 4px rgba(110,16,35,.1); background: #FFF9EC; font-weight: 600; }
+.offres-cartes__changer { display: none; justify-self: start; margin-top: 2px; padding: 6px 2px; border: 0; background: none; color: var(--bordeaux); font: 600 .9rem var(--corps); text-decoration: underline; cursor: pointer; }
+.offres-cartes.choisi .offres-cartes__cat, .offres-cartes.choisi .offre-carte[aria-pressed="false"] { display: none; }
+.offres-cartes.choisi .offres-cartes__changer { display: inline-block; }
+.feuille .offre-carte { background: var(--creme-2); }

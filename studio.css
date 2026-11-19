@@ -591,3 +591,38 @@ body.menu-ouvert { overflow: hidden; }
 .mode-tel .photos__grille { grid-template-columns: repeat(3, 1fr); }
 .mode-tel .article { padding: 22px 20px 24px; }
 #merci-espace[hidden] { display: none; }
+
+/* =====================================================================
+   Kits et visiteurs venus des bios (17/11/2026)
+   - entrée « Kits » du menu, bloc « Les kits » à la fin du catalogue
+   - panneau de bienvenue (ref.js) quand l'adresse contient ?ref=…
+   ===================================================================== */
+.top__nav .nav-kits { color: var(--or); }
+.kits-appel { position: relative; z-index: 1; max-width: 1140px; margin: 46px auto 0; padding: 26px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 22px 34px;
+  border-radius: 26px; background: var(--fond-3); border: 3px solid var(--creme); box-shadow: 6px 6px 0 var(--or); }
+.kits-appel__texte { flex: 1 1 420px; }
+.kits-appel .etiquette { margin-bottom: 10px; }
+.kits-appel h3 { font-weight: 800; font-size: clamp(1.5rem, 3.2vw, 2.1rem); line-height: 1.05; color: var(--creme); }
+.kits-appel h3 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: 0; color: var(--or); }
+.kits-appel__texte > p:last-child { margin: 10px 0 0; max-width: 44em; color: var(--gris-clair); }
+.kits-appel b { color: var(--creme); white-space: nowrap; }
+.kits-appel .bouton { flex: none; }
+
+.bienvenue { position: fixed; z-index: 90; right: 1.5rem; bottom: 1.5rem; width: min(27.5rem, calc(100vw - 2rem)); padding: 1.15rem 1.25rem 1.3rem;
+  border-radius: 1.6rem; background: var(--fond-3); color: var(--texte-clair); border: 2.5px solid var(--creme); box-shadow: 6px 6px 0 var(--or), 0 30px 60px -20px rgba(0,0,0,.75);
+  opacity: 0; transform: translateY(2rem); pointer-events: none; transition: opacity .45s, transform .6s cubic-bezier(.34,1.56,.64,1); }
+.bienvenue.visible { opacity: 1; transform: none; pointer-events: auto; }
+.bienvenue__titre { margin: 0 2.6rem .9rem 0; font-family: var(--titre); font-weight: 800; font-size: 1.3rem; line-height: 1.12; letter-spacing: -.02em; color: var(--creme); }
+.bienvenue__titre em { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.14em; letter-spacing: 0; color: var(--or); white-space: nowrap; }
+.bienvenue__choix { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.bienvenue__choix .bouton { justify-content: center; text-align: center; padding: .7rem .8rem; font-size: .9rem; line-height: 1.15; }
+.bienvenue__choix .bouton--plein { box-shadow: 4px 4px 0 var(--rose); }
+.bienvenue__fermer { position: absolute; top: .7rem; right: .7rem; width: 2.2rem; height: 2.2rem; display: grid; place-items: center; padding: 0; border-radius: 50%;
+  border: 2px solid rgba(251,239,226,.55); background: transparent; color: var(--creme); font: 700 .85rem var(--corps); cursor: pointer; transition: background .25s, color .25s; }
+.bienvenue__fermer:hover { background: var(--creme); color: var(--encre); }
+@media (max-width: 900px) {
+  .bienvenue { left: .7rem; right: .7rem; bottom: .7rem; width: auto; }
+  .bienvenue-ouverte .guide-marie { bottom: calc(var(--bienvenue-h, 0px) + 1.5rem); }
+  .kits-appel { padding: 22px 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .bienvenue { transition: none; } }

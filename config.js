@@ -40,6 +40,134 @@ window.MAENIS = {
   },
 
   /* ----------------------------------------------------------------------
+     VISITEURS VENUS DES BIOS (liens du type maenisstudio.com/?ref=fait-en-code#offre-motion-design)
+     compte : le nom affiché dans « Bienvenue, tu viens de… » et ajouté aux messages WhatsApp
+     offre  : l'offre du catalogue ouverte par « Je veux une vidéo comme ça » quand le lien n'a pas d'ancre #offre-…
+     Pour un nouveau compte : ajouter une ligne ici, et mettre ?ref=son-code dans le lien de sa bio.
+     ---------------------------------------------------------------------- */
+  bios: {
+    "fait-en-code": { compte: "@fait.en.code", offre: "motion-design" },
+    "pate-codee": { compte: "@pate.codee", offre: "motion-design" },
+    "pub-en-code": { compte: "@pub.en.code", offre: "pub-video-boutique" }
+  },
+
+  /* ----------------------------------------------------------------------
+     LES KITS (page maenisstudio.com/kits/) : noms, contenus, prix et liens se règlent ici
+     prix       : en FCFA, sans espace.   euro : montant indicatif affiché à côté (9.91 s'écrit avec un point).
+     lien       : le lien de paiement du produit (Chariow). Il commence par https://
+                  Tant qu'il est vide (""), le bouton dit « Réserver au prix de lancement » et ouvre
+                  WhatsApp avec un message déjà écrit. Dès qu'un lien est collé entre les guillemets,
+                  le bouton devient « Je prends ce kit » et ouvre la page de paiement.
+     disponible : false = l'étiquette « En préparation » s'affiche ; true = le kit est fini et vérifié.
+     note       : la phrase affichée sous les kits tant qu'il reste un lien de paiement vide.
+     ---------------------------------------------------------------------- */
+  kits: {
+    note: "Ouverture des paiements Orange Money, MTN et carte très bientôt. En réservant, tu gardes le prix de lancement.",
+    guide: {
+      id: "guide-gratuit", nom: "La boîte à outils Maënis",
+      chiffre: "15", chiffreMot: "outils à brancher à Claude",
+      resume: "Les 15 outils et connecteurs qu'on branche à Claude pour fabriquer nos vidéos : à quoi sert chacun, s'il est gratuit ou payant, où le trouver, et la phrase à donner à Claude pour l'installer.",
+      lien: "", disponible: false
+    },
+    liste: [
+      {
+        id: "kit-montage", nom: "Kit Montage", niveau: "Débutant",
+        resume: "Monte tes vidéos filmées au téléphone en parlant à Claude.",
+        contenu: [
+          "Le guide pas à pas : couper les blancs, recadrer en vertical, sous-titres mot à mot, musique sous la voix, son au bon volume",
+          "20 prompts à copier, un par étape",
+          "Le modèle de sous-titres et 3 polices libres",
+          "La fiche « publier partout » : légende, premier commentaire, 5 hashtags"
+        ],
+        besoin: "Il te faut : un abonnement Claude payant (pour Claude Code) et ta vidéo. Les autres outils sont gratuits.",
+        prix: 6500, euro: 9.91,
+        image: "", alt: "",                 // image vide : le visuel du téléphone est dessiné par la page
+        lien: "", disponible: false
+      },
+      {
+        id: "kit-motion", nom: "Kit Motion", niveau: "Débutant",
+        resume: "Ta première vidéo animée faite en code, sans logiciel de montage.",
+        contenu: [
+          "5 projets prêts à remplir en format vertical : titre qui frappe, texte mot à mot, compteur de chiffres, logo qui se révèle, objet 3D",
+          "Le guide : changer textes, couleurs et musique en le demandant à Claude, puis sortir ton MP4",
+          "La banque d'idées : 17 styles de notre bibliothèque, avec le prompt de départ de chacun",
+          "Musique et bruitages composés en code, libres pour tes vidéos"
+        ],
+        besoin: "Il te faut : un abonnement Claude payant (pour Claude Code). Les outils du kit sont gratuits.",
+        prix: 9800, euro: 14.94,
+        image: "images/kits/kit-motion-diamant.webp", alt: "Diamant aux arêtes dorées, rendu 3D fait en code",
+        lien: "", disponible: false
+      },
+      {
+        id: "kit-3d", nom: "Kit 3D réaliste", niveau: "Intermédiaire",
+        resume: "Des rendus 3D en verre, en or ou en pâte, avec Blender piloté par Claude.",
+        contenu: [
+          "4 scènes Blender écrites en Python et commentées ligne par ligne, dont l'anneau de pâte, le flacon en verre et le diamant de cette page",
+          "Les réglages pour rendre sans carte graphique, avec nos temps de calcul réels",
+          "Le prompt de départ pour créer tes propres objets",
+          "Les pièges qu'on a rencontrés et comment on les a réglés"
+        ],
+        besoin: "Il te faut : un abonnement Claude payant (pour Claude Code) et de la patience pour le rendu. Blender est gratuit.",
+        prix: 13000, euro: 19.82,
+        image: "images/kits/kit-3d-pate.webp", alt: "Anneau de pâte pastel entouré de billes, rendu 3D fait en code",
+        lien: "", disponible: false
+      },
+      {
+        id: "recette", nom: "La recette d'une vidéo", niveau: "Coulisses",
+        resume: "« Comment vous avez fait cette vidéo ? » Tout est dedans.",
+        contenu: [
+          "L'idée de départ et le prompt exact",
+          "Les fichiers source : la scène, la musique, les réglages",
+          "Les étapes dans l'ordre et les erreurs qu'on a corrigées"
+        ],
+        besoin: "Une recette par vidéo publiée. Commente RECETTE sous la vidéo qui te plaît.",
+        prix: 3250, euro: 4.95,
+        image: "images/kits/recette-flacon.webp", alt: "Flacon de parfum en verre sur un socle noir, rendu 3D fait en code",
+        bouton: "Je prends cette recette",
+        lien: "", disponible: false
+      },
+      {
+        id: "kit-site", nom: "Kit Site", niveau: "Intermédiaire",
+        resume: "Fais ton site comme celui-ci : une page qui se raconte quand on la fait défiler.",
+        contenu: [
+          "Un modèle de site en 3D animée (comme sur l'image), avec une marque inventée à remplacer par la tienne",
+          "Le guide : changer textes, couleurs et photos en parlant à Claude",
+          "La mise en ligne gratuite et le branchement de ton nom de domaine",
+          "En bonus : la vidéo « ordinateur filmé la nuit » pour présenter ton site"
+        ],
+        besoin: "Il te faut : un abonnement Claude payant (pour Claude Code). Le nom de domaine est facultatif et payant chez l'hébergeur de ton choix.",
+        prix: 19600, euro: 29.88,
+        image: "images/kits/kit-site-pieces.webp", alt: "Site de démonstration en 3D : une enfilade de pièces baignées de soleil, faite en code",
+        lien: "", disponible: false
+      }
+    ],
+    // Le Pack : « kits » = les id des kits compris, « recettes » = nombre de recettes comprises
+    // (la page calcule toute seule le prix « séparément » à partir des prix ci-dessus)
+    pack: {
+      id: "pack-studio", nom: "Pack Studio", etiquette: "Le plus complet",
+      contenu: [
+        "Les 4 kits : Montage, Motion, 3D réaliste et Site",
+        "3 recettes de vidéos au choix",
+        "Ta place en priorité sur la liste de la formation"
+      ],
+      kits: ["kit-montage", "kit-motion", "kit-3d", "kit-site"], recettes: 3,
+      prix: 32700, euro: 49.85,
+      bouton: "Je prends le pack",
+      lien: "", disponible: false
+    },
+    // Liste d'attente de la formation : inscription par WhatsApp ; « lien » = page d'inscription par e-mail (facultatif)
+    formation: {
+      resume: "Des séances en visio avec Marie, en petit groupe, pour créer ta vidéo et ton site du début à la fin, avec tes questions en direct. On lance dès qu'on est assez nombreux.",
+      regles: [
+        ["50 inscrits", "c'est le seuil pour ouvrir la première session"],
+        ["3 semaines", "de préavis : la date est annoncée à chaque inscrit"],
+        ["Priorité", "les inscrits choisissent leur place en premier"]
+      ],
+      lien: ""
+    }
+  },
+
+  /* ----------------------------------------------------------------------
      FIDÉLITÉ (mêmes valeurs que dans apps-script/demandes.gs)
      ---------------------------------------------------------------------- */
   fidelite: {
@@ -99,6 +227,13 @@ window.MAENIS = {
      RÉALISATIONS (le mur de vidéos)
      ---------------------------------------------------------------------- */
   realisations: [
+    // nouveautés 3D (19/11, choix de Marie : les plus vivantes devant, les anciennes après)
+    { video: "videos/pub-parfum.mp4", poster: "videos/pub-parfum.jpg", type: "Nouveau · Pub 3D", titre: "Ce parfum n'existe pas : juste du code", offre: "pub-video-boutique" },
+    { video: "videos/pub-rouge.mp4", poster: "videos/pub-rouge.jpg", type: "Nouveau · Site et pub 3D", titre: "Le rouge à lèvres, du site à l'écran", offre: "pub-video-boutique" },
+    { video: "videos/pub-sans-vous.mp4", poster: "videos/pub-sans-vous.jpg", type: "Nouveau · Pub vidéo", titre: "Votre pub, sans vous", offre: "pub-video-boutique" },
+    { video: "videos/pate-atelier.mp4", poster: "videos/pate-atelier.jpg", type: "Nouveau · Motion 3D", titre: "L'atelier de pâte qui apaise", offre: "motion-design" },
+    { video: "videos/pub-karite.mp4", poster: "videos/pub-karite.jpg", type: "Nouveau · Pub 3D", titre: "Ce flacon n'existe pas", offre: "pub-video-boutique" },
+    { video: "videos/pub-cacao.mp4", poster: "videos/pub-cacao.jpg", type: "Nouveau · Pub 3D", titre: "Beurre de cacao, sans photo", offre: "pub-video-boutique" },
     { video: "videos/enfants.mp4", poster: "videos/enfants.jpg", type: "Enfants", titre: "Votre enfant, héros de son dessin animé", offre: "dessin-anime-enfant" },
     { video: "videos/alphabet.mp4", poster: "videos/alphabet.jpg", type: "Apprendre", titre: "Aïcha apprend l'alphabet", offre: "dessin-anime-enfant" },
     { video: "videos/lina-ep1.mp4", poster: "videos/lina-ep1.jpg", type: "Série animée", titre: "Lina, ép. 1 « Le maquillage de maman »", offre: "serie-personnage" },
@@ -265,8 +400,8 @@ window.MAENIS = {
       des: 20000,
       couleur: "#7FD17A",
       image: "images/pub-marie.webp",
-      video: "videos/pub-boutique.mp4",
-      poster: "videos/pub-boutique.jpg",
+      video: "videos/pub-parfum.mp4",
+      poster: "videos/pub-parfum.jpg",
       galerie: ["images/pub-robe-noel.webp", "images/pub-marie.webp", "images/pub-sur-mesure.webp"],
       formules: [
         { nom: "Express", prix: 20000, apartir: true, detail: "Vous envoyez votre idée, je la réalise" },
@@ -297,10 +432,10 @@ window.MAENIS = {
       accroche: "Textes animés, présentation de produit, écran de téléphone, avant/après : une animation pro pour votre marque.",
       des: 0,
       couleur: "#B48CF0",
-      image: "videos/motion.jpg",
-      video: "videos/motion.mp4",
-      poster: "videos/motion.jpg",
-      galerie: ["videos/motion.jpg"],
+      image: "videos/pate-atelier.jpg",
+      video: "videos/pate-atelier.mp4",
+      poster: "videos/pate-atelier.jpg",
+      galerie: ["videos/pate-atelier.jpg", "videos/pub-sans-vous.jpg", "videos/motion.jpg"],
       formules: [
         { nom: "Projet sur devis", prix: 0, detail: "On définit ensemble le style, la durée et le message", populaire: true }
       ],

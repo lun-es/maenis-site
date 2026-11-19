@@ -12,7 +12,7 @@
   const prix = (n) => (n ? fr(n) + " FCFA" + (C.euro ? ` <em class="euro">≈ ${fr(euros(n))} €</em>` : "") : "Sur devis");
   const prixTexte = (n) => (n ? fr(n) + " FCFA" + (C.euro ? ` (≈ ${fr(euros(n))} €)` : "") : "Sur devis");
   const prixF = (f) => (f.apartir && f.prix ? `<small class="apartir">à partir de</small> ` : "") + prix(f.prix);
-  const lienWA = (texte) => `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(texte)}`;
+  const lienWA = (texte) => `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(window.MAENIS_REF ? window.MAENIS_REF.signer(texte) : texte)}`; // visiteur venu d'une bio : « Je viens de @… » est ajouté (ref.js)
   const NOMS_CAT = { enfants: "Pour les enfants", "pop-art": "Pop art", pro: "Pour les pros" };
 
   /* ---------- Chargement ---------- */
@@ -220,6 +220,8 @@
     if (ch.type === "chips") return `<div class="champ champ--plein"><span class="label">${echap(ch.label)}</span><div class="puces">${ch.options.map((o) => `<label class="puce"><input type="checkbox" name="${nom}" value="${echap(o)}"><span>${echap(o)}</span></label>`).join("")}</div></div>`;
     return `<div class="champ">${lab}<input id="${id}" name="${nom}" type="text"${req}></div>`;
   };
+  // la liste « Ce qui vous intéresse » est rangée par catégories (Marie, 19/11 : un pro qui vient pour une pub doit la trouver tout de suite)
+  const CATEGORIES_FICHE = [["pro", "Pour votre marque ou votre boutique"], ["enfants", "Pour votre enfant"], ["pop-art", "Pop art et cadeaux"], ["autres", "Autres créations"]];
   const TECH = C.tech ? [...C.tech.offres.map((o) => ({ titre: "Maënis Tech : " + o.titre, prix: o.prix, tech: true })), { titre: "Maënis Tech : " + C.tech.pack.titre, prix: C.tech.pack.prix, tech: true }] : [];
   const offreParTitre = (t) => C.offres.find((o) => o.titre === t) || TECH.find((o) => o.titre === t) || null;
   const estPhysique = (texte) => /tableau|imprim|reli/i.test(texte || "");
@@ -247,10 +249,26 @@
     </div>`;
   };
 
+  // sur téléphone, une liste déroulante de 15 lignes est pénible : on choisit en touchant de gros boutons rangés par catégorie (Marie, 19/11)
+  const cartesOffres = () => {
+    const bouton = (valeur, texte) => `<button type="button" class="offre-carte" data-v="${echap(valeur)}" aria-pressed="false">${echap(texte)}</button>`;
+    const groupes = CATEGORIES_FICHE.map(([cat, nomCat]) => [nomCat, C.offres.filter((o) => (o.categorie || "autres") === cat).map((o) => bouton(o.titre, o.titre))]);
+    if (TECH.length) groupes.push(["Maënis Tech : sites et outils", TECH.map((o) => bouton(o.titre, o.titre.replace(/^Maënis Tech : /, "")))]);
+    groupes.push(["Autre", [bouton("Autre chose", "Autre chose")]]);
+    return `<div class="offres-cartes">${groupes.filter((g) => g[1].length).map(([n, bs]) => `<p class="offres-cartes__cat">${echap(n)}</p><div class="offres-cartes__liste">${bs.join("")}</div>`).join("")}<button type="button" class="offres-cartes__changer">Changer de choix</button></div>`;
+  };
+  const majCartes = (sec) => {
+    const sel = $(".article__offre", sec), boite = $(".offres-cartes", sec);
+    if (!sel || !boite) return;
+    $$(".offre-carte", boite).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === sel.value)));
+    boite.classList.toggle("choisi", !!sel.value);
+    boite.classList.toggle("a-choisir", false);
+  };
+
   const articleHTML = (aid, index, offreFixe) => {
     const choix = offreFixe ? `<input type="hidden" name="${aid}:offre" value="${echap(offreFixe.titre)}">` : `
       <div class="champ champ--plein"><label for="${aid}-offre">Ce qui vous intéresse <span class="req">*</span></label>
-        <select id="${aid}-offre" name="${aid}:offre" class="article__offre" required><option value="">Choisir…</option>${C.offres.map((o) => `<option>${echap(o.titre)}</option>`).join("")}${TECH.length ? `<optgroup label="Maënis Tech">${TECH.map((o) => `<option>${echap(o.titre)}</option>`).join("")}</optgroup>` : ""}<option>Autre chose</option></select></div>`;
+        <select id="${aid}-offre" name="${aid}:offre" class="article__offre liste-cachee" required tabindex="-1" aria-hidden="true"><option value="">Choisir…</option>${CATEGORIES_FICHE.map(([cat, nomCat]) => { const os = C.offres.filter((o) => (o.categorie || "autres") === cat); return os.length ? `<optgroup label="${echap(nomCat)}">${os.map((o) => `<option>${echap(o.titre)}</option>`).join("")}</optgroup>` : ""; }).join("")}${TECH.length ? `<optgroup label="Maënis Tech : sites et outils">${TECH.map((o) => `<option value="${echap(o.titre)}">${echap(o.titre.replace(/^Maënis Tech : /, ""))}</option>`).join("")}</optgroup>` : ""}<option>Autre chose</option></select>${cartesOffres()}</div>`;
     return `<section class="article" data-aid="${aid}">
       <header class="article__tete"><span class="article__num">Création ${index + 1}${offreFixe ? ` · ${echap(offreFixe.titre)}` : ""}</span>${index ? `<button type="button" class="article__retirer">Retirer</button>` : ""}</header>
       ${choix}
@@ -373,8 +391,13 @@
     el.innerHTML = t ? `${n > 1 ? n + " créations · " : ""}prix de départ : <strong>${tous ? "" : "au moins "}${prixTexte(t)}</strong> <small>(le prix final est fixé ensemble au rendez-vous)</small>` : "";
   };
   const brancherArticle = (sec) => {
+    sec.addEventListener("click", (e) => {
+      const carte = e.target.closest(".offre-carte"), sel = $(".article__offre", sec);
+      if (carte && sel) { sel.value = carte.dataset.v; sel.dispatchEvent(new Event("change", { bubbles: true })); }
+      if (e.target.closest(".offres-cartes__changer")) { const b = $(".offres-cartes", sec); b.classList.toggle("choisi", false); b.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    });
     sec.addEventListener("change", async (e) => {
-      if (e.target.matches(".article__offre")) return remplirArticle(sec);
+      if (e.target.matches(".article__offre")) { majCartes(sec); return remplirArticle(sec); }
       if (e.target.matches(".photos__ajout input")) {
         const l = photosDe.get(sec) || []; photosDe.set(sec, l);
         const etat = $(".photos__etat", sec); etat.textContent = "Préparation des photos…";
@@ -462,8 +485,9 @@
     err.textContent = "";
     if (!form.checkValidity()) {
       form.reportValidity();
-      const premier = $(":invalid", form);
+      const premier = $("input:invalid, select:invalid, textarea:invalid", form);   // pas le bloc (fieldset) qui le contient
       err.textContent = "Il manque une information (en rouge).";
+      if (premier && premier.matches(".article__offre")) { const b = premier.parentElement.querySelector(".offres-cartes"); b.classList.add("a-choisir"); b.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
       premier?.focus();
       return;
     }
