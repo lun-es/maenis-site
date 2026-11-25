@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Comment ça marche · Maison Marwil</title>
+<meta name="description" content="Commande, acompte, achat à Paris, livraison en main propre : les étapes, le paiement et les garanties.">
+<meta property="og:url" content="https://maenisstudio.com/marwil/comment.html">
+<link rel="canonical" href="https://maenisstudio.com/marwil/comment.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Maison Marwil">
+<meta property="og:title" content="Comment ça marche · Maison Marwil">
+<meta property="og:description" content="Commande, acompte, achat à Paris, livraison en main propre : les étapes, le paiement et les garanties.">
+<meta property="og:image" content="https://maenisstudio.com/marwil/images/partage.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF7F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="commun.css">
+<style>
+.aide .wrap { max-width: 860px; }
+.sommaire { display: flex; flex-wrap: wrap; gap: 8px 22px; border-block: 1px solid var(--filet); padding-block: 10px; margin-bottom: clamp(48px, 8vw, 80px); }
+.sommaire a { text-decoration: none; font-size: 14px; color: var(--gris); min-height: 40px; display: inline-flex; align-items: center; }
+.sommaire a:hover { color: var(--encre); }
+.partie { padding-bottom: clamp(56px, 9vw, 90px); scroll-margin-top: calc(var(--hdr, 64px) + 20px); }
+.partie h2 { font-size: clamp(30px, 5.6vw, 44px); margin-bottom: 24px; }
+.etapes { list-style: none; margin: 0; padding: 0; counter-reset: e; border-top: 1px solid var(--filet); }
+.etapes li { counter-increment: e; display: grid; grid-template-columns: 44px 1fr; gap: 2px 12px; padding: 20px 0; border-bottom: 1px solid var(--filet); }
+.etapes li::before { content: counter(e); font-family: var(--f-display); font-size: 26px; line-height: 1.1; grid-row: span 2; }
+.etapes b { font-weight: 600; font-size: 16px; }
+.etapes span { color: var(--gris); font-size: 15px; }
+.tableau { margin: 0; border-top: 1px solid var(--filet); }
+.tableau div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--filet); font-size: 15px; }
+.tableau dt { color: var(--gris); }
+.tableau dd { margin: 0; text-align: right; font-weight: 500; }
+.texte { color: var(--gris); font-size: 15px; max-width: 64ch; margin-top: 18px; }
+</style>
+</head>
+<body data-page="comment">
+<main>
+<section class="section gut aide" aria-labelledby="t1" style="padding-top:clamp(40px,8vw,90px)">
+  <div class="wrap">
+    <div class="titre"><h1 id="t1" style="font-size:clamp(40px,9vw,68px)">Comment ça marche</h1><p class="lead">Vous commandez sur le site. Nous achetons l’appareil à Paris et vous le livrons à <span class="villes"></span>.</p></div>
+    <nav class="sommaire" aria-label="Sur cette page"><a href="#etapes">Les étapes</a><a href="#paiement">Paiement</a><a href="#garanties">Garanties</a><a href="#etats">Les états</a><a href="#questions">Questions</a></nav>
+
+    <div class="partie" id="etapes">
+      <h2>Les étapes</h2>
+      <ol class="etapes">
+        <li><b>Vous commandez</b><span>Vous choisissez le produit sur le site et laissez vos coordonnées. Vous recevez un numéro de commande.</span></li>
+        <li><b>Vous payez l’acompte</b><span>Nous confirmons la disponibilité sur WhatsApp. Vous payez la moitié du prix par Orange Money ou MTN MoMo.</span></li>
+        <li><b>Nous achetons l’appareil à Paris</b><span>Vous recevez la vidéo de l’achat et la facture.</span></li>
+        <li><b>Nous l’expédions</b><span>Vous suivez chaque étape sur la page « Suivre ma commande ».</span></li>
+        <li><b>Vous le recevez</b><span>Livraison en main propre, au lieu et à l’heure de votre choix. Vous vérifiez l’appareil, puis vous payez le reste.</span></li>
+      </ol>
+      <p class="texte">Délai total : <span class="delai"></span>.</p>
+    </div>
+
+    <div class="partie" id="paiement">
+      <h2>Paiement</h2>
+      <dl class="tableau">
+        <div><dt>À la commande</dt><dd>la moitié du prix</dd></div>
+        <div><dt>À la livraison</dt><dd>le reste</dd></div>
+        <div><dt>Moyens de paiement</dt><dd>Orange Money, MTN MoMo</dd></div>
+        <div><dt>Livraison</dt><dd>incluse dans le prix</dd></div>
+        <div><dt>Appareil différent de la commande</dt><dd>acompte remboursé</dd></div>
+      </dl>
+    </div>
+
+    <div class="partie" id="garanties">
+      <h2>Garanties</h2>
+      <dl class="tableau">
+        <div><dt>Appareil neuf</dt><dd>2 ans</dd></div>
+        <div><dt>Appareil reconditionné</dt><dd>1 an</dd></div>
+      </dl>
+      <p class="texte">En cas de panne pendant la garantie, nous renvoyons l’appareil en France pour la réparation et nous vous le rapportons. Chaque appareil est livré avec sa facture d’achat et la vidéo de l’achat.</p>
+    </div>
+
+    <div class="partie" id="etats">
+      <h2>Les états</h2>
+      <dl class="tableau" id="listeEtats"></dl>
+    </div>
+
+    <div class="partie" id="questions">
+      <h2>Questions</h2>
+      <div class="faq">
+        <details><summary>Comment vérifier que l’appareil est authentique ?</summary><p class="rep">Son numéro de série figure sur la facture et dans la vidéo de l’achat. Sur un iPhone, vous le retrouvez dans Réglages, Général, Informations. Vous le vérifiez à la livraison, avant de payer le reste.</p></details>
+        <details><summary>Les téléphones achetés en France marchent-ils au Cameroun ?</summary><p class="rep">Oui. Ils sont débloqués et acceptent les cartes SIM et eSIM des opérateurs camerounais.</p></details>
+        <details><summary>Pourquoi certains prix sont « sur demande » ?</summary><p class="rep">Le prix de certaines versions dépend des arrivages à Paris. Nous vous le donnons sous une heure sur WhatsApp.</p></details>
+        <details><summary>Pourquoi le prix d’un reconditionné est-il « estimé » ?</summary><p class="rep">Un reconditionné est acheté au meilleur prix du moment chez des revendeurs garantis en France, dans l’état que vous choisissez. Son prix bouge un peu d’une semaine à l’autre : le site affiche une estimation, et nous vous confirmons le prix exact sur WhatsApp avant que vous payiez l’acompte.</p></details>
+        <details><summary>Reprenez-vous mon ancien téléphone ?</summary><p class="rep">Oui, en déduction du prix de votre nouvel appareil. Envoyez-nous sur WhatsApp le modèle, le stockage, l’état et quelques photos : nous vous donnons une estimation avant la commande.</p></details>
+        <details><summary>Puis-je offrir un appareil ?</summary><p class="rep">Oui. Indiquez le nom de la personne dans votre commande : nous la contactons pour la livraison.</p></details>
+        <details><summary>Le produit que je veux n’est pas sur le site.</summary><p class="rep">Écrivez-nous sur WhatsApp : nous le cherchons pour vous à Paris.</p></details>
+      </div>
+    </div>
+    <p style="text-align:center"><a class="btn" href="collection.html">Voir les produits</a></p>
+  </div>
+</section>
+</main>
+<script src="catalogue.js"></script>
+<script src="monogramme.js"></script>
+<script src="commun.js"></script>
+<script>
+document.querySelectorAll(".delai").forEach(e => e.textContent = MARWIL.delai);
+document.querySelectorAll(".villes").forEach(e => e.textContent = MARWIL.villes);
+document.getElementById("listeEtats").innerHTML = Object.values(MARWIL.etats).map(e => `<div style="flex-direction:column;gap:4px"><dt><b style="color:var(--encre);font-weight:600">${e.nom}</b> · ${e.d}</dt><dd style="text-align:left;font-weight:400;color:var(--gris)">Batterie ${e.batterie}, garantie ${e.garantie}</dd></div>`).join("");
+</script>
+</body>
+</html>

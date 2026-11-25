@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mentions et conditions · Maison Marwil</title>
+<meta name="description" content="Mentions légales et conditions de vente de Maison Marwil.">
+<meta property="og:url" content="https://maenisstudio.com/marwil/mentions.html">
+<link rel="canonical" href="https://maenisstudio.com/marwil/mentions.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Maison Marwil">
+<meta property="og:title" content="Mentions légales · Maison Marwil">
+<meta property="og:description" content="Mentions légales et conditions de vente de Maison Marwil.">
+<meta property="og:image" content="https://maenisstudio.com/marwil/images/partage.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF7F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="commun.css">
+<style>
+.texte { max-width: 760px; display: flex; flex-direction: column; gap: 14px; }
+.texte h2 { font-size: clamp(30px, 5vw, 40px); margin-top: 36px; }
+.texte p, .texte li { color: var(--gris); }
+.texte b { color: var(--encre); font-weight: 600; }
+.texte ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.a-remplir { color: var(--gris); }
+</style>
+</head>
+<body data-page="mentions">
+<main>
+<section class="section gut" aria-labelledby="t1" style="padding-top:clamp(40px,8vw,90px)">
+  <div class="wrap texte">
+    
+    <h1 id="t1" style="font-size:clamp(40px,8vw,64px)">Mentions légales et conditions</h1>
+    <h2>Qui sommes-nous</h2>
+    <p>Maison Marwil, Paris et Douala. Contact : WhatsApp, depuis chaque page du site.</p>
+    <!-- À compléter avant l’ouverture : statut, numéro d’immatriculation et adresse (Marie). -->
+    <p>Maison Marwil est une maison indépendante, sans lien avec Apple Inc. Apple et iPhone sont des marques d’Apple Inc., citées pour désigner les produits proposés.</p>
+    <h2>Commande</h2>
+    <ul>
+      <li>La commande est confirmée par écrit sur WhatsApp, avec un numéro de commande (MM suivi de chiffres).</li>
+      <li><b>Acompte de 50 %</b> à la commande, par Orange Money ou MTN MoMo. <b>Reste à payer à la livraison</b>, après vérification de l’appareil.</li>
+      <li>Délai indicatif : <span class="delai"></span> à compter de l’acompte.</li>
+    </ul>
+    <h2>Livraison et vérification</h2>
+    <p>L’appareil est livré en main propre à <span class="villes"></span>. Vous vérifiez devant nous le modèle, la couleur, le stockage, l’état et le numéro de série. S’il ne correspond pas à la commande, l’acompte vous est intégralement rendu.</p>
+    <h2>Garantie</h2>
+    <p>Neuf : garantie Apple et garantie légale de conformité, deux ans à compter de l’achat en France. Reconditionné : garantie du reconditionneur, un an. Maison Marwil se charge du retour de l’appareil à Paris et de sa restitution.</p>
+    <h2>Données personnelles</h2>
+    <p>Nous ne conservons que ce qui sert à votre commande : nom, numéro WhatsApp, ville et numéro de commande. Le site ne dépose aucun traceur publicitaire. Il garde seulement, sur votre appareil, la dernière couleur choisie.</p>
+  </div>
+</section>
+</main>
+<script src="catalogue.js"></script>
+<script src="monogramme.js"></script>
+<script src="commun.js"></script>
+<script>document.querySelectorAll(".delai").forEach(e => e.textContent = MARWIL.delai); document.querySelectorAll(".villes").forEach(e => e.textContent = MARWIL.villes);</script>
+</body>
+</html>

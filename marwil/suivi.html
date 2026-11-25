@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suivre ma commande · Maison Marwil</title>
+<meta name="description" content="Suivez votre commande Maison Marwil avec son numéro.">
+<meta property="og:url" content="https://maenisstudio.com/marwil/suivi.html">
+<link rel="canonical" href="https://maenisstudio.com/marwil/suivi.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Maison Marwil">
+<meta property="og:title" content="Suivre ma commande · Maison Marwil">
+<meta property="og:description" content="Suivez votre commande Maison Marwil avec son numéro.">
+<meta property="og:image" content="https://maenisstudio.com/marwil/images/partage.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF7F2">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="commun.css">
+<style>
+.suivi .wrap { max-width: 860px; }
+.form { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.form label { font-size: 14px; color: var(--gris); }
+.ligne { display: flex; gap: 10px; }
+.ligne input { flex: 1; min-width: 0; font: inherit; font-size: 18px; min-height: 56px; padding: 0 16px; border: 1px solid var(--encre); border-radius: 1px; background: var(--papier); color: var(--encre); text-transform: uppercase; letter-spacing: .04em; }
+.ligne input::placeholder { color: var(--gris-2); }
+.aide { font-size: 14px; color: var(--gris); }
+.err { font-size: 14px; min-height: 1.4em; color: var(--encre); }
+.resultat { margin-top: 48px; display: flex; flex-direction: column; gap: 28px; }
+.resultat .tete { display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; border-bottom: 1px solid var(--filet); }
+.resultat .tete h2 { font-size: clamp(30px, 6vw, 46px); }
+.frise { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.frise li { display: grid; grid-template-columns: 28px 1fr; gap: 16px; position: relative; padding-bottom: 28px; }
+.frise li::before { content: ""; position: absolute; left: 13.5px; top: 22px; bottom: 0; width: 1px; background: var(--filet); }
+.frise li:last-child::before { display: none; }
+.frise li.fait::before { background: var(--encre); }
+.frise .pt { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--filet); background: var(--fond); display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+.frise li.fait .pt { background: var(--encre); border-color: var(--encre); color: var(--papier); }
+.frise li.ici .pt { border-color: var(--encre); box-shadow: 0 0 0 4px var(--pale); }
+.frise li.ici .pt::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--encre); }
+.frise h3 { font-size: 22px; line-height: 1.3; }
+.frise p { color: var(--gris); font-size: 15px; }
+.frise li:not(.fait):not(.ici) h3 { color: var(--gris-2); }
+.note { padding: 20px 22px; background: var(--pale); font-size: 15px; }
+</style>
+</head>
+<body data-page="suivi">
+<main>
+<section class="section gut suivi" aria-labelledby="t1" style="padding-top:clamp(40px,8vw,90px)">
+  <div class="wrap">
+    <div class="titre rise"><p class="eyebrow">Suivre ma commande</p><h1 id="t1">Suivre ma commande</h1><p class="lead">Entrez le numéro de commande reçu après votre commande.</p></div>
+    <form class="form" id="form" novalidate>
+      <label for="num">Numéro de commande</label>
+      <div class="ligne"><input id="num" name="n" placeholder="MM-0000-AA" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="err aide"><button class="btn" type="submit">Suivre</button></div>
+      <p class="aide" id="aide">Il commence par MM, par exemple MM-0000-AA.</p>
+      <p class="err" id="err" role="alert"></p>
+    </form>
+    <div class="resultat" id="res" hidden aria-live="polite"></div>
+  </div>
+</section>
+</main>
+<script src="catalogue.js"></script>
+<script src="commandes.js"></script>
+<script src="monogramme.js"></script>
+<script src="commun.js"></script>
+<script>
+(function () {
+  const M = MARWIL, $ = id => document.getElementById(id);
+  const ETAPES = [
+    ["Commande reçue", "Nous confirmons la disponibilité et attendons l’acompte."],
+    ["Achetée à Paris", "La vidéo de l’achat et la facture vous ont été envoyées."],
+    ["Expédiée", "Votre appareil est en route."],
+    ["Arrivée", "Nous fixons avec vous le lieu et l’heure de la livraison."],
+    ["Livrée", "Merci pour votre confiance."]
+  ];
+  const norm = v => { const t = v.toUpperCase().replace(/[^A-Z0-9]/g, ""); const m = t.match(/^MM(\d{4,6})([A-Z]{2})$/); return m ? `MM-${m[1]}-${m[2]}` : null; };
+  // le carnet en ligne (Google Sheets) s'il est branché, sinon le fichier commandes.js
+  async function chercher(code) {
+    if (M.api) { try { const r = await M.lireSuivi(code); return r.ok ? r : null; } catch (e) { return undefined; } }
+    return COMMANDES[code] || null;
+  }
+  async function montrer(code) {
+    const res = $("res"); res.hidden = false; res.innerHTML = `<p class="gris">Recherche de votre commande…</p>`;
+    const c = await chercher(code);
+    if (c === undefined) { res.innerHTML = `<div class="tete"><h2>Un instant</h2><p class="gris">Le suivi ne répond pas. Réessayez dans un moment, ou écrivez-nous.</p></div><a class="btn" href="${M.wa("Bonjour Maison Marwil, où en est ma commande " + code + " ?")}" target="_blank" rel="noopener">Nous écrire sur WhatsApp</a>`; return; }
+    if (c && c.annulee) { res.innerHTML = `<div class="tete"><p class="eyebrow">Commande ${code}</p><h2>Commande annulée</h2><p class="gris">${c.note || "Écrivez-nous pour toute question."}</p></div>`; return; }
+    if (!c) {
+      res.innerHTML = `<div class="tete"><h2>Commande introuvable</h2><p class="gris">Vérifiez le numéro, ou écrivez-nous sur WhatsApp.</p></div><a class="btn" href="${M.wa("Bonjour Maison Marwil, je ne trouve pas ma commande " + code + " sur le site.")}" target="_blank" rel="noopener">Nous écrire sur WhatsApp</a>`;
+      return;
+    }
+    res.innerHTML = `<div class="tete"><p class="eyebrow">Commande ${code} · mise à jour le ${c.maj}</p><h2>${c.appareil}</h2><p class="gris">Livraison à ${c.ville}</p></div>
+      ${c.note ? `<p class="note">${c.note}</p>` : ""}
+      <ol class="frise">${ETAPES.map(([t, d], i) => { const n = i + 1, cl = n < c.etape ? "fait" : n === c.etape ? (n === 5 ? "fait" : "ici") : ""; return `<li class="${cl}"><span class="pt">${cl === "fait" ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2.5 6.2l2.4 2.3 4.6-5"/></svg>' : ""}</span><div><h3>${t}${n === c.etape ? '<span class="visually-hidden"> (étape en cours)</span>' : ""}</h3>${n <= c.etape ? `<p>${d}</p>` : ""}</div></li>`; }).join("")}</ol>
+      <a class="link" href="${M.wa("Bonjour Maison Marwil, une question sur ma commande " + code + ".")}" target="_blank" rel="noopener">Une question ? Écrivez-nous</a>`;
+  }
+  $("form").addEventListener("submit", e => {
+    e.preventDefault();
+    const code = norm($("num").value);
+    if (!code) { $("err").textContent = "Ce numéro ne ressemble pas à un numéro de commande. Il commence par MM, suivi de 4 chiffres et 2 lettres."; $("res").hidden = true; return; }
+    $("err").textContent = ""; $("num").value = code; history.replaceState(null, "", "?n=" + code); montrer(code);
+  });
+  const q = new URLSearchParams(location.search).get("n");
+  if (q) { $("num").value = q; $("form").requestSubmit(); }
+})();
+</script>
+</body>
+</html>

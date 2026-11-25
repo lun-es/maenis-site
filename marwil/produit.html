@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Produit · Maison Marwil</title>
+<meta name="description" content="Choisissez l’état, la couleur et le stockage. Prix tout compris, livraison à Douala et Yaoundé.">
+<meta property="og:url" content="https://maenisstudio.com/marwil/produit.html">
+<link rel="canonical" href="https://maenisstudio.com/marwil/produit.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Maison Marwil">
+<meta property="og:title" content="Maison Marwil">
+<meta property="og:description" content="Choisissez l’état, la couleur et le stockage. Prix tout compris, livraison à Douala et Yaoundé.">
+<meta property="og:image" content="https://maenisstudio.com/marwil/images/partage.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF7F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="commun.css">
+<style>
+.fiche { padding-bottom: 96px; }
+.fiche .wrap { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 960px) { .fiche .wrap { grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: start; padding-top: 24px; } }
+.fiche .studio { height: min(86vw, 380px); margin-inline: calc(-1 * max(20px, env(safe-area-inset-left, 0px))); }
+@media (min-width: 960px) { .fiche .studio { position: sticky; top: calc(var(--hdr, 84px) + 16px); height: calc(100vh - var(--hdr, 84px) - 48px); max-height: 820px; margin-inline: 0; } }
+.studio .photo { position: absolute; inset: 6% 4% 8%; width: 92%; height: 86%; object-fit: contain; }
+.fil { font-size: 14px; color: var(--gris); display: flex; gap: 10px; align-items: center; min-height: 44px; margin-top: 18px; flex-wrap: wrap; }
+@media (min-width: 960px) { .fil { margin-top: 0; } }
+.fil a { text-decoration: none; } .fil a:hover { color: var(--encre); }
+.panneau { display: flex; flex-direction: column; gap: 36px; padding-top: 8px; }
+.entete { display: flex; flex-direction: column; gap: 10px; }
+.entete .infos { font-size: 15px; color: var(--gris); }
+.entete .prix { font-size: 16px; }
+.choisir { display: flex; flex-direction: column; gap: 32px; border-top: 1px solid var(--filet); padding-top: 32px; }
+.bloc { display: flex; flex-direction: column; gap: 14px; }
+.bloc .lbl { font-size: 14px; color: var(--gris); }
+.bloc .lbl b { color: var(--encre); font-weight: 500; }
+.desc { font-size: 14px; color: var(--gris); }
+.sw .rang { position: absolute; top: -9px; right: -9px; z-index: 1; width: 20px; height: 20px; border-radius: 50%; background: var(--encre); color: var(--papier); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.manque { font-size: 14px; color: #8A2A22; }
+.manque:empty { display: none; }
+.recap { border: 1px solid var(--filet); background: color-mix(in srgb, var(--papier) 70%, transparent); padding: 26px 22px; display: flex; flex-direction: column; gap: 16px; }
+.recap .total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.recap .estime { font-size: 14px; color: var(--gris-fonce); margin-top: -6px; }
+.recap .total b { font-family: var(--f-display); font-size: 34px; font-weight: 400; line-height: 1; }
+.lignes { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--gris); border-top: 1px solid var(--filet); padding-top: 14px; }
+.lignes p { display: flex; justify-content: space-between; gap: 12px; }
+.lignes p b { color: var(--encre); font-weight: 500; text-align: right; }
+.inclus { font-size: 14px; color: var(--gris); }
+.inclus b { color: var(--encre); font-weight: 500; }
+</style>
+</head>
+<body data-page="collection">
+<main>
+<section class="fiche gut" id="fiche">
+  <div class="wrap">
+    <div class="studio" id="vue" role="img" aria-label="Photo du produit"><div class="ombre"></div></div>
+    <div class="panneau">
+      <div class="entete">
+        <nav class="fil" aria-label="Fil d’Ariane"><a href="collection.html">Produits</a><span aria-hidden="true">/</span><a id="filCat" href="#"></a></nav>
+        <h1 id="nom" style="font-size:clamp(36px,8vw,64px)"></h1>
+        <p class="infos" id="infos"></p>
+        <p class="prix" id="aPartir"></p>
+        <p class="dispo" id="dispo" hidden>Disponible à Douala, livré sous 48 h</p>
+      </div>
+      <div class="choisir">
+        <div class="bloc" id="blocEtat"><p class="lbl">État : <b id="lEtat"></b></p><div class="seg" id="etats" role="group" aria-label="État"></div><p class="desc" id="dEtat"></p></div>
+        <div class="bloc" id="blocCouleur"><p class="lbl" id="lCouleur"></p><p class="desc" id="aideCouleur" hidden>Pour un reconditionné, choisissez au moins deux couleurs par ordre de préférence. Nous prenons la première disponible.</p><div class="sws" id="sws" role="group" aria-label="Couleur"></div><p class="manque" id="manque" role="alert"></p></div>
+        <div class="bloc" id="blocSto"><p class="lbl">Stockage : <b id="lSto"></b></p><div class="seg" id="stos" role="group" aria-label="Stockage"></div></div>
+        <div class="bloc" id="blocLiv" hidden><p class="lbl">Livraison : <b id="lLiv"></b></p><div class="seg" id="livs" role="group" aria-label="Livraison"></div><p class="desc" id="dLiv"></p></div>
+      </div>
+      <div class="recap" id="recap" aria-live="polite">
+        <div class="total"><span class="eyebrow" id="lTotal">Prix total</span><b id="total"></b></div>
+        <p class="estime" id="estime" hidden></p>
+        <div class="lignes" id="lignes"></div>
+        <a class="btn plein" id="commander" href="#" target="_blank" rel="noopener"><span id="cTxt">Commander</span></a>
+      </div>
+      <p class="inclus" id="inclus"></p>
+      <p class="reprise" id="reprise" hidden></p>
+    </div>
+  </div>
+</section>
+<section class="section gut" aria-labelledby="tAutres" style="padding-top:0">
+  <div class="wrap">
+    <div class="titre"><h2 id="tAutres" style="font-size:clamp(28px,5vw,40px)">Dans la même catégorie</h2></div>
+    <div class="grille compacte" id="autres"></div>
+  </div>
+</section>
+<div class="barre" id="barre" aria-hidden="true"><p><span id="bConf"></span><b id="bPrix"></b></p><a class="btn" id="bGo" href="#" target="_blank" rel="noopener" tabindex="-1">Commander</a></div>
+</main>
+
+<script src="catalogue.js"></script>
+<script>
+(function () { const q = new URLSearchParams(location.search), m = MARWIL.modele(q.get("m")) || MARWIL.modeles[0], c = m.couleurs.includes(q.get("c")) ? q.get("c") : m.couleurs[0]; document.body.dataset.couleur = c; })();
+</script>
+<script src="monogramme.js"></script>
+<script src="commun.js"></script>
+<script src="reservation.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+const M = MARWIL, $ = id => document.getElementById(id), q = new URLSearchParams(location.search);
+const mod = M.modele(q.get("m")) || M.modeles[0];
+const cat = M.categorie(mod.categorie) || M.categories[0];
+await M.chargerPrix();
+const etatsDispo = Object.keys(mod.prix).length ? Object.keys(mod.prix) : ["neuf"];
+let etat = etatsDispo.includes(q.get("e")) ? q.get("e") : etatsDispo[0];
+const supExpress = (M.express && M.express.supplement && M.express.supplement[mod.categorie]) || 0;
+let express = false;
+let coul = mod.couleurs.includes(q.get("c")) ? q.get("c") : mod.couleurs[0];
+let prefs = [coul];
+let sto = mod.stockages[0] || null;
+const plusieursCouleurs = mod.couleurs.length > 1;
+const multi = () => etat !== "neuf" && plusieursCouleurs;   // reconditionné : au moins deux couleurs
+const noms = () => prefs.map(k => M.couleurs[k].nom);
+
+document.title = mod.nom + " · Maison Marwil";
+{ const pm = M.aPartir(mod), dsc = `${mod.nom}${mod.infos ? " : " + mod.infos : ""}. ${pm ? "À partir de " + M.fcfa(pm) + ", " : ""}livraison à ${M.villes}, facture et garantie.`; document.querySelectorAll('meta[name=description], meta[property="og:description"]').forEach(m => m.setAttribute("content", dsc)); const ot = document.querySelector('meta[property="og:title"]'); if (ot) ot.setAttribute("content", document.title); }
+$("nom").textContent = mod.nom; $("infos").textContent = mod.infos || "";
+$("filCat").textContent = cat.nom; $("filCat").href = `collection.html?cat=${cat.id}`;
+const pMin = M.aPartir(mod); $("aPartir").textContent = pMin == null ? "Prix sur demande" : "À partir de " + M.fcfa(pMin);
+$("blocEtat").hidden = etatsDispo.length < 2 && etat === "neuf";
+$("blocCouleur").hidden = !plusieursCouleurs;
+$("blocSto").hidden = !mod.stockages.length;
+// reprise de l'ancien appareil : pour les téléphones, tablettes et ordinateurs
+if (["iphone", "samsung", "ipad", "macbook"].includes(mod.categorie)) { const r = $("reprise"); r.hidden = false; r.innerHTML = `Vous avez un ancien appareil ? Nous pouvons le reprendre en déduction du prix. <a target="_blank" rel="noopener" href="${M.wa("Bonjour Maison Marwil, je voudrais une estimation de reprise pour mon ancien appareil (modèle, stockage, état) avant de commander : " + mod.nom + ".")}">Demander une estimation</a>`; }
+if ((M.disponibles || []).includes(mod.id)) $("dispo").hidden = false;
+
+// visuel : 3D pour les iPhone 16 à 18 Pro, photo pour les autres produits
+let vue;
+if (mod.forme === "photo") {
+  const im = new Image(); im.className = "photo"; $("vue").append(im);
+  // fondu entre deux couleurs : l'image s'efface, la nouvelle apparaît une fois chargée
+  let premiere = true;
+  im.addEventListener("load", () => im.classList.remove("change"));
+  vue = new Promise(ok => { const t = { montrer: (f, c) => { const src = `images/${mod.id}-${c}.webp`; if (im.getAttribute("src") === src) return; if (premiere) { premiere = false; im.src = src; } else { im.classList.add("change"); setTimeout(() => { im.src = src; }, 180); } im.alt = `${mod.nom}, ${M.couleurs[c].nom}`; } }; im.addEventListener("load", () => ok(t), { once: true }); t.montrer(null, coul); });
+} else {
+  const { telephone } = await import("./telephone3d.js");
+  vue = telephone($("vue"), { forme: mod.forme, couleur: coul, interactif: true, recul: 0.5 });
+}
+
+function peindre() {
+  const c = M.couleurs[coul], e = M.etats[etat], mu = multi();
+  M.univers(coul);
+  vue.then(t => t.montrer(mod.forme, coul));
+  $("etats").innerHTML = etatsDispo.map(k => `<button type="button" data-e="${k}" aria-pressed="${k === etat}">${M.etats[k].nom}</button>`).join("");
+  $("lEtat").textContent = e.nom;
+  $("dEtat").textContent = `${e.d} ${mod.categorie === "iphone" || mod.categorie === "samsung" || mod.categorie === "macbook" ? "Batterie " + e.batterie + ". " : ""}Garantie ${e.garantie}.`;
+  $("sws").innerHTML = mod.couleurs.map(k => { const r = prefs.indexOf(k); return `<button type="button" class="sw" data-c="${k}" style="--c:${M.couleurs[k].dos}" aria-label="${M.couleurs[k].nom}${mu && r >= 0 ? ", choix " + (r + 1) : ""}" aria-pressed="${mu ? r >= 0 : k === coul}">${mu && r >= 0 ? `<span class="rang" aria-hidden="true">${r + 1}</span>` : ""}</button>`; }).join("");
+  $("aideCouleur").hidden = !mu;
+  $("lCouleur").innerHTML = mu ? `Couleurs, par ordre de préférence : <b>${noms().join(", ")}</b>` : `Couleur : <b>${c.nom}</b>`;
+  if (!mu || prefs.length >= 2) $("manque").textContent = "";
+  $("stos").innerHTML = mod.stockages.map(s => `<button type="button" data-s="${s}" aria-pressed="${s === sto}">${M.go(s)}</button>`).join("");
+  $("lSto").textContent = sto ? M.go(sto) : "";
+
+  const p0 = M.prixDe(mod, etat, sto), p = p0 == null ? null : p0 + (express ? supExpress : 0);
+  $("blocLiv").hidden = !supExpress || p0 == null;
+  $("livs").innerHTML = [[false, `Normale, ${M.delai}`], [true, `Express, ${M.express.delai}`]].map(([x, t]) => `<button type="button" data-x="${x ? 1 : 0}" aria-pressed="${x === express}">${t}</button>`).join("");
+  $("lLiv").textContent = express ? "express" : "incluse";
+  $("dLiv").hidden = !express;
+  $("dLiv").textContent = express ? `Livré à votre porte. Supplément de ${M.fcfa(supExpress)}, compris dans le prix.` : "";
+  const ac = p == null ? null : Math.round(p * M.acompte / 1000) * 1000;
+  const couleurs = mu ? noms().join(", sinon ") : (plusieursCouleurs ? c.nom : "");
+  const resume = [mod.nom, sto ? M.go(sto) : "", couleurs, etatsDispo.length > 1 || etat !== "neuf" ? e.nom : "", express ? `livraison express ${M.express.delai}` : ""].filter(Boolean).join(", ");
+  const estime = p != null && (etat !== "neuf" || (M.neufEstime || []).includes(`${mod.id}|${sto}`));
+  $("lTotal").textContent = estime ? "Prix estimé" : "Prix total";
+  $("estime").hidden = !estime;
+  if (estime) $("estime").textContent = `Estimé le ${M.releve} pour cet état, selon les offres du moment. Le prix exact vous est confirmé sur WhatsApp avant l’acompte.`;
+  $("total").textContent = p == null ? "Sur demande" : M.fcfa(p);
+  $("lignes").innerHTML = p == null
+    ? `<p><span>Prix de cette version</span><b>donné sous une heure sur WhatsApp</b></p>`
+    : `<p><span>Acompte à la commande</span><b>${M.fcfa(ac)}</b></p><p><span>Reste à payer à la livraison</span><b>${M.fcfa(p - ac)}</b></p><p><span>Livraison à ${M.villes}</span><b>${express ? `express, ${M.express.delai}` : `incluse, ${M.delai}`}</b></p>`;
+  $("commander").href = $("bGo").href = M.wa(`Bonjour Maison Marwil, je souhaite commander : ${resume}` + (p == null ? "." : ` (${estime ? "prix estimé " : ""}${M.fcfa(p)}).`));
+  $("cTxt").textContent = p == null ? "Demander le prix" : "Commander";
+  $("inclus").innerHTML = `<b>Inclus :</b> facture d’achat, vidéo de l’achat, garantie ${e.garantie}, coffret Maison Marwil.`;
+  window.__cmd = { express, estime, modeleId: mod.id, etatCle: etat, sto, modele: mod.nom, teinte: couleurs || c.nom, etat: e.nom, stockage: sto ? M.go(sto).replace(" ", " ") : "", prix: p };
+  $("bConf").textContent = [couleurs.split(", sinon ")[0], sto ? M.go(sto) : ""].filter(Boolean).join(", ") || mod.nom;
+  $("bPrix").textContent = p == null ? "Sur demande" : M.fcfa(p);
+  history.replaceState(null, "", `?m=${mod.id}&c=${prefs[0]}&e=${etat}`);
+}
+
+[$("commander"), $("bGo")].forEach(a => a.addEventListener("click", ev => {
+  if (multi() && prefs.length < 2) {
+    ev.preventDefault();
+    $("manque").textContent = "Choisissez au moins une deuxième couleur.";
+    $("blocCouleur").scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  if (!M.reserver) return; ev.preventDefault(); M.reserver(window.__cmd);
+}));
+$("sws").addEventListener("click", e => {
+  const b = e.target.closest(".sw"); if (!b) return; const k = b.dataset.c;
+  if (!multi()) prefs = [k];
+  else if (prefs.includes(k)) { if (prefs.length > 1) prefs = prefs.filter(x => x !== k); }
+  else prefs = prefs.concat(k);
+  coul = prefs.includes(k) ? k : prefs[0];
+  peindre();
+});
+$("etats").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; etat = b.dataset.e; if (!multi()) { prefs = [prefs[0]]; coul = prefs[0]; } peindre(); });
+$("stos").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { sto = +b.dataset.s; peindre(); } });
+$("livs").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { express = b.dataset.x === "1"; peindre(); } });
+peindre();
+
+const barre = $("barre"); let studioVu = true, recapVu = false;
+const maj = () => { const v = !studioVu && !recapVu; barre.classList.toggle("vue", v); barre.setAttribute("aria-hidden", !v); $("bGo").tabIndex = v ? 0 : -1; };
+new IntersectionObserver(es => { studioVu = es[0].isIntersecting; maj(); }).observe($("vue"));
+new IntersectionObserver(es => { recapVu = es[0].isIntersecting; maj(); }).observe($("recap"));
+
+// les 4 modèles les plus proches dans la catégorie (avant et après dans le catalogue), pas toujours les plus récents
+const tous = M.modeles, memeCat = tous.filter(m => m.categorie === mod.categorie), ici = memeCat.indexOf(mod);
+M.modeles = memeCat.filter(m => m !== mod).sort((a, b) => Math.abs(memeCat.indexOf(a) - ici) - Math.abs(memeCat.indexOf(b) - ici)).slice(0, 4).sort((a, b) => memeCat.indexOf(a) - memeCat.indexOf(b));
+M.cartes($("autres"), mod, 4); M.modeles = tous;
+vue.then(() => window.__pret = true);
+</script>
+</body>
+</html>

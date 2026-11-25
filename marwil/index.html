@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maison Marwil</title>
+<meta name="description" content="Appareils Apple et Samsung achetés à Paris, livrés à Douala et Yaoundé. Neufs ou reconditionnés, avec facture et garantie.">
+<meta property="og:url" content="https://maenisstudio.com/marwil/">
+<link rel="canonical" href="https://maenisstudio.com/marwil/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Maison Marwil">
+<meta property="og:title" content="Maison Marwil">
+<meta property="og:description" content="Appareils Apple et Samsung achetés à Paris, livrés à Douala et Yaoundé. Neufs ou reconditionnés, avec facture et garantie.">
+<meta property="og:image" content="https://maenisstudio.com/marwil/images/partage.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF7F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="commun.css">
+<style>
+/* 1. l'accueil : une phrase, un iPhone, deux chemins */
+.accueil { padding-top: clamp(28px, 6vw, 56px); }
+.accueil .wrap { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+@media (min-width: 960px) { .accueil .wrap { grid-template-columns: 1fr 1fr; gap: 80px; min-height: calc(100vh - var(--hdr, 84px) - 120px); } }
+.accueil .texte { display: flex; flex-direction: column; gap: 24px; }
+.accueil h1 { font-size: clamp(44px, 10.5vw, 84px); }
+.accueil .lead { font-size: 18px; }
+.chemins { display: flex; flex-direction: column; gap: 12px; margin-top: 6px; }
+@media (min-width: 560px) { .chemins { flex-direction: row; flex-wrap: wrap; align-items: center; } }
+.accueil .studio { aspect-ratio: 4 / 4.6; margin-inline: calc(-1 * max(20px, env(safe-area-inset-left, 0px))); }
+@media (min-width: 960px) { .accueil .studio { margin-inline: 0; max-height: 78vh; aspect-ratio: auto; height: 78vh; } }
+.accueil .studio { transition: background 1.2s var(--lent); }
+.lien-vitrine { position: absolute; inset: 0; display: block; }
+.accueil .studio img.v { position: absolute; inset: 7% 6% 13%; width: 88%; height: 80%; object-fit: contain; transition: opacity 1s var(--lent); animation: flotte 7s ease-in-out infinite alternate; }
+@keyframes flotte { to { transform: translateY(-2%); } }
+.points { position: absolute; right: 8px; bottom: 4px; display: flex; }
+.points button { width: 44px; height: 44px; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.points button::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gris-fonce); opacity: .35; transition: opacity .4s ease, transform .4s ease; }
+.points button[aria-pressed="true"]::before { opacity: 1; transform: scale(1.3); }
+.accueil .studio .ombre { bottom: 6%; width: 34%; }
+.legende { position: absolute; left: 20px; right: 190px; bottom: 16px; font-size: 13.5px; line-height: 1.35; color: var(--gris-fonce); }
+@media (prefers-reduced-motion: reduce) { .accueil .studio img.v { animation: none; } }
+
+/* 3. trois promesses */
+.promesses { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--filet); }
+@media (min-width: 900px) { .promesses { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; border-top: 0; } }
+.promesse { display: flex; flex-direction: column; gap: 12px; padding: 30px 0; border-bottom: 1px solid var(--filet); }
+@media (min-width: 900px) { .promesse { border-bottom: 0; border-top: 1px solid var(--filet); } }
+.promesse h3 { font-size: 28px; }
+.promesse p { color: var(--gris); font-size: 15px; max-width: 36ch; }
+
+/* 4. la commande en quatre temps */
+.temps { display: grid; grid-template-columns: 1fr; counter-reset: t; }
+@media (min-width: 900px) { .temps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; } .temps.trois { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.tps { display: grid; grid-template-columns: 40px 1fr; gap: 2px 14px; padding: 22px 0; border-bottom: 1px solid var(--filet); }
+@media (min-width: 900px) { .tps { grid-template-columns: 1fr; border-bottom: 0; border-top: 1px solid var(--filet); gap: 8px; } }
+.tps .n { font-family: var(--f-display); font-size: 22px; color: var(--gris); grid-row: span 2; }
+.tps h3 { font-size: 24px; }
+.tps p { color: var(--gris); font-size: 15px; grid-column: 2; }
+@media (min-width: 900px) { .tps p { grid-column: 1; } .tps .n { grid-row: auto; } }
+
+/* 5. le suivi */
+.suivi-bande { display: grid; gap: 24px; padding: clamp(30px, 6vw, 56px); background: var(--pale); }
+@media (min-width: 900px) { .suivi-bande { grid-template-columns: 1fr 1fr; align-items: end; } }
+.suivi-bande > * { min-width: 0; }
+.suivi-ligne { display: flex; gap: 10px; }
+.suivi-ligne input { flex: 1; min-width: 0; font: inherit; font-size: 17px; min-height: 54px; padding: 0 16px; border: 1px solid var(--encre); border-radius: 1px; background: var(--papier); color: var(--encre); text-transform: uppercase; }
+.suivi-ligne .btn { padding: 0 22px; flex: none; }
+</style>
+</head>
+<body data-page="accueil" data-couleur="bourgogne">
+<main>
+<section class="accueil gut" aria-labelledby="t1">
+  <div class="wrap">
+    <div class="texte rise">
+      <p class="eyebrow">Maison Marwil · Paris, Douala, Yaoundé</p>
+      <h1 id="t1">Vos appareils Apple et Samsung, <i>achetés à Paris.</i></h1>
+      <p class="lead">Livrés en main propre à Douala et Yaoundé. Neufs ou reconditionnés, avec facture et garantie.</p>
+      <div class="chemins"><a class="btn" href="collection.html">Voir les produits</a><a class="btn clair" href="suivi.html">Suivre ma commande</a></div>
+    </div>
+    <div class="studio rise" id="vitrine" style="animation-delay:.2s" aria-roledescription="carrousel" aria-label="Produits phares"><div class="ombre"></div><a class="lien-vitrine" id="lienVitrine" href="produit.html?m=iphone-18-pro" aria-label="Voir l’iPhone 18 Pro"><img class="v" src="images/accueil-bourgogne.webp" alt="iPhone 18 Pro, couleur Bourgogne"><img class="v" alt="" style="opacity:0"></a><p class="legende" id="legVitrine" aria-live="polite">iPhone 18 Pro, Bourgogne</p><div class="points" id="points" role="group" aria-label="Choisir un produit"></div></div>
+  </div>
+</section>
+
+<section class="section gut" aria-labelledby="tCat">
+  <div class="wrap">
+    <div class="titre reveal"><h2 id="tCat">Nos produits</h2></div>
+    <div class="tuiles" id="tuiles"></div>
+  </div>
+</section>
+
+<section class="section gut" aria-labelledby="tCol" style="padding-top:0">
+  <div class="wrap">
+    <div class="titre reveal"><h2 id="tCol">Les plus demandés</h2></div>
+    <div class="grille compacte" id="grille"></div>
+  </div>
+</section>
+
+<section class="section gut" id="sAvis" aria-labelledby="tAvis" hidden style="padding-top:0">
+  <div class="wrap">
+    <div class="titre reveal"><h2 id="tAvis">Ils ont reçu leur appareil</h2></div>
+    <div class="avis" id="avis"></div>
+  </div>
+</section>
+
+<section class="section gut" aria-labelledby="tCmd" style="background:var(--papier-2)">
+  <div class="wrap">
+    <div class="titre reveal"><h2 id="tCmd">Comment ça marche</h2></div>
+    <div class="temps trois">
+      <div class="tps reveal"><span class="n">1</span><h3>Vous commandez</h3><p>Sur le site, puis vous payez la moitié par Orange Money ou MoMo.</p></div>
+      <div class="tps reveal"><span class="n">2</span><h3>Nous achetons à Paris</h3><p>Vous recevez la vidéo de l’achat et la facture.</p></div>
+      <div class="tps reveal"><span class="n">3</span><h3>Vous recevez</h3><p>En main propre, sous <span class="delai"></span>. Vous payez le reste à la livraison.</p></div>
+    </div>
+    <p class="reveal" style="margin-top:28px"><a class="link" href="comment.html">Paiement, garanties, questions</a></p>
+  </div>
+</section>
+
+<section class="section gut" aria-labelledby="tSuivi">
+  <div class="wrap suivi-bande reveal">
+    <h2 id="tSuivi" style="font-size:clamp(30px,5.4vw,44px)">Suivre ma commande</h2>
+    <form action="suivi.html" method="get" style="display:flex;flex-direction:column;gap:10px">
+      <label for="nAcc" class="eyebrow">Numéro de commande</label>
+      <div class="suivi-ligne"><input id="nAcc" name="n" placeholder="MM-0000-AA" autocomplete="off" autocapitalize="characters"><button class="btn" type="submit">Suivre</button></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<script src="catalogue.js"></script>
+<script src="monogramme.js"></script>
+<script src="commun.js"></script>
+<script>
+MARWIL.chargerPrix().then(() => MARWIL.cartes(document.getElementById("grille"), null, 4));
+MARWIL.tuiles(document.getElementById("tuiles"));
+// avis de clients : affichés seulement s'il y en a (texte posé avec textContent)
+if ((MARWIL.avis || []).length) {
+  const box = document.getElementById("avis"); document.getElementById("sAvis").hidden = false;
+  MARWIL.avis.slice(0, 6).forEach(a => { const f = document.createElement("figure"), q = document.createElement("blockquote"), c = document.createElement("figcaption"); q.textContent = "« " + a.texte + " »"; c.textContent = a.nom + (a.ville ? ", " + a.ville : ""); f.append(q, c); box.append(f); });
+}
+// la vitrine de l'accueil : quatre produits phares en fondu, le studio prend la couleur de chacun
+(function () {
+  const M = MARWIL, v = document.getElementById("vitrine"), ims = v.querySelectorAll("img.v"), leg = document.getElementById("legVitrine"), lien = document.getElementById("lienVitrine"), pts = document.getElementById("points");
+  const S = [["iphone-18-pro", "bourgogne", "images/accueil-bourgogne.webp"], ["macbook-air-13-m5", "mba13m5-bleuciel"], ["airpods-max-2", "airpodsmax2-orange"], ["galaxy-s26-ultra", "s26u-violet"]]
+    .map(([id, c, src]) => ({ m: M.modele(id), c, src: src || `images/${id}-${c}.webp` })).filter(x => x.m && M.couleurs[x.c]);
+  S.forEach(x => { const i = new Image(); i.src = x.src; });
+  let n = 0, haut = 0, minuteur = null;
+  pts.innerHTML = S.map((x, i) => `<button type="button" aria-label="${x.m.nom}" aria-pressed="${i === 0}"></button>`).join("");
+  function montrer(k) {
+    n = (k + S.length) % S.length; const x = S[n], st = M.studio(x.c), nom = `${x.m.nom}, ${M.couleurs[x.c].nom}`;
+    const sous = ims[1 - haut]; sous.src = x.src; sous.alt = nom;
+    sous.style.opacity = 1; ims[haut].style.opacity = 0; ims[haut].alt = ""; haut = 1 - haut;
+    v.style.setProperty("--pale", st.pale); v.style.setProperty("--pale-2", st.pale2);
+    leg.textContent = nom; lien.href = M.lien(x.m); lien.setAttribute("aria-label", "Voir " + x.m.nom);
+    pts.querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-pressed", i === n));
+  }
+  const calme = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const lancer = () => { clearInterval(minuteur); if (!calme) minuteur = setInterval(() => { if (!document.hidden) montrer(n + 1); }, 4500); };
+  pts.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; montrer([...pts.children].indexOf(b)); lancer(); });
+  v.style.setProperty("--pale", M.studio(S[0].c).pale); v.style.setProperty("--pale-2", M.studio(S[0].c).pale2);
+  lancer();
+})();
+document.querySelectorAll(".delai").forEach(e => e.textContent = MARWIL.delai);
+</script>
+</body>
+</html>
