@@ -68,7 +68,7 @@
     if (v.tel.replace(/\D/g, "").length < 8) { err.textContent = "Indiquez votre numéro WhatsApp, sans l’indicatif (par exemple 6 90 00 00 00)."; f.tel.focus(); return; }
     err.textContent = "";
     try { localStorage.setItem("mm-client", JSON.stringify({ nom: v.nom.trim(), ind: v.ind, tel: v.tel, ville: v.ville, quartier: v.quartier })); } catch (x) {}
-    const demande = [cmd.modele, cmd.stockage, cmd.teinte, cmd.etat].filter(Boolean).join(", ") + (cmd.prix ? ` (${M.fcfa(cmd.prix)})` : "");
+    const demande = [cmd.modele, cmd.stockage, cmd.teinte, cmd.etat, cmd.express ? "livraison express" : ""].filter(Boolean).join(", ") + (cmd.prix ? ` (${cmd.estime ? "prix estimé " : ""}${M.fcfa(cmd.prix)})` : "");
     if (!M.api) {   // pas encore de carnet : tout part sur WhatsApp
       open(M.wa(`Bonjour Maison Marwil, je souhaite commander : ${demande}. Je suis ${v.nom.trim()}, à ${v.ville}${v.quartier ? ", " + v.quartier : ""}.`), "_blank", "noopener");
       dlg.close(); return;

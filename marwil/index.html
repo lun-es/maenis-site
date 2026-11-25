@@ -33,7 +33,7 @@
 @media (min-width: 960px) { .accueil .studio { margin-inline: 0; max-height: 78vh; aspect-ratio: auto; height: 78vh; } }
 .accueil .studio { transition: background 1.2s var(--lent); }
 .lien-vitrine { position: absolute; inset: 0; display: block; }
-.accueil .studio img.v { position: absolute; inset: 7% 6% 13%; width: 88%; height: 80%; object-fit: contain; transition: opacity 1s var(--lent); animation: flotte 7s ease-in-out infinite alternate; }
+.accueil .studio img.v { position: absolute; inset: 7% 6% 13%; width: 88%; height: 80%; object-fit: contain; transition: opacity .55s ease; animation: flotte 7s ease-in-out infinite alternate; }
 @keyframes flotte { to { transform: translateY(-2%); } }
 .points { position: absolute; right: 8px; bottom: 4px; display: flex; }
 .points button { width: 44px; height: 44px; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -132,7 +132,7 @@
 <script src="monogramme.js"></script>
 <script src="commun.js"></script>
 <script>
-MARWIL.chargerPrix().then(() => MARWIL.cartes(document.getElementById("grille"), null, 4));
+MARWIL.chargerPrix().then(() => { const M = MARWIL, tous = M.modeles; M.modeles = (M.vedettes || []).map(M.modele).filter(Boolean); if (!M.modeles.length) M.modeles = tous; M.cartes(document.getElementById("grille"), null, 4); M.modeles = tous; });
 MARWIL.tuiles(document.getElementById("tuiles"));
 // avis de clients : affichés seulement s'il y en a (texte posé avec textContent)
 if ((MARWIL.avis || []).length) {
@@ -150,7 +150,8 @@ if ((MARWIL.avis || []).length) {
   function montrer(k) {
     n = (k + S.length) % S.length; const x = S[n], st = M.studio(x.c), nom = `${x.m.nom}, ${M.couleurs[x.c].nom}`;
     const sous = ims[1 - haut]; sous.src = x.src; sous.alt = nom;
-    sous.style.opacity = 1; ims[haut].style.opacity = 0; ims[haut].alt = ""; haut = 1 - haut;
+    ims[haut].style.transitionDelay = "0s"; ims[haut].style.opacity = 0; ims[haut].alt = "";
+    sous.style.transitionDelay = ".55s"; sous.style.opacity = 1; haut = 1 - haut;
     v.style.setProperty("--pale", st.pale); v.style.setProperty("--pale-2", st.pale2);
     leg.textContent = nom; lien.href = M.lien(x.m); lien.setAttribute("aria-label", "Voir " + x.m.nom);
     pts.querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-pressed", i === n));

@@ -12,6 +12,7 @@ window.MARWIL = {
   // Offre du moment : une phrase courte, affichée en bandeau en haut de chaque page. Vide = pas de bandeau.
   offre: "",
   // Appareils déjà sur place, livrables tout de suite : identifiants de modèles (ex. ["iphone-13", "airpods-4"]).
+  vedettes: ["iphone-17-pro-max", "iphone-16", "galaxy-s25-ultra", "iphone-13"],   // « Les plus demandés » de l’accueil (4 modèles)
   disponibles: [],
   // Avis de clients (avec leur accord) : { nom: "Awa", ville: "Douala", texte: "..." }. Le bloc apparaît dès le premier avis.
   avis: [],
