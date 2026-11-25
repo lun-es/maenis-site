@@ -4,6 +4,7 @@
 window.MARWIL = {
   // Numéro WhatsApp de Maison Marwil, chiffres seulement, indicatif compris (ex. "2376XXXXXXXX"). À donner par Marie.
   whatsapp: "237690164222",
+  email: "marie.maenisstudio@gmail.com",   // contact affiché dans le pied de page
   // Adresse du carnet des commandes (Google Sheets + Apps Script, voir ../back-office/LISEZMOI.md), finit par /exec.
   // Vide = les réservations partent seulement sur WhatsApp, et le suivi lit commandes.js.
   api: "",
