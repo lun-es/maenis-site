@@ -62,6 +62,7 @@
         <nav class="fil" aria-label="Fil d’Ariane"><a href="collection.html">Produits</a><span aria-hidden="true">/</span><a id="filCat" href="#"></a></nav>
         <h1 id="nom" style="font-size:clamp(36px,8vw,64px)"></h1>
         <p class="infos" id="infos"></p>
+        <p class="infos" id="sim" hidden></p>
         <p class="prix" id="aPartir"></p>
         <p class="dispo" id="dispo" hidden>Disponible à Douala, livré sous 48 h</p>
       </div>
@@ -119,6 +120,7 @@ const noms = () => prefs.map(k => M.couleurs[k].nom);
 document.title = mod.nom + " · Maison Marwil";
 { const pm = M.aPartir(mod), dsc = `${mod.nom}${mod.infos ? " : " + mod.infos : ""}. ${pm ? "À partir de " + M.fcfa(pm) + ", " : ""}livraison à ${M.villes}, facture et garantie.`; document.querySelectorAll('meta[name=description], meta[property="og:description"]').forEach(m => m.setAttribute("content", dsc)); const ot = document.querySelector('meta[property="og:title"]'); if (ot) ot.setAttribute("content", document.title); }
 $("nom").textContent = mod.nom; $("infos").textContent = mod.infos || "";
+if (M.sim(mod)) { $("sim").hidden = false; $("sim").textContent = "Cartes SIM : " + M.sim(mod) + "."; }
 $("filCat").textContent = cat.nom; $("filCat").href = `collection.html?cat=${cat.id}`;
 const pMin = M.aPartir(mod); $("aPartir").textContent = pMin == null ? "Prix sur demande" : "À partir de " + M.fcfa(pMin);
 $("blocEtat").hidden = etatsDispo.length < 2 && etat === "neuf";

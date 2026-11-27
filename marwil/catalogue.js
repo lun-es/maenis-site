@@ -526,6 +526,9 @@ window.MARWIL = {
 };
 
 // Outils partagés
+// cartes SIM : nos iPhone sont des modèles français (avec emplacement pour carte SIM), nos Galaxy des modèles européens double SIM
+MARWIL.sim = m => m.categorie === "iphone" ? "1 carte SIM et 1 eSIM (modèle français, avec emplacement pour carte SIM)"
+  : m.categorie === "samsung" ? "2 cartes SIM, plus l’eSIM (modèle européen double SIM)" : "";
 MARWIL.modele = id => MARWIL.modeles.find(m => m.id === id);
 MARWIL.fcfa = n => n == null ? "Sur demande" : n.toLocaleString("fr-FR").replace(/[   ]/g, " ") + " FCFA";
 MARWIL.go = n => n >= 1024 ? (n / 1024) + " To" : n + " Go";
