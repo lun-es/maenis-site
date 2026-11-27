@@ -231,7 +231,6 @@ window.MAENIS = {
     { video: "videos/pub-parfum.mp4", poster: "videos/pub-parfum.jpg", type: "Nouveau · Pub 3D", titre: "Ce parfum n'existe pas : juste du code", offre: "pub-video-boutique" },
     { video: "videos/pub-rouge.mp4", poster: "videos/pub-rouge.jpg", type: "Nouveau · Site et pub 3D", titre: "Le rouge à lèvres, du site à l'écran", offre: "pub-video-boutique" },
     { video: "videos/pub-sans-vous.mp4", poster: "videos/pub-sans-vous.jpg", type: "Nouveau · Pub vidéo", titre: "Votre pub, sans vous", offre: "pub-video-boutique" },
-    { video: "videos/pate-atelier.mp4", poster: "videos/pate-atelier.jpg", type: "Nouveau · Motion 3D", titre: "L'atelier de pâte qui apaise", offre: "motion-design" },
     { video: "videos/pub-karite.mp4", poster: "videos/pub-karite.jpg", type: "Nouveau · Pub 3D", titre: "Ce flacon n'existe pas", offre: "pub-video-boutique" },
     { video: "videos/pub-cacao.mp4", poster: "videos/pub-cacao.jpg", type: "Nouveau · Pub 3D", titre: "Beurre de cacao, sans photo", offre: "pub-video-boutique" },
     { video: "videos/enfants.mp4", poster: "videos/enfants.jpg", type: "Enfants", titre: "Votre enfant, héros de son dessin animé", offre: "dessin-anime-enfant" },
@@ -434,10 +433,10 @@ window.MAENIS = {
       accroche: "Textes animés, présentation de produit, écran de téléphone, avant/après : une animation pro pour votre marque.",
       des: 0,
       couleur: "#B48CF0",
-      image: "videos/pate-atelier.jpg",
-      video: "videos/pate-atelier.mp4",
-      poster: "videos/pate-atelier.jpg",
-      galerie: ["videos/pate-atelier.jpg", "videos/pub-sans-vous.jpg", "videos/motion.jpg"],
+      image: "videos/motion.jpg",
+      video: "videos/motion.mp4",
+      poster: "videos/motion.jpg",
+      galerie: ["videos/motion.jpg", "videos/pub-sans-vous.jpg", "videos/pub-parfum.jpg"],
       formules: [
         { nom: "Projet sur devis", prix: 0, detail: "On définit ensemble le style, la durée et le message", populaire: true }
       ],
